@@ -42,11 +42,11 @@ class MyRepository
     public function findSomeEntity($criteria)
     {
         if (null !== $entity = $this->em->find(...)) {
-            return new Some($entity);
+            return new \PHPOption\Some($entity);
         }
 
         // We use a singleton, for the None case.
-        return None::create();
+        return \PHPOption\None::create();
     }
 }
 ```
@@ -132,4 +132,5 @@ that low, but after checking the benchmark again, everything looks accurate. I
 have run these tests under Ubuntu precise, PHP 5.4.6.
 
 So in conclusion, unless you plan to call a method thousands of times during a
-request, there is no reason to stick to the ``object|null`` return value.
+request, there is no reason to stick to the ``object|null`` return value; better give
+your code some options!
