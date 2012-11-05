@@ -1,7 +1,5 @@
 <?php
 
-namespace PHPOption;
-
 /*
  * Copyright 2012 Johannes M. Schmitt <schmittjoh@gmail.com>
  *
@@ -17,6 +15,8 @@ namespace PHPOption;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+namespace PHPOption;
 
 final class None extends Option
 {

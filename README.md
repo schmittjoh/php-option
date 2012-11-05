@@ -2,23 +2,22 @@ PHP Option Type
 ===============
 This adds an Option type for PHP.
 
-The Option type is intended for cases where you sometimes might return a value (
-typically an object), and sometimes you might return no value (typically null)
+The Option type is intended for cases where you sometimes might return a value
+(typically an object), and sometimes you might return no value (typically null)
 depending on arguments, or other runtime factors.
 
-Often times, you forget to handle the case where no value is returned because it
-is not covered by tests, or because you have added other runtime checks to your
-code which might handle it in this specific situation.
+Often times, you forget to handle the case where no value. Maybe you did not account
+for all possible input values, or maybe you indeed covered all cases. Time goes on,
+and code is refactored, some of these checks might become invalid, or incomplete. And
+suddenly, without noticing, you do not handle the null case anymore.
 
-Over time, code is refactored, some of these runtime checks might become invalid,
-or incomplete, and then you end up with not handling the null case anymore. As a
-result, you might sometimes get fatal PHP errors telling you that you called a
-method on a non-object. Users might see blank pages, or worse.
+As a result, you  might sometimes get fatal PHP errors telling you that you called a
+method on a non-object; users might se blank pages, or worse.
 
-With the Option type, a developer will consciously think about both cases (returning
-an object, or returning null), and therefore contributes to more robust code. It
-also empowers the developer using an API, and avoids extra work, or API bloat for
-the API developers.
+On one hand, the Option type forces a developer to consciously think about both cases
+(return a value, or returning null). That in itself will already make your code more
+robust. On the other hand, the Option type also empowers the API developer by providing
+more conside API methods, and deferring decisions to the API consumer.
 
 Installation
 ============
@@ -115,21 +114,19 @@ return $this->findSomeEntity()->getOrElse(new Entity());
 
 Performance Considerations
 ==========================
-Of course, performance is important, and that is why I have attached a
-performance benchmark which you can reproduce on a machine of your choosing.
+Of course, performance is important. Attached is a performance benchmark which
+you can run on a machine of your choosing.
 
-Since we use a new object to wrap the return value, the overhead that is introduced,
-by using the Option type equals the creation of that object. In addition, we also
-add an additional method call, to retrieve the actual value from the wrapper object
-which adds one more method call.
+The overhead incurred by the Option type comes down to the time that it takes to
+create one object, our wrapper. Also, we need to perform one additional method call
+to retrieve the value from the wrapper.
 
 * Overhead: Creation of 1 Object, and 1 Method Call
-* Overhead per invocation (some case/value returned): 0.000000761s (that is 761 nano seconds)
-* Overhead per invocation (none case/null returned): 0.000000368s (that is 368 nano seconds)
+* Average Overhead per Invocation (some case/value returned): 0.000000761s (that is 761 nano seconds)
+* Average Overhead per Invocation (none case/null returned): 0.000000368s (that is 368 nano seconds)
 
-When I first saw these results, I could not really believe that the overhead is
-that low, but after checking the benchmark again, everything looks accurate. I
-have run these tests under Ubuntu precise, PHP 5.4.6.
+The benchmark was run under Ubuntu precise with PHP 5.4.6. As you can see the
+overhead is suprisingly low, almost negligble. 
 
 So in conclusion, unless you plan to call a method thousands of times during a
 request, there is no reason to stick to the ``object|null`` return value; better give

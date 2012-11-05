@@ -27,9 +27,9 @@ final class Some extends Option
         $this->value = $value;
     }
 
-    public function isEmpty()
+    public function isDefined()
     {
-        return false;
+        return true;
     }
 
     public function get()
@@ -37,7 +37,7 @@ final class Some extends Option
         return $this->value;
     }
 
-    public function getOrElse($default = null)
+    public function getOrElse($default)
     {
         return $this->value;
     }

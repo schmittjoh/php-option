@@ -56,9 +56,22 @@ abstract class Option
     abstract public function getOrCall($callable);
 
     /**
-     * Returns whether a value is available, or not.
+     * Returns true if no value is available, false otherwise.
      *
      * @return boolean
      */
-    abstract public function isEmpty();
+    public function isEmpty()
+    {
+        return false;
+    }
+
+    /**
+     * Returns true if a value is available, false otherwise.
+     *
+     * @return boolean
+     */
+    public function isDefined()
+    {
+        return false;
+    }
 }
