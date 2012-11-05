@@ -6,18 +6,17 @@ The Option type is intended for cases where you sometimes might return a value
 (typically an object), and sometimes you might return no value (typically null)
 depending on arguments, or other runtime factors.
 
-Often times, you forget to handle the case where no value. Maybe you did not account
-for all possible input values, or maybe you indeed covered all cases. Time goes on,
-and code is refactored, some of these checks might become invalid, or incomplete. And
-suddenly, without noticing, you do not handle the null case anymore.
-
-As a result, you  might sometimes get fatal PHP errors telling you that you called a
-method on a non-object; users might se blank pages, or worse.
+Often times, you forget to handle the case where no value is returned. Not intentionally
+of course, but maybe you did not account for all possible states of the sytem; or maybe you
+indeed covered all cases, then time goes on, code is refactored, some of these your checks 
+might become invalid, or incomplete. Suddenly, without noticing, the no value case is not
+handled anymore. As a result, you might sometimes get fatal PHP errors telling you that 
+you called a method on a non-object; users might see blank pages, or worse.
 
 On one hand, the Option type forces a developer to consciously think about both cases
-(return a value, or returning null). That in itself will already make your code more
-robust. On the other hand, the Option type also empowers the API developer by providing
-more conside API methods, and deferring decisions to the API consumer.
+(return a value, or returning no value). That in itself will already make your code more
+robust. On the other hand, the Option type also allows the API developer to provide
+more concise API methods, and empowers the API user in how he consumes these methods.
 
 Installation
 ============
