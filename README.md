@@ -14,7 +14,7 @@ handled anymore. As a result, you might sometimes get fatal PHP errors telling y
 you called a method on a non-object; users might see blank pages, or worse.
 
 On one hand, the Option type forces a developer to consciously think about both cases
-(return a value, or returning no value). That in itself will already make your code more
+(returning a value, or returning no value). That in itself will already make your code more
 robust. On the other hand, the Option type also allows the API developer to provide
 more concise API methods, and empowers the API user in how he consumes these methods.
 
