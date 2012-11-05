@@ -123,9 +123,9 @@ by using the Option type equals the creation of that object. In addition, we als
 add an additional method call, to retrieve the actual value from the wrapper object
 which adds one more method call.
 
-Overhead: Creation of 1 Object, and 1 Method Call
-Overhead per invocation (some case): 0.000000761s (that is 761 nano seconds)
-Overhead per invocation (none case): 0.000000368s (that is 368 nano seconds)
+* Overhead: Creation of 1 Object, and 1 Method Call
+* Overhead per invocation (some case/value returned): 0.000000761s (that is 761 nano seconds)
+* Overhead per invocation (none case/null returned): 0.000000368s (that is 368 nano seconds)
 
 When I first saw these results, I could not really believe that the overhead is
 that low, but after checking the benchmark again, everything looks accurate. I
