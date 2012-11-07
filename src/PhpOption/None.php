@@ -16,34 +16,40 @@
  * limitations under the License.
  */
 
-namespace PHPOption;
+namespace PhpOption;
 
-final class Some extends Option
+final class None extends Option
 {
-    private $value;
+    private static $instance;
 
-    public function __construct($value)
+    public static function create()
     {
-        $this->value = $value;
-    }
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
 
-    public function isDefined()
-    {
-        return true;
+        return self::$instance;
     }
 
     public function get()
     {
-        return $this->value;
-    }
-
-    public function getOrElse($default)
-    {
-        return $this->value;
+        throw new \RuntimeException('None has no value.');
     }
 
     public function getOrCall($callable)
     {
-        return $this->value;
+        return call_user_func($callable);
     }
+
+    public function getOrElse($default)
+    {
+        return $default;
+    }
+
+    public function isEmpty()
+    {
+        return true;
+    }
+
+    private function __construct() { }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPOption\Tests;
+namespace PhpOption\Tests;
 
 class NoneTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,25 +9,25 @@ class NoneTest extends \PHPUnit_Framework_TestCase
      */
     public function testGet()
     {
-        $none = \PHPOption\None::create();
+        $none = \PhpOption\None::create();
         $none->get();
     }
 
     public function testGetOrElse()
     {
-        $none = \PHPOption\None::create();
+        $none = \PhpOption\None::create();
         $this->assertEquals('foo', $none->getOrElse('foo'));
     }
 
     public function testGetOrCall()
     {
-        $none = \PHPOption\None::create();
+        $none = \PhpOption\None::create();
         $this->assertEquals('foo', $none->getOrCall(function() { return 'foo'; }));
     }
 
     public function testIsEmpty()
     {
-        $none = \PHPOption\None::create();
+        $none = \PhpOption\None::create();
         $this->assertTrue($none->isEmpty());
     }
 }

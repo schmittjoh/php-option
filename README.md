@@ -40,11 +40,11 @@ class MyRepository
     public function findSomeEntity($criteria)
     {
         if (null !== $entity = $this->em->find(...)) {
-            return new \PHPOption\Some($entity);
+            return new \PhpOption\Some($entity);
         }
 
         // We use a singleton, for the None case.
-        return \PHPOption\None::create();
+        return \PhpOption\None::create();
     }
 }
 ```

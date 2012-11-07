@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace PHPOption;
+namespace PhpOption;
 
 /**
  * Base Option Class.

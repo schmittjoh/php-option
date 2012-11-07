@@ -12,8 +12,8 @@
          bootstrap="tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="PHPOption Type Test Suite">
-            <directory>./tests/PHPOption/</directory>
+        <testsuite name="PhpOption Type Test Suite">
+            <directory>./tests/PhpOption/</directory>
         </testsuite>
     </testsuites>
 

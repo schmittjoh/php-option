@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPOption\Tests;
+namespace PhpOption\Tests;
 
 /**
  * @group performance
@@ -53,7 +53,7 @@ class PerformanceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->traditionalRepo = new TraditionalRepo();
-        $this->phpOptionRepo = new PHPOptionRepo();
+        $this->phpOptionRepo = new PhpOptionRepo();
     }
 }
 
@@ -69,14 +69,14 @@ class TraditionalRepo
     }
 }
 
-class PHPOptionRepo
+class PhpOptionRepo
 {
     public function findMaybe($success)
     {
         if ($success) {
-            return new \PHPOption\Some(new \stdClass);
+            return new \PhpOption\Some(new \stdClass);
         }
 
-        return \PHPOption\None::create();
+        return \PhpOption\None::create();
     }
 }
