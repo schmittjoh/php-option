@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/lstrojny/php-option.png)](http://travis-ci.org/lstrojny/php-option)
+[![Build Status](https://secure.travis-ci.org/schmittjoh/php-option.png)](http://travis-ci.org/schmittjoh/php-option)
 PHP Option Type
 ===============
 This adds an Option type for PHP.
