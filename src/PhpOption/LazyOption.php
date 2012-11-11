@@ -72,7 +72,9 @@ final class LazyOption extends Option
     {
         if ($this->option === null) {
             $value = call_user_func_array($this->callback, $this->arguments);
-            if ($value === null) {
+            if ($value instanceof Option) {
+                $this->option = $value;
+            } elseif ($value === null) {
                 $this->option = None::create();
             } else {
                 $this->option = Some::create($value);

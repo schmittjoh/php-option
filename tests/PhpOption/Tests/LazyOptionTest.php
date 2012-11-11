@@ -93,6 +93,40 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $option->get();
     }
 
+    public function testCallbackReturnsExplicitNone()
+    {
+        $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
+
+        $this->subject
+            ->expects($this->once())
+            ->method('execute')
+            ->will($this->returnValue(\PhpOption\None::create()));
+
+        $this->assertFalse($option->isDefined());
+        $this->assertTrue($option->isEmpty());
+        $this->assertEquals('alt', $option->getOrElse('alt'));
+        $this->assertEquals('alt', $option->getOrCall(function(){return 'alt';}));
+
+        $this->setExpectedException('RuntimeException', 'None has no value');
+        $option->get();
+    }
+
+    public function testCallbackReturnsExplicitSome()
+    {
+        $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
+
+        $this->subject
+            ->expects($this->once())
+            ->method('execute')
+            ->will($this->returnValue(\PhpOption\Some::create('foo')));
+
+        $this->assertTrue($option->isDefined());
+        $this->assertFalse($option->isEmpty());
+        $this->assertEquals('foo', $option->get());
+        $this->assertEquals('foo', $option->getOrElse(null));
+        $this->assertEquals('foo', $option->getOrCall('does_not_exist'));
+    }
+
     public function testInvalidCallbackAndConstructor()
     {
         $this->setExpectedException('InvalidArgumentException', 'Invalid callback given');
