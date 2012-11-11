@@ -49,6 +49,17 @@ class MyRepository
 }
 ```
 
+The shorter version:
+```php
+class MyRepository
+{
+    public function findSomeEntity($criteria)
+    {
+        return \PhpOption\Option::create($this->em->find(...));
+    }
+}
+```
+
 Case 1: You always Require an Entity in Calling Code
 ----------------------------------------------------
 ```php
