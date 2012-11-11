@@ -77,6 +77,18 @@ $entity = $repo->findSomeEntity(...)->getOrCall(function() {
 });
 ```
 
+Case 3: Lazy Option
+-------------------
+```php
+class Repository
+{
+    public function findSomeEntity($criteria)
+    {
+        return \PhpOption\LazyOption::create('someExpensiveCallback', array('argument1', 'argument2'));
+    }
+}
+```
+
 More Examples
 =============
 
