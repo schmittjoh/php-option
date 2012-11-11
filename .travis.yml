@@ -9,7 +9,3 @@ before_script:
 
 script:
   - phpunit
-
-notifications:
-  email:
-    - lstrojny@php.net
