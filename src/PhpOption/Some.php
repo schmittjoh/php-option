@@ -27,6 +27,11 @@ final class Some extends Option
         $this->value = $value;
     }
 
+    public static function create($value)
+    {
+        return new self($value);
+    }
+
     public function isDefined()
     {
         return true;
