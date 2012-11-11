@@ -73,6 +73,7 @@ final class LazyOption extends Option
         if ($this->option === null) {
             $this->option = Option::create(call_user_func_array($this->callback, $this->arguments));
         }
+
         return $this->option;
     }
 }
