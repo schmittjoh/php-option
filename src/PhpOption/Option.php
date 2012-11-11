@@ -26,6 +26,20 @@ namespace PhpOption;
 abstract class Option
 {
     /**
+     * Returns a subclass of Option, either Some if $value is not null or None if $value is null
+     *
+     * @return Option
+     */
+    public static function create($value)
+    {
+        if ($value === null) {
+            return \PhpOption\None::create();
+        }
+
+        return \PhpOption\Some::create($value);
+    }
+
+    /**
      * Returns the value if available, or throws an exception otherwise.
      *
      * @throws \RuntimeException if value is not available
