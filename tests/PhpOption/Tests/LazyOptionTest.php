@@ -131,4 +131,12 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
     {
         \PhpOption\LazyOption::create('invalidCallback');
     }
+
+    public function testOrElse()
+    {
+        $some = \PhpOption\Some::create('foo');
+        $lazy = \PhpOption\LazyOption::create(function() use ($some) {return $some;});
+        $this->assertSame($some, $lazy->orElse(\PhpOption\None::create()));
+        $this->assertSame($some, $lazy->orElse(\PhpOption\Some::create('bar')));
+    }
 }
