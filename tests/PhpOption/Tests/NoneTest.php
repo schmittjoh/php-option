@@ -30,4 +30,10 @@ class NoneTest extends \PHPUnit_Framework_TestCase
         $none = \PhpOption\None::create();
         $this->assertTrue($none->isEmpty());
     }
+
+    public function testOrElse()
+    {
+        $option = \PhpOption\Some::create('foo');
+        $this->assertSame($option, \PhpOption\None::create()->orElse($option));
+    }
 }

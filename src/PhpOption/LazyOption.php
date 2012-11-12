@@ -71,16 +71,18 @@ final class LazyOption extends Option
     private function option()
     {
         if ($this->option === null) {
-            $value = call_user_func_array($this->callback, $this->arguments);
-            if ($value instanceof Option) {
-                $this->option = $value;
-            } elseif ($value === null) {
-                $this->option = None::create();
-            } else {
-                $this->option = Some::create($value);
+            $this->option = call_user_func_array($this->callback, $this->arguments);
+            if (!$this->option instanceof Option) {
+                $this->option = null;
+                throw new \RuntimeException('Expected instance of \PhpOption\Option');
             }
         }
 
         return $this->option;
+    }
+
+    public function orElse(Option $else)
+    {
+
     }
 }

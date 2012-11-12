@@ -21,7 +21,8 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->subject
             ->expects($this->once())
             ->method('execute')
-            ->will($this->returnArgument(0));
+            ->with('foo')
+            ->will($this->returnValue(\PhpOption\Some::create('foo')));
 
         $this->assertEquals('foo', $some->get());
         $this->assertEquals('foo', $some->getOrElse(null));
@@ -36,7 +37,8 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->subject
             ->expects($this->once())
             ->method('execute')
-            ->will($this->returnArgument(0));
+            ->with('foo')
+            ->will($this->returnValue(\PhpOption\Some::create('foo')));
 
         $this->assertEquals('foo', $some->get());
         $this->assertEquals('foo', $some->getOrElse(null));
@@ -51,7 +53,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->subject
             ->expects($this->once())
             ->method('execute')
-            ->will($this->returnValue('foo'));
+            ->will($this->returnValue(\PhpOption\Some::create('foo')));
 
         $this->assertEquals('foo', $some->get());
         $this->assertEquals('foo', $some->getOrElse(null));
@@ -60,58 +62,6 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetWithoutArgumentsAndCreate()
-    {
-        $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
-
-        $this->subject
-            ->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue('foo'));
-
-        $this->assertTrue($option->isDefined());
-        $this->assertFalse($option->isEmpty());
-        $this->assertEquals('foo', $option->get());
-        $this->assertEquals('foo', $option->getOrElse(null));
-        $this->assertEquals('foo', $option->getOrCall('does_not_exist'));
-    }
-
-    public function testCallbackReturnsNull()
-    {
-        $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
-
-        $this->subject
-            ->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue(null));
-
-        $this->assertFalse($option->isDefined());
-        $this->assertTrue($option->isEmpty());
-        $this->assertEquals('alt', $option->getOrElse('alt'));
-        $this->assertEquals('alt', $option->getOrCall(function(){return 'alt';}));
-
-        $this->setExpectedException('RuntimeException', 'None has no value');
-        $option->get();
-    }
-
-    public function testCallbackReturnsExplicitNone()
-    {
-        $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
-
-        $this->subject
-            ->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue(\PhpOption\None::create()));
-
-        $this->assertFalse($option->isDefined());
-        $this->assertTrue($option->isEmpty());
-        $this->assertEquals('alt', $option->getOrElse('alt'));
-        $this->assertEquals('alt', $option->getOrCall(function(){return 'alt';}));
-
-        $this->setExpectedException('RuntimeException', 'None has no value');
-        $option->get();
-    }
-
-    public function testCallbackReturnsExplicitSome()
     {
         $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
 
@@ -127,15 +77,58 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $option->getOrCall('does_not_exist'));
     }
 
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage None has no value
+     */
+    public function testCallbackReturnsNull()
+    {
+        $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
+
+        $this->subject
+            ->expects($this->once())
+            ->method('execute')
+            ->will($this->returnValue(\PhpOption\None::create()));
+
+        $this->assertFalse($option->isDefined());
+        $this->assertTrue($option->isEmpty());
+        $this->assertEquals('alt', $option->getOrElse('alt'));
+        $this->assertEquals('alt', $option->getOrCall(function(){return 'alt';}));
+
+        $option->get();
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Expected instance of \PhpOption\Option
+     */
+    public function testExceptionIsThrownIfCallbackReturnsNonOption()
+    {
+        $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
+
+        $this->subject
+            ->expects($this->once())
+            ->method('execute')
+            ->will($this->returnValue(null));
+
+        $this->assertFalse($option->isDefined());
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Invalid callback given
+     */
     public function testInvalidCallbackAndConstructor()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid callback given');
         new \PhpOption\LazyOption('invalidCallback');
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Invalid callback given
+     */
     public function testInvalidCallbackAndCreate()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Invalid callback given');
         \PhpOption\LazyOption::create('invalidCallback');
     }
 }

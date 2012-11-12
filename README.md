@@ -49,13 +49,15 @@ class MyRepository
 }
 ```
 
-The shorter version:
+If you are consuming an existing library, you can also use a shorter version
+which treats ``null`` as ``None``, and everything else as ``Some`` case:
+
 ```php
 class MyRepository
 {
     public function findSomeEntity($criteria)
     {
-        return \PhpOption\Option::create($this->em->find(...));
+        return \PhpOption\Option::notNull($this->em->find(...));
     }
 }
 ```
@@ -77,17 +79,18 @@ $entity = $repo->findSomeEntity(...)->getOrCall(function() {
 });
 ```
 
-Case 3: Lazy Option
--------------------
+Lazy-Evaluating Options
+-----------------------
+
+For example, if you like to try to find an entity, and only if an entity is not
+found, let the repository create that entity, you can use code such as
+
 ```php
-class Repository
-{
-    public function findSomeEntity($criteria)
-    {
-        return \PhpOption\LazyOption::create('someExpensiveCallback', array('argument1', 'argument2'));
-    }
-}
+return $this->findSomeEntity()->orElse(LazyOption::create(array($this, 'createEntity')));
 ```
+
+The lazy option will only be evaluated if the option that is returned by ``findSomeEntity`` was empty.
+
 
 More Examples
 =============

@@ -21,4 +21,11 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $some->getOrCall('does_not_exist'));
         $this->assertFalse($some->isEmpty());
     }
+
+    public function testOrElse()
+    {
+        $some = \PhpOption\Some::create('foo');
+        $this->assertSame($some, $some->orElse(\PhpOption\None::create()));
+        $this->assertSame($some, $some->orElse(\PhpOption\Some::create('bar')));
+    }
 }
