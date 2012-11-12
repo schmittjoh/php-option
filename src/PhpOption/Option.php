@@ -26,6 +26,11 @@ namespace PhpOption;
 abstract class Option
 {
     /**
+     * @var Option
+     */
+    protected $else;
+
+    /**
      * Returns the value if available, or throws an exception otherwise.
      *
      * @throws \RuntimeException if value is not available
@@ -60,18 +65,63 @@ abstract class Option
      *
      * @return boolean
      */
-    public function isEmpty()
-    {
-        return false;
-    }
+    abstract public function isEmpty();
 
     /**
      * Returns true if a value is available, false otherwise.
      *
      * @return boolean
      */
-    public function isDefined()
+    abstract public function isDefined();
+
+    /**
+     * @param Option $else
+     * @return Option
+     */
+    abstract public function orElse(Option $else);
+
+    /**
+     * Return Some if $value is not null
+     *
+     * @param mixed $value
+     * @return Option
+     */
+    public static function notNull($value)
     {
-        return false;
+        if ($value === null) {
+            return None::create();
+        }
+
+        return Some::create($value);
+    }
+
+    /**
+     * Return Some if $value is not of zero length
+     *
+     * @param mixed $value
+     * @return Option
+     */
+    public static function notZeroLength($value)
+    {
+        if ((is_array($value) || $value instanceof \Countable) && count($value) === 0) {
+            return None::create();
+        }
+
+        return Some::create($value);
+    }
+
+    /**
+     * Return Some if $value is not false
+     *
+     * @param mixed $value
+     * @return Option
+     */
+    public static function notFalse($value)
+    {
+        if ($value === false) {
+            return None::create();
+        }
+
+        return Some::create($value);
     }
 }

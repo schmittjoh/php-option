@@ -51,5 +51,15 @@ final class None extends Option
         return true;
     }
 
+    public function isDefined()
+    {
+        return false;
+    }
+
+    public function orElse(Option $else)
+    {
+        return $else;
+    }
+
     private function __construct() { }
 }

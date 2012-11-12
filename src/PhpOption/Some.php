@@ -37,6 +37,11 @@ final class Some extends Option
         return true;
     }
 
+    public function isEmpty()
+    {
+        return false;
+    }
+
     public function get()
     {
         return $this->value;
@@ -50,5 +55,10 @@ final class Some extends Option
     public function getOrCall($callable)
     {
         return $this->value;
+    }
+
+    public function orElse(Option $else)
+    {
+        return $this;
     }
 }
