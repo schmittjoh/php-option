@@ -26,10 +26,54 @@ namespace PhpOption;
 abstract class Option
 {
     /**
-     * @var Option
+     * Creates an option given a return value.
+     * 
+     * This is intended for consuming existing APIs and allows you to easily 
+     * convert them to an option. By default, we treat ``null`` as the None case,
+     * and everything else as Some.
+     * 
+     * @param mixed $value The actual return value.
+     * @param mixed $noneValue The value which should be considered "None"; null
+     *                         by default.
+     * 
+     * @return Option
      */
-    protected $else;
-
+    public static function fromValue($value, $noneValue = null)
+    {
+        if ($value === $noneValue) {
+            return None::create();
+        }
+        
+        return new Some($value);
+    }
+    
+    /**
+     * Creates a lazy-option with the given callback. 
+     * 
+     * This is also a helper constructor for lazy-consuming existing APIs where
+     * the return value is not yet an option. By default, we treat ``null`` as
+     * None case, and everything else as Some.
+     * 
+     * @param callable $callback The callback to evaluate.
+     * @param array $arguments 
+     * @param mixed $noneValue The value which should be considered "None"; null
+     *                         by default.
+     * 
+     * @return Option
+     */
+    public static function fromReturn($callback, array $arguments = array(), $noneValue = null)
+    {
+        return new LazyOption(function() use ($callback, $arguments, $noneValue) {
+            $return = call_user_func_array($callback, $arguments);
+            
+            if ($return === $noneValue) {
+                return None::create();
+            }
+            
+            return new Some($return);
+        });
+    }
+    
     /**
      * Returns the value if available, or throws an exception otherwise.
      *
@@ -75,53 +119,20 @@ abstract class Option
     abstract public function isDefined();
 
     /**
+     * Returns this option if non-empty, or the passed option otherwise.
+     * 
+     * This can be used to try multiple alternatives, and is especially useful
+     * with lazy evaluating options:
+     * 
+     * ```php
+     *     $repo->findSomething()
+     *         ->orElse(new LazyOption(array($repo, 'findSomethingElse')))
+     *         ->orElse(new LazyOption(array($repo, 'createSomething')));
+     * ```
+     * 
      * @param Option $else
+     * 
      * @return Option
      */
     abstract public function orElse(Option $else);
-
-    /**
-     * Return Some if $value is not null
-     *
-     * @param mixed $value
-     * @return Option
-     */
-    public static function notNull($value)
-    {
-        if ($value === null) {
-            return None::create();
-        }
-
-        return Some::create($value);
-    }
-
-    /**
-     * Return Some if $value is not of zero length
-     *
-     * @param mixed $value
-     * @return Option
-     */
-    public static function notZeroLength($value)
-    {
-        if ((is_array($value) || $value instanceof \Countable) && count($value) === 0) {
-            return None::create();
-        }
-
-        return Some::create($value);
-    }
-
-    /**
-     * Return Some if $value is not false
-     *
-     * @param mixed $value
-     * @return Option
-     */
-    public static function notFalse($value)
-    {
-        if ($value === false) {
-            return None::create();
-        }
-
-        return Some::create($value);
-    }
 }

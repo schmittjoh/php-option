@@ -50,14 +50,17 @@ class MyRepository
 ```
 
 If you are consuming an existing library, you can also use a shorter version
-which treats ``null`` as ``None``, and everything else as ``Some`` case:
+which by default treats ``null`` as ``None``, and everything else as ``Some`` case:
 
 ```php
 class MyRepository
 {
     public function findSomeEntity($criteria)
     {
-        return \PhpOption\Option::notNull($this->em->find(...));
+        return \PhpOption\Option::fromValue($this->em->find(...));
+
+        // or, if you want to change the none value to false for example:
+        return \PhpOption\Option::fromValue($this->em->find(...), false);
     }
 }
 ```
@@ -78,19 +81,6 @@ $entity = $repo->findSomeEntity(...)->getOrCall(function() {
     return new Entity();
 });
 ```
-
-Lazy-Evaluating Options
------------------------
-
-For example, if you like to try to find an entity, and only if an entity is not
-found, let the repository create that entity, you can use code such as
-
-```php
-return $this->findSomeEntity()->orElse(LazyOption::create(array($this, 'createEntity')));
-```
-
-The lazy option will only be evaluated if the option that is returned by ``findSomeEntity`` was empty.
-
 
 More Examples
 =============
@@ -136,6 +126,36 @@ return $entity;
 // After
 return $this->findSomeEntity()->getOrElse(new Entity());
 ```
+
+Trying Multiple Alternative Options
+-----------------------------------
+If you'd like to try multiple alternatives, the ``orElse`` method allows you to
+do this very elegantly:
+
+```php
+return $this->findSomeEntity()
+            ->orElse($this->findSomeOtherEntity())
+            ->orElse($this->createEntity());
+```
+The first option which is non-empty will be returned. This is especially useful 
+with lazy-evaluated options, see below.
+
+Lazy-Evaluated Options
+----------------------
+The above example has the flaw that we would need to evaluate all options when
+the method is called which creates unnecessary overhead if the first option is 
+already non-empty.
+
+Fortunately, we can easily solve this by using the ``LazyOption`` class:
+
+```php
+return $this->findSomeEntity()
+            ->orElse(new LazyOption(array($this, 'findSomeOtherEntity')))
+            ->orElse(new LazyOption(array($this, 'createEntity')));
+```
+
+This way, only the options that are necessary will actually be evaluated.
+
 
 Performance Considerations
 ==========================
