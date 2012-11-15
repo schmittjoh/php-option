@@ -61,4 +61,27 @@ final class Some extends Option
     {
         return $this;
     }
+
+    public function map($callable)
+    {
+        return new self(call_user_func($callable, $this->value));
+    }
+
+    public function filter($callable)
+    {
+        if (true === call_user_func($callable, $this->value)) {
+            return $this;
+        }
+
+        return None::create();
+    }
+
+    public function filterNot($callable)
+    {
+        if (false === call_user_func($callable, $this->value)) {
+            return $this;
+        }
+
+        return None::create();
+    }
 }

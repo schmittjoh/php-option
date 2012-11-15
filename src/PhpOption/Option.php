@@ -27,15 +27,15 @@ abstract class Option
 {
     /**
      * Creates an option given a return value.
-     * 
-     * This is intended for consuming existing APIs and allows you to easily 
+     *
+     * This is intended for consuming existing APIs and allows you to easily
      * convert them to an option. By default, we treat ``null`` as the None case,
      * and everything else as Some.
-     * 
+     *
      * @param mixed $value The actual return value.
      * @param mixed $noneValue The value which should be considered "None"; null
      *                         by default.
-     * 
+     *
      * @return Option
      */
     public static function fromValue($value, $noneValue = null)
@@ -43,37 +43,37 @@ abstract class Option
         if ($value === $noneValue) {
             return None::create();
         }
-        
+
         return new Some($value);
     }
-    
+
     /**
-     * Creates a lazy-option with the given callback. 
-     * 
+     * Creates a lazy-option with the given callback.
+     *
      * This is also a helper constructor for lazy-consuming existing APIs where
      * the return value is not yet an option. By default, we treat ``null`` as
      * None case, and everything else as Some.
-     * 
+     *
      * @param callable $callback The callback to evaluate.
-     * @param array $arguments 
+     * @param array $arguments
      * @param mixed $noneValue The value which should be considered "None"; null
      *                         by default.
-     * 
+     *
      * @return Option
      */
     public static function fromReturn($callback, array $arguments = array(), $noneValue = null)
     {
         return new LazyOption(function() use ($callback, $arguments, $noneValue) {
             $return = call_user_func_array($callback, $arguments);
-            
+
             if ($return === $noneValue) {
                 return None::create();
             }
-            
+
             return new Some($return);
         });
     }
-    
+
     /**
      * Returns the value if available, or throws an exception otherwise.
      *
@@ -120,19 +120,59 @@ abstract class Option
 
     /**
      * Returns this option if non-empty, or the passed option otherwise.
-     * 
+     *
      * This can be used to try multiple alternatives, and is especially useful
      * with lazy evaluating options:
-     * 
+     *
      * ```php
      *     $repo->findSomething()
      *         ->orElse(new LazyOption(array($repo, 'findSomethingElse')))
      *         ->orElse(new LazyOption(array($repo, 'createSomething')));
      * ```
-     * 
+     *
      * @param Option $else
-     * 
+     *
      * @return Option
      */
     abstract public function orElse(Option $else);
+
+    /**
+     * Applies the callable to the value of the option if it is non-empty,
+     * and returns the return value of the callable wrapped in Some().
+     *
+     * If the option is empty, then the callable is not applied.
+     *
+     * ```php
+     *     (new Some("foo"))->map('strtoupper')->get(); // "FOO"
+     * ```
+     *
+     * @param callable $callable
+     *
+     * @return Option
+     */
+    abstract public function map($callable);
+
+    /**
+     * If the option is empty, it is returned immediately without applying the callable.
+     *
+     * If the option is non-empty, the callable is applied, and if it returns true,
+     * the option itself is returned; otherwise, None is returned.
+     *
+     * @param callable $callable
+     *
+     * @return Option
+     */
+    abstract public function filter($callable);
+
+    /**
+     * If the option is empty, it is returned immediately without applying the callable.
+     *
+     * If the option is non-empty, the callable is applied, and if it returns false,
+     * the option itself is returned; otherwise, None is returned.
+     *
+     * @param callable $callable
+     *
+     * @return Option
+     */
+    abstract public function filterNot($callable);
 }

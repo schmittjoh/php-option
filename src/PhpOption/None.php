@@ -61,5 +61,20 @@ final class None extends Option
         return $else;
     }
 
+    public function map($callable)
+    {
+        return $this;
+    }
+
+    public function filter($callable)
+    {
+        return $this;
+    }
+
+    public function filterNot($callable)
+    {
+        return $this;
+    }
+
     private function __construct() { }
 }

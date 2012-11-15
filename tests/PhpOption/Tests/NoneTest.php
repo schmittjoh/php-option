@@ -2,8 +2,12 @@
 
 namespace PhpOption\Tests;
 
+use PhpOption\None;
+
 class NoneTest extends \PHPUnit_Framework_TestCase
 {
+    private $none;
+
     /**
      * @expectedException \RuntimeException
      */
@@ -35,5 +39,31 @@ class NoneTest extends \PHPUnit_Framework_TestCase
     {
         $option = \PhpOption\Some::create('foo');
         $this->assertSame($option, \PhpOption\None::create()->orElse($option));
+    }
+
+    public function testMap()
+    {
+        $this->assertSame($this->none, $this->none->map(function() {
+            throw new \LogicException('Should not be called.');
+        }));
+    }
+
+    public function testFilter()
+    {
+        $this->assertSame($this->none, $this->none->filter(function() {
+            throw new \LogicException('Should not be called.');
+        }));
+    }
+
+    public function testFilterNot()
+    {
+        $this->assertSame($this->none, $this->none->filterNot(function() {
+            throw new \LogicException('Should not be called.');
+        }));
+    }
+
+    protected function setUp()
+    {
+        $this->none = None::create();
     }
 }

@@ -22,19 +22,19 @@ final class LazyOption extends Option
 {
     /** @var callable */
     private $callback;
-    
+
     /** @var array */
     private $arguments;
-    
+
     /** @var Option|null */
     private $option;
 
     /**
      * Helper Constructor.
-     * 
+     *
      * @param callable $callback
      * @param array $arguments
-     * 
+     *
      * @return LazyOption
      */
     public static function create($callback, array $arguments = array())
@@ -44,7 +44,7 @@ final class LazyOption extends Option
 
     /**
      * Constructor.
-     * 
+     *
      * @param callable $callback
      * @param array $arguments
      */
@@ -53,7 +53,7 @@ final class LazyOption extends Option
         if (!is_callable($callback)) {
             throw new \InvalidArgumentException('Invalid callback given');
         }
-        
+
         $this->callback = $callback;
         $this->arguments = $arguments;
     }
@@ -87,7 +87,22 @@ final class LazyOption extends Option
     {
         return $this->option()->orElse($else);
     }
-    
+
+    public function map($callable)
+    {
+        return $this->option()->map($callable);
+    }
+
+    public function filter($callable)
+    {
+        return $this->option()->filter($callable);
+    }
+
+    public function filterNot($callable)
+    {
+        return $this->option()->filterNot($callable);
+    }
+
     /**
      * @return Option
      */
