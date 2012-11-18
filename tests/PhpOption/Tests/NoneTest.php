@@ -48,6 +48,13 @@ class NoneTest extends \PHPUnit_Framework_TestCase
         }));
     }
 
+    public function testFlatMap()
+    {
+        $this->assertSame($this->none, $this->none->flatMap(function() {
+            throw new \LogicException('Should not be called.');
+        }));
+    }
+
     public function testFilter()
     {
         $this->assertSame($this->none, $this->none->filter(function() {

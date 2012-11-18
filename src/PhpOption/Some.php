@@ -67,6 +67,16 @@ final class Some extends Option
         return new self(call_user_func($callable, $this->value));
     }
 
+    public function flatMap($callable)
+    {
+        $rs = call_user_func($callable, $this->value);
+        if ( ! $rs instanceof Option) {
+            throw new \RuntimeException('Callables passed to flatMap() must return an Option. Maybe you should use map() instead?');
+        }
+
+        return $rs;
+    }
+
     public function filter($callable)
     {
         if (true === call_user_func($callable, $this->value)) {

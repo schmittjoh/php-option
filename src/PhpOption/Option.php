@@ -153,6 +153,19 @@ abstract class Option
     abstract public function map($callable);
 
     /**
+     * Applies the callable to the value of the option if it is non-empty, and
+     * returns the return value of the callable directly.
+     *
+     * In contrast to ``map``, the return value of the callable is expected to
+     * be an Option itself; it is not automatically wrapped in Some().
+     *
+     * @param callable $callable must return an Option
+     *
+     * @return Option
+     */
+    abstract public function flatMap($callable);
+
+    /**
      * If the option is empty, it is returned immediately without applying the callable.
      *
      * If the option is non-empty, the callable is applied, and if it returns true,

@@ -34,7 +34,16 @@ class SomeTest extends \PHPUnit_Framework_TestCase
     public function testMap()
     {
         $some = new Some('foo');
-        $this->assertEquals('FOO', $some->map('strtoupper')->get());
+        $this->assertEquals('o', $some->map(function($v) { return substr($v, 1, 1); })->get());
+    }
+
+    public function testFlatMap()
+    {
+        $repo = new Repository(array('foo'));
+
+        $this->assertEquals(array('name' => 'foo'), $repo->getLastRegisteredUsername()
+                                                        ->flatMap(array($repo, 'getUser'))
+                                                        ->getOrCall(array($repo, 'getDefaultUser')));
     }
 
     public function testFilter()
@@ -51,5 +60,43 @@ class SomeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('PhpOption\None', $some->filterNot(function($v) { return strlen($v) > 0; }));
         $this->assertSame($some, $some->filterNot(function($v) { return strlen($v) === 0; }));
+    }
+}
+
+// For the interested reader of these tests, we have gone some great lengths
+// to come up with a non-contrived example that might also be used in the
+// real-world, and not only for testing purposes :)
+class Repository
+{
+    private $users;
+
+    public function __construct(array $users = array())
+    {
+        $this->users = $users;
+    }
+
+    // A fast ID lookup, probably cached, sometimes we might not need the entire user.
+    public function getLastRegisteredUsername()
+    {
+        if (empty($this->users)) {
+            return \PhpOption\None::create();
+        }
+
+        return new Some(end($this->users));
+    }
+
+    // Returns a user object (we will live with an array here).
+    public function getUser($name)
+    {
+        if (in_array($name, $this->users, true)) {
+            return new Some(array('name' => $name));
+        }
+
+        return \PhpOption\None::create();
+    }
+
+    public function getDefaultUser()
+    {
+        return array('name' => 'muhuhu');
     }
 }

@@ -66,6 +66,11 @@ final class None extends Option
         return $this;
     }
 
+    public function flatMap($callable)
+    {
+        return $this;
+    }
+
     public function filter($callable)
     {
         return $this;

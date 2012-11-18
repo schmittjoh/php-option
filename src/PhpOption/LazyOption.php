@@ -93,6 +93,11 @@ final class LazyOption extends Option
         return $this->option()->map($callable);
     }
 
+    public function flatMap($callable)
+    {
+        return $this->option()->flatMap($callable);
+    }
+
     public function filter($callable)
     {
         return $this->option()->filter($callable);
