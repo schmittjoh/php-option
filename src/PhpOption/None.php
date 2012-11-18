@@ -81,5 +81,15 @@ final class None extends Option
         return $this;
     }
 
+    public function select($value)
+    {
+        return $this;
+    }
+
+    public function reject($value)
+    {
+        return $this;
+    }
+
     private function __construct() { }
 }

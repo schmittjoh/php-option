@@ -61,6 +61,24 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhpOption\None', $some->filterNot(function($v) { return strlen($v) > 0; }));
         $this->assertSame($some, $some->filterNot(function($v) { return strlen($v) === 0; }));
     }
+
+    public function testSelect()
+    {
+        $some = new Some('foo');
+
+        $this->assertSame($some, $some->select('foo'));
+        $this->assertInstanceOf('PhpOption\None', $some->select('bar'));
+        $this->assertInstanceOf('PhpOption\None', $some->select(true));
+    }
+
+    public function testReject()
+    {
+        $some = new Some('foo');
+
+        $this->assertSame($some, $some->reject(null));
+        $this->assertSame($some, $some->reject(true));
+        $this->assertInstanceOf('PhpOption\None', $some->reject('foo'));
+    }
 }
 
 // For the interested reader of these tests, we have gone some great lengths

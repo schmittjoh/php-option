@@ -188,4 +188,34 @@ abstract class Option
      * @return Option
      */
     abstract public function filterNot($callable);
+
+    /**
+     * If the option is empty, it is returned immediately.
+     *
+     * If the option is non-empty, and its value does not equal the passed value
+     * (via a shallow comparison ===), then None is returned. Otherwise, the
+     * Option is returned.
+     *
+     * In other words, this will filter all but the passed value.
+     *
+     * @param mixed $value
+     *
+     * @return Option
+     */
+    abstract public function select($value);
+
+    /**
+     * If the option is empty, it is returned immediately.
+     *
+     * If the option is non-empty, and its value does equal the passed value (via
+     * a shallow comparison ===), then None is returned; otherwise, the Option is
+     * returned.
+     *
+     * In other words, this will let all values through expect the passed value.
+     * 
+     * @param mixed $value
+     *
+     * @return Option
+     */
+    abstract public function reject($value);
 }

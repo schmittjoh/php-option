@@ -94,4 +94,22 @@ final class Some extends Option
 
         return None::create();
     }
+
+    public function select($value)
+    {
+        if ($this->value === $value) {
+            return $this;
+        }
+
+        return None::create();
+    }
+
+    public function reject($value)
+    {
+        if ($this->value === $value) {
+            return None::create();
+        }
+
+        return $this;
+    }
 }

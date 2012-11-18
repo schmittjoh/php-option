@@ -69,6 +69,16 @@ class NoneTest extends \PHPUnit_Framework_TestCase
         }));
     }
 
+    public function testSelect()
+    {
+        $this->assertSame($this->none, $this->none->select(null));
+    }
+
+    public function testReject()
+    {
+        $this->assertSame($this->none, $this->none->reject(null));
+    }
+
     protected function setUp()
     {
         $this->none = None::create();
