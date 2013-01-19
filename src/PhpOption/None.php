@@ -46,6 +46,11 @@ final class None extends Option
         return $default;
     }
 
+    public function getOrThrow(\Exception $ex)
+    {
+        throw $ex;
+    }
+
     public function isEmpty()
     {
         return true;

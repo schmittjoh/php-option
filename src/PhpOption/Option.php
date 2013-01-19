@@ -105,6 +105,15 @@ abstract class Option
     abstract public function getOrCall($callable);
 
     /**
+     * Returns the value if available, or throws the passed exception.
+     *
+     * @param \Exception $ex
+     *
+     * @return mixed
+     */
+    abstract public function getOrThrow(\Exception $ex);
+
+    /**
      * Returns true if no value is available, false otherwise.
      *
      * @return boolean

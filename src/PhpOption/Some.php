@@ -57,6 +57,11 @@ final class Some extends Option
         return $this->value;
     }
 
+    public function getOrThrow(\Exception $ex)
+    {
+        return $this->value;
+    }
+
     public function orElse(Option $else)
     {
         return $this;

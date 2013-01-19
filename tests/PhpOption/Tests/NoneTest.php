@@ -29,6 +29,15 @@ class NoneTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $none->getOrCall(function() { return 'foo'; }));
     }
 
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Not Found!
+     */
+    public function testGetOrThrow()
+    {
+        None::create()->getOrThrow(new \RuntimeException('Not Found!'));
+    }
+
     public function testIsEmpty()
     {
         $none = \PhpOption\None::create();

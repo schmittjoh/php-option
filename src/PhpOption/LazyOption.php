@@ -83,6 +83,11 @@ final class LazyOption extends Option
         return $this->option()->getOrCall($callable);
     }
 
+    public function getOrThrow(\Exception $ex)
+    {
+        return $this->option()->getOrThrow($ex);
+    }
+
     public function orElse(Option $else)
     {
         return $this->option()->orElse($else);

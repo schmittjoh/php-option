@@ -12,6 +12,7 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $some->get());
         $this->assertEquals('foo', $some->getOrElse(null));
         $this->assertEquals('foo', $some->getOrCall('does_not_exist'));
+        $this->assertEquals('foo', $some->getOrThrow(new \RuntimeException('Not found')));
         $this->assertFalse($some->isEmpty());
     }
 
@@ -21,6 +22,7 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $some->get());
         $this->assertEquals('foo', $some->getOrElse(null));
         $this->assertEquals('foo', $some->getOrCall('does_not_exist'));
+        $this->assertEquals('foo', $some->getOrThrow(new \RuntimeException('Not found')));
         $this->assertFalse($some->isEmpty());
     }
 

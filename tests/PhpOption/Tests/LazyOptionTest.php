@@ -27,6 +27,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $some->get());
         $this->assertEquals('foo', $some->getOrElse(null));
         $this->assertEquals('foo', $some->getOrCall('does_not_exist'));
+        $this->assertEquals('foo', $some->getOrThrow(new \RuntimeException('does_not_exist')));
         $this->assertFalse($some->isEmpty());
     }
 
@@ -43,6 +44,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $some->get());
         $this->assertEquals('foo', $some->getOrElse(null));
         $this->assertEquals('foo', $some->getOrCall('does_not_exist'));
+        $this->assertEquals('foo', $some->getOrThrow(new \RuntimeException('does_not_exist')));
         $this->assertFalse($some->isEmpty());
     }
 
@@ -58,6 +60,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $some->get());
         $this->assertEquals('foo', $some->getOrElse(null));
         $this->assertEquals('foo', $some->getOrCall('does_not_exist'));
+        $this->assertEquals('foo', $some->getOrThrow(new \RuntimeException('does_not_exist')));
         $this->assertFalse($some->isEmpty());
     }
 
@@ -75,6 +78,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $option->get());
         $this->assertEquals('foo', $option->getOrElse(null));
         $this->assertEquals('foo', $option->getOrCall('does_not_exist'));
+        $this->assertEquals('foo', $option->getOrThrow(new \RuntimeException('does_not_exist')));
     }
 
     /**
