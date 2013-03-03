@@ -7,7 +7,7 @@ The Option type is intended for cases where you sometimes might return a value
 depending on arguments, or other runtime factors.
 
 Often times, you forget to handle the case where no value is returned. Not intentionally
-of course, but maybe you did not account for all possible states of the sytem; or maybe you
+of course, but maybe you did not account for all possible states of the system; or maybe you
 indeed covered all cases, then time goes on, code is refactored, some of these your checks 
 might become invalid, or incomplete. Suddenly, without noticing, the no value case is not
 handled anymore. As a result, you might sometimes get fatal PHP errors telling you that 
