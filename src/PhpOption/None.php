@@ -66,6 +66,11 @@ final class None extends Option
         return $else;
     }
 
+    public function whenDefined($callable)
+    {
+        // Just do nothing in that case.
+    }
+
     public function map($callable)
     {
         return $this;

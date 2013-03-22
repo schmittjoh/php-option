@@ -146,6 +146,28 @@ abstract class Option
     abstract public function orElse(Option $else);
 
     /**
+     * This is similar to map() below except that the return value has no meaning;
+     * the passed callable is simply executed if the option is non-empty, and
+     * ignored if the option is empty.
+     *
+     * In all cases, the return value of the callable is discarded.
+     *
+     * ```php
+     *     $comment->getMaybeFile()->whenDefined(function($file) {
+     *         // Do something with $file here.
+     *     });
+     * ```
+     *
+     * If you're looking for something like ``whenEmpty``, you can use ``getOrCall``
+     * and ``getOrElse`` in these cases.
+     *
+     * @param callable $callable
+     *
+     * @return void
+     */
+    abstract public function whenDefined($callable);
+
+    /**
      * Applies the callable to the value of the option if it is non-empty,
      * and returns the return value of the callable wrapped in Some().
      *

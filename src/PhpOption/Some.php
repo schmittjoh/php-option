@@ -67,6 +67,11 @@ final class Some extends Option
         return $this;
     }
 
+    public function whenDefined($callable)
+    {
+        call_user_func($callable, $this->value);
+    }
+
     public function map($callable)
     {
         return new self(call_user_func($callable, $this->value));
