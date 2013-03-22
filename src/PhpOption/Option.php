@@ -153,7 +153,7 @@ abstract class Option
      * In all cases, the return value of the callable is discarded.
      *
      * ```php
-     *     $comment->getMaybeFile()->whenDefined(function($file) {
+     *     $comment->getMaybeFile()->ifDefined(function($file) {
      *         // Do something with $file here.
      *     });
      * ```
@@ -165,7 +165,7 @@ abstract class Option
      *
      * @return void
      */
-    abstract public function whenDefined($callable);
+    abstract public function ifDefined($callable);
 
     /**
      * Applies the callable to the value of the option if it is non-empty,

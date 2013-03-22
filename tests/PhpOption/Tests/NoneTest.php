@@ -50,9 +50,9 @@ class NoneTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($option, \PhpOption\None::create()->orElse($option));
     }
 
-    public function testWhenDefined()
+    public function testifDefined()
     {
-        $this->assertNull($this->none->whenDefined(function() {
+        $this->assertNull($this->none->ifDefined(function() {
             throw new \LogicException('Should never be called.');
         }));
     }

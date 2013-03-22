@@ -67,7 +67,7 @@ final class Some extends Option
         return $this;
     }
 
-    public function whenDefined($callable)
+    public function ifDefined($callable)
     {
         call_user_func($callable, $this->value);
     }

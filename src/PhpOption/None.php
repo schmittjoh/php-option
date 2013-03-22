@@ -66,7 +66,7 @@ final class None extends Option
         return $else;
     }
 
-    public function whenDefined($callable)
+    public function ifDefined($callable)
     {
         // Just do nothing in that case.
     }

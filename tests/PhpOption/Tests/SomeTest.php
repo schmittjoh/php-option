@@ -33,12 +33,12 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($some, $some->orElse(\PhpOption\Some::create('bar')));
     }
 
-    public function testWhenDefined()
+    public function testifDefined()
     {
         $called = false;
         $self = $this;
         $some = new Some('foo');
-        $this->assertNull($some->whenDefined(function($v) use (&$called, $self) {
+        $this->assertNull($some->ifDefined(function($v) use (&$called, $self) {
             $called = true;
             $self->assertEquals('foo', $v);
         }));

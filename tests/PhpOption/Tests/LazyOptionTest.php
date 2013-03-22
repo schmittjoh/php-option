@@ -138,11 +138,11 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         \PhpOption\LazyOption::create('invalidCallback');
     }
 
-    public function testWhenDefined()
+    public function testifDefined()
     {
         $called = false;
         $self = $this;
-        $this->assertNull(LazyOption::fromValue('foo')->whenDefined(function($v) use (&$called, $self) {
+        $this->assertNull(LazyOption::fromValue('foo')->ifDefined(function($v) use (&$called, $self) {
             $called = true;
             $self->assertEquals('foo', $v);
         }));
