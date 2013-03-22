@@ -36,10 +36,11 @@ class SomeTest extends \PHPUnit_Framework_TestCase
     public function testWhenDefined()
     {
         $called = false;
+        $self = $this;
         $some = new Some('foo');
-        $this->assertNull($some->whenDefined(function($v) use (&$called) {
+        $this->assertNull($some->whenDefined(function($v) use (&$called, $self) {
             $called = true;
-            $this->assertEquals('foo', $v);
+            $self->assertEquals('foo', $v);
         }));
         $this->assertTrue($called);
     }
