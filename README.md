@@ -171,7 +171,7 @@ to retrieve the value from the wrapper.
 * Average Overhead per Invocation (none case/null returned): 0.000000368s (that is 368 nano seconds)
 
 The benchmark was run under Ubuntu precise with PHP 5.4.6. As you can see the
-overhead is suprisingly low, almost negligble. 
+overhead is surprisingly low, almost negligible.
 
 So in conclusion, unless you plan to call a method thousands of times during a
 request, there is no reason to stick to the ``object|null`` return value; better give
