@@ -170,7 +170,7 @@ abstract class Option
     abstract public function ifDefined($callable);
 
     /**
-     * This is similar to map() expect that the return value of the callable has no meaning.
+     * This is similar to map() except that the return value of the callable has no meaning.
      *
      * The passed callable is simply executed if the option is non-empty, and ignored if the
      * option is empty. This method is preferred for callables with side-effects, while map()
