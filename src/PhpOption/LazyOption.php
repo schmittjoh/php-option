@@ -103,12 +103,7 @@ final class LazyOption extends Option
 
     public function forAll($callable)
     {
-        $option = $this->option();
-        $option->forAll($callable);
-
-        // We also automatically un-wrap the LazyOption as it is just creating one
-        // more method call on subsequent calls from this point on.
-        return $option;
+        return $this->option()->forAll($callable);
     }
 
     public function map($callable)
