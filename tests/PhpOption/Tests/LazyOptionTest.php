@@ -149,6 +149,17 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($called);
     }
 
+    public function testForAll()
+    {
+        $called = false;
+        $self = $this;
+        $this->assertInstanceOf('PhpOption\Some', LazyOption::fromValue('foo')->forAll(function($v) use (&$called, $self) {
+            $called = true;
+            $self->assertEquals('foo', $v);
+        }));
+        $this->assertTrue($called);
+    }
+
     public function testOrElse()
     {
         $some = \PhpOption\Some::create('foo');

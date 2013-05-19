@@ -66,9 +66,17 @@ final class None extends Option
         return $else;
     }
 
+    /**
+     * @deprecated Use forAll() instead.
+     */
     public function ifDefined($callable)
     {
         // Just do nothing in that case.
+    }
+
+    public function forAll($callable)
+    {
+        return $this;
     }
 
     public function map($callable)

@@ -93,9 +93,22 @@ final class LazyOption extends Option
         return $this->option()->orElse($else);
     }
 
+    /**
+     * @deprecated Use forAll() instead.
+     */
     public function ifDefined($callable)
     {
         $this->option()->ifDefined($callable);
+    }
+
+    public function forAll($callable)
+    {
+        $option = $this->option();
+        $option->forAll($callable);
+
+        // We also automatically un-wrap the LazyOption as it is just creating one
+        // more method call on subsequent calls from this point on.
+        return $option;
     }
 
     public function map($callable)

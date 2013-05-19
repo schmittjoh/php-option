@@ -67,9 +67,19 @@ final class Some extends Option
         return $this;
     }
 
+    /**
+     * @deprecated Use forAll() instead.
+     */
     public function ifDefined($callable)
     {
         call_user_func($callable, $this->value);
+    }
+
+    public function forAll($callable)
+    {
+        call_user_func($callable, $this->value);
+
+        return $this;
     }
 
     public function map($callable)

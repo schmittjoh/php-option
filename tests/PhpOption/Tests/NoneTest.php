@@ -57,6 +57,13 @@ class NoneTest extends \PHPUnit_Framework_TestCase
         }));
     }
 
+    public function testForAll()
+    {
+        $this->assertSame($this->none, $this->none->forAll(function() {
+            throw new \LogicException('Should never be called.');
+        }));
+    }
+
     public function testMap()
     {
         $this->assertSame($this->none, $this->none->map(function() {

@@ -45,6 +45,18 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($called);
     }
 
+    public function testForAll()
+    {
+        $called = false;
+        $self = $this;
+        $some = new Some('foo');
+        $this->assertSame($some, $some->forAll(function($v) use (&$called, $self) {
+            $called = true;
+            $self->assertEquals('foo', $v);
+        }));
+        $this->assertTrue($called);
+    }
+
     public function testMap()
     {
         $some = new Some('foo');
