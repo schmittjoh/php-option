@@ -102,6 +102,18 @@ class NoneTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->none, $this->none->reject(null));
     }
 
+    public function testForeach()
+    {
+        $none = \PhpOption\None::create();
+
+        $called = 0;
+        foreach ($none as $value) {
+            $called++;
+        }
+
+        $this->assertEquals(0, $called);
+    }
+
     protected function setUp()
     {
         $this->none = None::create();

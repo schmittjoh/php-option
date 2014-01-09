@@ -136,6 +136,11 @@ final class LazyOption extends Option
         return $this->option()->reject($value);
     }
 
+    public function getIterator()
+    {
+        return $this->option()->getIterator();
+    }
+
     /**
      * @return Option
      */

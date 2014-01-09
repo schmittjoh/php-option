@@ -18,6 +18,8 @@
 
 namespace PhpOption;
 
+use EmptyIterator;
+
 final class None extends Option
 {
     private static $instance;
@@ -107,6 +109,11 @@ final class None extends Option
     public function reject($value)
     {
         return $this;
+    }
+
+    public function getIterator()
+    {
+        return new EmptyIterator();
     }
 
     private function __construct() { }
