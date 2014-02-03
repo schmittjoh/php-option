@@ -33,7 +33,7 @@ final class LazyOption extends Option
      * Helper Constructor.
      *
      * @param callable $callback
-     * @param array $arguments
+     * @param array    $arguments
      *
      * @return LazyOption
      */
@@ -46,7 +46,7 @@ final class LazyOption extends Option
      * Constructor.
      *
      * @param callable $callback
-     * @param array $arguments
+     * @param array    $arguments
      */
     public function __construct($callback, array $arguments = array())
     {

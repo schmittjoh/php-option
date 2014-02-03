@@ -38,7 +38,7 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $called = false;
         $self = $this;
         $some = new Some('foo');
-        $this->assertNull($some->ifDefined(function($v) use (&$called, $self) {
+        $this->assertNull($some->ifDefined(function ($v) use (&$called, $self) {
             $called = true;
             $self->assertEquals('foo', $v);
         }));
@@ -50,7 +50,7 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $called = false;
         $self = $this;
         $some = new Some('foo');
-        $this->assertSame($some, $some->forAll(function($v) use (&$called, $self) {
+        $this->assertSame($some, $some->forAll(function ($v) use (&$called, $self) {
             $called = true;
             $self->assertEquals('foo', $v);
         }));
@@ -60,7 +60,7 @@ class SomeTest extends \PHPUnit_Framework_TestCase
     public function testMap()
     {
         $some = new Some('foo');
-        $this->assertEquals('o', $some->map(function($v) { return substr($v, 1, 1); })->get());
+        $this->assertEquals('o', $some->map(function ($v) { return substr($v, 1, 1); })->get());
     }
 
     public function testFlatMap()
@@ -76,16 +76,16 @@ class SomeTest extends \PHPUnit_Framework_TestCase
     {
         $some = new Some('foo');
 
-        $this->assertInstanceOf('PhpOption\None', $some->filter(function($v) { return 0 === strlen($v); }));
-        $this->assertSame($some, $some->filter(function($v) { return strlen($v) > 0; }));
+        $this->assertInstanceOf('PhpOption\None', $some->filter(function ($v) { return 0 === strlen($v); }));
+        $this->assertSame($some, $some->filter(function ($v) { return strlen($v) > 0; }));
     }
 
     public function testFilterNot()
     {
         $some = new Some('foo');
 
-        $this->assertInstanceOf('PhpOption\None', $some->filterNot(function($v) { return strlen($v) > 0; }));
-        $this->assertSame($some, $some->filterNot(function($v) { return strlen($v) === 0; }));
+        $this->assertInstanceOf('PhpOption\None', $some->filterNot(function ($v) { return strlen($v) > 0; }));
+        $this->assertSame($some, $some->filterNot(function ($v) { return strlen($v) === 0; }));
     }
 
     public function testSelect()

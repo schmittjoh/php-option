@@ -19,9 +19,9 @@ class OptionTest extends \PHPUnit_Framework_TestCase
 
     public function testFromReturn()
     {
-        $null = function() { return null; };
-        $false = function() { return false; };
-        $some = function() { return 'foo'; };
+        $null = function () { return null; };
+        $false = function () { return false; };
+        $some = function () { return 'foo'; };
 
         $this->assertTrue(\PhpOption\Option::fromReturn($null)->isEmpty());
         $this->assertFalse(\PhpOption\Option::fromReturn($false)->isEmpty());
@@ -48,7 +48,7 @@ class OptionTest extends \PHPUnit_Framework_TestCase
 
     public function testOrElseWithLazyOptions()
     {
-        $throws = function() { throw new \LogicException('Should never be called.'); };
+        $throws = function () { throw new \LogicException('Should never be called.'); };
 
         $a = new \PhpOption\Some('a');
         $b = new \PhpOption\LazyOption($throws);
@@ -58,8 +58,8 @@ class OptionTest extends \PHPUnit_Framework_TestCase
 
     public function testOrElseWithMultipleAlternatives()
     {
-        $throws = new \PhpOption\LazyOption(function() { throw new \LogicException('Should never be called.'); });
-        $returns = new \PhpOption\LazyOption(function() { return new \PhpOption\Some('foo'); });
+        $throws = new \PhpOption\LazyOption(function () { throw new \LogicException('Should never be called.'); });
+        $returns = new \PhpOption\LazyOption(function () { return new \PhpOption\Some('foo'); });
 
         $a = \PhpOption\None::create();
 
