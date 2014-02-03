@@ -119,7 +119,7 @@ final class Some extends Option
 
     public function select($value)
     {
-        if ($this->value === $value) {
+        if ($value === $this->value) {
             return $this;
         }
 
@@ -128,7 +128,7 @@ final class Some extends Option
 
     public function reject($value)
     {
-        if ($this->value === $value) {
+        if ($value === $this->value) {
             return None::create();
         }
 
