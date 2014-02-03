@@ -42,7 +42,7 @@ abstract class Option implements IteratorAggregate
      */
     public static function fromValue($value, $noneValue = null)
     {
-        if ($value === $noneValue) {
+        if ($noneValue === $value) {
             return None::create();
         }
 
@@ -68,7 +68,7 @@ abstract class Option implements IteratorAggregate
         return new LazyOption(function() use ($callback, $arguments, $noneValue) {
             $return = call_user_func_array($callback, $arguments);
 
-            if ($return === $noneValue) {
+            if ($noneValue === $return) {
                 return None::create();
             }
 
@@ -260,7 +260,7 @@ abstract class Option implements IteratorAggregate
      * returned.
      *
      * In other words, this will let all values through expect the passed value.
-     * 
+     *
      * @param mixed $value
      *
      * @return Option
