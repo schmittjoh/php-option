@@ -26,7 +26,7 @@ class NoneTest extends \PHPUnit_Framework_TestCase
     public function testGetOrCall()
     {
         $none = \PhpOption\None::create();
-        $this->assertEquals('foo', $none->getOrCall(function() { return 'foo'; }));
+        $this->assertEquals('foo', $none->getOrCall(function () { return 'foo'; }));
     }
 
     /**
@@ -52,42 +52,42 @@ class NoneTest extends \PHPUnit_Framework_TestCase
 
     public function testifDefined()
     {
-        $this->assertNull($this->none->ifDefined(function() {
+        $this->assertNull($this->none->ifDefined(function () {
             throw new \LogicException('Should never be called.');
         }));
     }
 
     public function testForAll()
     {
-        $this->assertSame($this->none, $this->none->forAll(function() {
+        $this->assertSame($this->none, $this->none->forAll(function () {
             throw new \LogicException('Should never be called.');
         }));
     }
 
     public function testMap()
     {
-        $this->assertSame($this->none, $this->none->map(function() {
+        $this->assertSame($this->none, $this->none->map(function () {
             throw new \LogicException('Should not be called.');
         }));
     }
 
     public function testFlatMap()
     {
-        $this->assertSame($this->none, $this->none->flatMap(function() {
+        $this->assertSame($this->none, $this->none->flatMap(function () {
             throw new \LogicException('Should not be called.');
         }));
     }
 
     public function testFilter()
     {
-        $this->assertSame($this->none, $this->none->filter(function() {
+        $this->assertSame($this->none, $this->none->filter(function () {
             throw new \LogicException('Should not be called.');
         }));
     }
 
     public function testFilterNot()
     {
-        $this->assertSame($this->none, $this->none->filterNot(function() {
+        $this->assertSame($this->none, $this->none->filterNot(function () {
             throw new \LogicException('Should not be called.');
         }));
     }

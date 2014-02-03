@@ -34,7 +34,7 @@ abstract class Option implements IteratorAggregate
      * convert them to an option. By default, we treat ``null`` as the None case,
      * and everything else as Some.
      *
-     * @param mixed $value The actual return value.
+     * @param mixed $value     The actual return value.
      * @param mixed $noneValue The value which should be considered "None"; null
      *                         by default.
      *
@@ -56,16 +56,16 @@ abstract class Option implements IteratorAggregate
      * the return value is not yet an option. By default, we treat ``null`` as
      * None case, and everything else as Some.
      *
-     * @param callable $callback The callback to evaluate.
-     * @param array $arguments
-     * @param mixed $noneValue The value which should be considered "None"; null
-     *                         by default.
+     * @param callable $callback  The callback to evaluate.
+     * @param array    $arguments
+     * @param mixed    $noneValue The value which should be considered "None"; null
+     *                            by default.
      *
      * @return Option
      */
     public static function fromReturn($callback, array $arguments = array(), $noneValue = null)
     {
-        return new LazyOption(function() use ($callback, $arguments, $noneValue) {
+        return new LazyOption(function () use ($callback, $arguments, $noneValue) {
             $return = call_user_func_array($callback, $arguments);
 
             if ($return === $noneValue) {
@@ -155,7 +155,7 @@ abstract class Option implements IteratorAggregate
      * In all cases, the return value of the callable is discarded.
      *
      * ```php
-     *     $comment->getMaybeFile()->ifDefined(function($file) {
+     *     $comment->getMaybeFile()->ifDefined(function ($file) {
      *         // Do something with $file here.
      *     });
      * ```
@@ -260,7 +260,7 @@ abstract class Option implements IteratorAggregate
      * returned.
      *
      * In other words, this will let all values through expect the passed value.
-     * 
+     *
      * @param mixed $value
      *
      * @return Option

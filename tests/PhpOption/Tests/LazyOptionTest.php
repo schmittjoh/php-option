@@ -99,7 +99,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($option->isDefined());
         $this->assertTrue($option->isEmpty());
         $this->assertEquals('alt', $option->getOrElse('alt'));
-        $this->assertEquals('alt', $option->getOrCall(function(){return 'alt';}));
+        $this->assertEquals('alt', $option->getOrCall(function () {return 'alt';}));
 
         $option->get();
     }
@@ -142,7 +142,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
     {
         $called = false;
         $self = $this;
-        $this->assertNull(LazyOption::fromValue('foo')->ifDefined(function($v) use (&$called, $self) {
+        $this->assertNull(LazyOption::fromValue('foo')->ifDefined(function ($v) use (&$called, $self) {
             $called = true;
             $self->assertEquals('foo', $v);
         }));
@@ -153,7 +153,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
     {
         $called = false;
         $self = $this;
-        $this->assertInstanceOf('PhpOption\Some', LazyOption::fromValue('foo')->forAll(function($v) use (&$called, $self) {
+        $this->assertInstanceOf('PhpOption\Some', LazyOption::fromValue('foo')->forAll(function ($v) use (&$called, $self) {
             $called = true;
             $self->assertEquals('foo', $v);
         }));
@@ -163,7 +163,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
     public function testOrElse()
     {
         $some = \PhpOption\Some::create('foo');
-        $lazy = \PhpOption\LazyOption::create(function() use ($some) {return $some;});
+        $lazy = \PhpOption\LazyOption::create(function () use ($some) {return $some;});
         $this->assertSame($some, $lazy->orElse(\PhpOption\None::create()));
         $this->assertSame($some, $lazy->orElse(\PhpOption\Some::create('bar')));
     }
