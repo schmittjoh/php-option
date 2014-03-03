@@ -48,6 +48,28 @@ abstract class Option
     }
 
     /**
+     * Creates an option from an array's value.
+     *
+     * If the key does not exist in the array, the array is not actually an array, or the
+     * array's value at the given key is null, None is returned.
+     *
+     * Otherwise, Some is returned wrapping the value at the given key.
+     *
+     * @param mixed $array a potential array value
+     * @param string $key the key to check
+     *
+     * @return Option
+     */
+    public static function fromArraysValue($array, $key)
+    {
+        if ( ! isset($array[$key])) {
+            return None::create();
+        }
+
+        return new Some($array[$key]);
+    }
+
+    /**
      * Creates a lazy-option with the given callback.
      *
      * This is also a helper constructor for lazy-consuming existing APIs where

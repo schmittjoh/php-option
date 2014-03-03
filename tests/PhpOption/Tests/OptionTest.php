@@ -2,6 +2,10 @@
 
 namespace PhpOption\Tests;
 
+use PhpOption\None;
+use PhpOption\Option;
+use PhpOption\Some;
+
 class OptionTest extends \PHPUnit_Framework_TestCase
 {
     public function testfromValueWithDefaultNoneValue()
@@ -15,6 +19,15 @@ class OptionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhpOption\None', \PhpOption\Option::fromValue(false, false));
         $this->assertInstanceOf('PhpOption\Some', \PhpOption\Option::fromValue('value', false));
         $this->assertInstanceOf('PhpOption\Some', \PhpOption\Option::fromValue(null, false));
+    }
+
+    public function testFromArraysValue()
+    {
+        $this->assertEquals(None::create(), Option::fromArraysValue('foo', 'bar'));
+        $this->assertEquals(None::create(), Option::fromArraysValue(null, 'bar'));
+        $this->assertEquals(None::create(), Option::fromArraysValue(array('foo' => 'bar'), 'baz'));
+        $this->assertEquals(None::create(), Option::fromArraysValue(array('foo' => null), 'foo'));
+        $this->assertEquals(new Some('foo'), Option::fromArraysValue(array('foo' => 'foo'), 'foo'));
     }
 
     public function testFromReturn()
