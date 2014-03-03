@@ -105,6 +105,21 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($some, $some->reject(true));
         $this->assertInstanceOf('PhpOption\None', $some->reject('foo'));
     }
+
+    public function testForeach()
+    {
+        $some = new Some('foo');
+
+        $called = 0;
+        $extractedValue = null;
+        foreach ($some as $value) {
+            $extractedValue = $value;
+            $called++;
+        }
+
+        $this->assertEquals('foo', $extractedValue);
+        $this->assertEquals(1, $called);
+    }
 }
 
 // For the interested reader of these tests, we have gone some great lengths

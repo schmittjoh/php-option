@@ -136,12 +136,17 @@ final class LazyOption extends Option
         return $this->option()->reject($value);
     }
 
+    public function getIterator()
+    {
+        return $this->option()->getIterator();
+    }
+
     /**
      * @return Option
      */
     private function option()
     {
-        if ($this->option === null) {
+        if (null === $this->option) {
             $this->option = call_user_func_array($this->callback, $this->arguments);
             if (!$this->option instanceof Option) {
                 $this->option = null;

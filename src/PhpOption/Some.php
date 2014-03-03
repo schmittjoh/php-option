@@ -18,6 +18,8 @@
 
 namespace PhpOption;
 
+use ArrayIterator;
+
 final class Some extends Option
 {
     private $value;
@@ -131,5 +133,10 @@ final class Some extends Option
         }
 
         return $this;
+    }
+
+    public function getIterator()
+    {
+        return new ArrayIterator(array($this->value));
     }
 }

@@ -18,12 +18,14 @@
 
 namespace PhpOption;
 
+use IteratorAggregate;
+
 /**
  * Base Option Class.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class Option
+abstract class Option implements IteratorAggregate
 {
     /**
      * Creates an option given a return value.
