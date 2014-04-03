@@ -106,6 +106,25 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhpOption\None', $some->reject('foo'));
     }
 
+    public function testFoldLeftRight()
+    {
+        $some = new Some(5);
+
+        $this->assertSame(6, $some->foldLeft(1, function($a, $b) {
+            $this->assertEquals(1, $a);
+            $this->assertEquals(5, $b);
+
+            return $a + $b;
+        }));
+
+        $this->assertSame(6, $some->foldRight(1, function($a, $b) {
+            $this->assertEquals(1, $b);
+            $this->assertEquals(5, $a);
+
+            return $a + $b;
+        }));
+    }
+
     public function testForeach()
     {
         $some = new Some('foo');

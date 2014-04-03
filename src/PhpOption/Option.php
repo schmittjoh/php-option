@@ -288,4 +288,42 @@ abstract class Option implements IteratorAggregate
      * @return Option
      */
     abstract public function reject($value);
+
+    /**
+     * Binary operator for the initial value and the option's value.
+     *
+     * If empty, the initial value is returned.
+     * If non-empty, the callable receives the initial value and the option's value as arguments
+     *
+     * ```php
+     *
+     *     $some = new Some(5);
+     *     $none = None::create();
+     *     $result = $some->foldLeft(1, function($a, $b) { return $a + $b; }); // int(6)
+     *     $result = $none->foldLeft(1, function($a, $b) { return $a + $b; }); // int(1)
+     *
+     *     // This can be used instead of something like the following:
+     *     $option = Option::fromValue($integerOrNull);
+     *     $result = 1;
+     *     if ( ! $option->isEmpty()) {
+     *         $result += $option->get();
+     *     }
+     * ```
+     *
+     * @param mixed $initialValue
+     * @param callable $callable function(initialValue, callable): result
+     *
+     * @return mixed
+     */
+    abstract public function foldLeft($initialValue, $callable);
+
+    /**
+     * foldLeft() but with reversed arguments for the callable.
+     *
+     * @param mixed $initialValue
+     * @param callable $callable function(callable, initialValue): result
+     *
+     * @return mixed
+     */
+    abstract public function foldRight($initialValue, $callable);
 }

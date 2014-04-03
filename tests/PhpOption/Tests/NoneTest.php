@@ -114,6 +114,12 @@ class NoneTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $called);
     }
 
+    public function testFoldLeftRight()
+    {
+        $this->assertSame(1, $this->none->foldLeft(1, function() { $this->fail(); }));
+        $this->assertSame(1, $this->none->foldRight(1, function() { $this->fail(); }));
+    }
+
     protected function setUp()
     {
         $this->none = None::create();

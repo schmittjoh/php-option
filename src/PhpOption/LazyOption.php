@@ -141,6 +141,16 @@ final class LazyOption extends Option
         return $this->option()->getIterator();
     }
 
+    public function foldLeft($initialValue, $callable)
+    {
+        return $this->option()->foldLeft($initialValue, $callable);
+    }
+
+    public function foldRight($initialValue, $callable)
+    {
+        return $this->option()->foldRight($initialValue, $callable);
+    }
+
     /**
      * @return Option
      */

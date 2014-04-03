@@ -167,4 +167,24 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($some, $lazy->orElse(\PhpOption\None::create()));
         $this->assertSame($some, $lazy->orElse(\PhpOption\Some::create('bar')));
     }
+
+    public function testFoldLeftRight()
+    {
+        $callback = function() { };
+
+        $option = $this->getMockForAbstractClass('PhpOption\Option');
+        $option->expects($this->once())
+            ->method('foldLeft')
+            ->with(5, $callback)
+            ->will($this->returnValue(6));
+        $lazyOption = new LazyOption(function() use ($option) { return $option; });
+        $this->assertSame(6, $lazyOption->foldLeft(5, $callback));
+
+        $option->expects($this->once())
+            ->method('foldRight')
+            ->with(5, $callback)
+            ->will($this->returnValue(6));
+        $lazyOption = new LazyOption(function() use ($option) { return $option; });
+        $this->assertSame(6, $lazyOption->foldRight(5, $callback));
+    }
 }

@@ -116,5 +116,15 @@ final class None extends Option
         return new EmptyIterator();
     }
 
+    public function foldLeft($initialValue, $callable)
+    {
+        return $initialValue;
+    }
+
+    public function foldRight($initialValue, $callable)
+    {
+        return $initialValue;
+    }
+
     private function __construct() { }
 }

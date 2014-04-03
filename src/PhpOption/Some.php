@@ -139,4 +139,14 @@ final class Some extends Option
     {
         return new ArrayIterator(array($this->value));
     }
+
+    public function foldLeft($initialValue, $callable)
+    {
+        return call_user_func($callable, $initialValue, $this->value);
+    }
+
+    public function foldRight($initialValue, $callable)
+    {
+        return call_user_func($callable, $this->value, $initialValue);
+    }
 }
