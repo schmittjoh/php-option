@@ -1,4 +1,4 @@
-PHP Option Type [![Build Status](https://secure.travis-ci.org/schmittjoh/php-option.png)](http://travis-ci.org/schmittjoh/php-option)
+PHP Option Type [![Build Status](https://secure.travis-ci.org/schmittjoh/php-option.png)](http://travis-ci.org/schmittjoh/php-option) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/schmittjoh/php-option/badges/quality-score.png?s=7feb0fcc5150b36216f7683292ed8480aab1628b)](https://scrutinizer-ci.com/g/schmittjoh/php-option/)
 ===============
 This adds an Option type for PHP.
 
