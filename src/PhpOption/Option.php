@@ -326,4 +326,31 @@ abstract class Option implements IteratorAggregate
      * @return mixed
      */
     abstract public function foldRight($initialValue, $callable);
+
+    /**
+     * Shortcut for mapping object's property.
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
+    public function prop($name) {
+        return $this->map(function($object) use($name) {
+                return $object->$name;
+            });
+    }
+
+    /**
+     * Shortcut for mapping object's method call.
+     *
+     * @param string $method
+     * @param array $args
+     *
+     * @return mixed
+     */
+    public function call($method, array $args = array()) {
+        return $this->map(function($object) use ($method, $args) {
+                return call_user_func_array(array($object, $method), $args);
+            });
+    }
 }
