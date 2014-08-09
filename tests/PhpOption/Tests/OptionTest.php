@@ -78,4 +78,32 @@ class OptionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foo', $a->orElse($returns)->orElse($throws)->get());
     }
+
+    public function testProp()
+    {
+        $a = \PhpOption\None::create();
+        $b = \PhpOption\Some::fromValue(new ShortcutDouble());
+
+        $this->assertEquals('foo', $a->prop('bar')->getOrElse('foo'));
+        $this->assertEquals('value', $b->prop('foo')->get());
+    }
+
+    public function testCall()
+    {
+        $a = \PhpOption\None::create();
+        $b = \PhpOption\Some::fromValue(new ShortcutDouble());
+
+        $this->assertEquals('foo', $a->call('bar')->getOrElse('foo'));
+        $this->assertEquals('value', $b->call('bar', ['value'])->get());
+    }
+}
+
+class ShortcutDouble
+{
+    public $foo = 'value';
+
+    public function bar($value)
+    {
+        return $value;
+    }
 }
