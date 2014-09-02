@@ -86,7 +86,7 @@ final class Some extends Option
 
     public function map($callable)
     {
-        return new self(call_user_func($callable, $this->value));
+        return Option::fromValue(call_user_func($callable, $this->value));
     }
 
     public function flatMap($callable)

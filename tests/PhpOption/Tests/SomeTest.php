@@ -2,6 +2,7 @@
 
 namespace PhpOption\Tests;
 
+use PhpOption\None;
 use PhpOption\Some;
 
 class SomeTest extends \PHPUnit_Framework_TestCase
@@ -61,6 +62,12 @@ class SomeTest extends \PHPUnit_Framework_TestCase
     {
         $some = new Some('foo');
         $this->assertEquals('o', $some->map(function($v) { return substr($v, 1, 1); })->get());
+    }
+
+    public function testMapToNull()
+    {
+        $some = new Some('foo');
+        $this->assertSame(None::create(), $some->map(function($v) { return null; }));
     }
 
     public function testFlatMap()

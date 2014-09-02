@@ -208,7 +208,8 @@ abstract class Option implements IteratorAggregate
 
     /**
      * Applies the callable to the value of the option if it is non-empty,
-     * and returns the return value of the callable wrapped in Some().
+     * and returns the return value of the callable wrapped in Some() when
+     * the value is not null, otherwise returns None()
      *
      * If the option is empty, then the callable is not applied.
      *
