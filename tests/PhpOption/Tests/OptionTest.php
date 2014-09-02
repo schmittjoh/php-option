@@ -28,6 +28,10 @@ class OptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(None::create(), Option::fromArraysValue(array('foo' => 'bar'), 'baz'));
         $this->assertEquals(None::create(), Option::fromArraysValue(array('foo' => null), 'foo'));
         $this->assertEquals(new Some('foo'), Option::fromArraysValue(array('foo' => 'foo'), 'foo'));
+
+        $this->assertEquals(None::create(), Option::fromArraysValue(new \ArrayObject(array('foo' => 'bar')), 'baz'));
+        $this->assertEquals(None::create(), Option::fromArraysValue(new \ArrayObject(array('foo' => null)), 'foo'));
+        $this->assertEquals(new Some('foo'), Option::fromArraysValue(new \ArrayObject(array('foo' => 'foo')), 'foo'));
     }
 
     public function testFromReturn()

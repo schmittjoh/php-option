@@ -64,11 +64,16 @@ abstract class Option implements IteratorAggregate
      */
     public static function fromArraysValue($array, $key)
     {
-        if ( ! isset($array[$key])) {
+        if ( ! self::isLikeAnArray($array) || ! isset($array[$key])) {
             return None::create();
         }
 
         return new Some($array[$key]);
+    }
+
+    private static function isLikeAnArray($array)
+    {
+        return is_array($array) || $array instanceof \ArrayAccess;
     }
 
     /**
