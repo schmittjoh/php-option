@@ -110,7 +110,7 @@ abstract class Option implements IteratorAggregate
      *
      * @return Option
      */
-    public static function make($value, $noneValue = null)
+    public static function ensure($value, $noneValue = null)
     {
         if ($value instanceof Option) {
             return $value;
