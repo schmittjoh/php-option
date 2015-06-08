@@ -99,6 +99,37 @@ abstract class Option implements IteratorAggregate
     }
 
     /**
+     * Option factory, which creates new option based on passed value.
+     * If value is already an option, it simply returns
+     * If value is a \Closure, LazyOption with passed callback created and returned. If Option returned from callback,
+     * it returns directly (flatMap-like behaviour)
+     * On other case value passed to Option::fromValue() method
+     *
+     * @param Option|\Closure|mixed $value
+     * @param null $noneValue used when $value is mixed or Closure, for None-check
+     *
+     * @return Option
+     */
+    public static function ensure($value, $noneValue = null)
+    {
+        if ($value instanceof Option) {
+            return $value;
+        } elseif ($value instanceof \Closure) {
+            return new LazyOption(function() use ($value, $noneValue) {
+                $return = $value();
+
+                if ($return instanceof Option) {
+                    return $return;
+                } else {
+                    return Option::fromValue($return, $noneValue);
+                }
+            });
+        } else {
+            return Option::fromValue($value, $noneValue);
+        }
+    }
+
+    /**
      * Returns the value if available, or throws an exception otherwise.
      *
      * @throws \RuntimeException if value is not available
@@ -282,7 +313,7 @@ abstract class Option implements IteratorAggregate
      * returned.
      *
      * In other words, this will let all values through expect the passed value.
-     * 
+     *
      * @param mixed $value
      *
      * @return Option
