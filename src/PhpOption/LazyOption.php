@@ -151,6 +151,11 @@ final class LazyOption extends Option
         return $this->option()->foldRight($initialValue, $callable);
     }
 
+    public function call($methodName, array $arguments = array())
+    {
+        return $this->option()->call($methodName, $arguments);
+    }
+
     /**
      * @return Option
      */

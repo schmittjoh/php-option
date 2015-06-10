@@ -357,4 +357,20 @@ abstract class Option implements IteratorAggregate
      * @return mixed
      */
     abstract public function foldRight($initialValue, $callable);
+
+    /**
+     * If the option is empty, it is returned immediately.
+     *
+     * If the option is non empty, method named $methodName called on option's value, result of method call handles as:
+     *  - if result is Option, it returns immediately
+     *  - if result is null, None returns
+     *  - on other cases Some(result) returns
+     *
+     * @param string $methodName
+     * @param array $arguments
+     *
+     * @return Option
+     * @throws \UnexpectedValueException if option's value is not object or object does not contains method
+     */
+    abstract public function call($methodName, array $arguments = array());
 }

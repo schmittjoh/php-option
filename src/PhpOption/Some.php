@@ -149,4 +149,27 @@ final class Some extends Option
     {
         return call_user_func($callable, $this->value, $initialValue);
     }
+
+    public function call($methodName, array $arguments = array())
+    {
+        if (!is_object($this->value)) {
+            throw new \UnexpectedValueException('Option should contains object');
+        }
+
+        if (!method_exists($this->value, $methodName) && !method_exists($this->value, '__call')) {
+            throw new \UnexpectedValueException(sprintf(
+                'Nor "%s", nor "__call" method does not found in %s instance',
+                $methodName,
+                get_class($this->value)
+            ));
+        }
+
+        $result = call_user_func_array([$this->value, $methodName], $arguments);
+
+        if ($result instanceof Option) {
+            return $result;
+        }
+
+        return Option::fromValue($result);
+    }
 }
