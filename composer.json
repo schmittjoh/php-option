@@ -18,7 +18,11 @@
     },
     "autoload": {
         "psr-0": {
-            "PhpOption\\": "src/",
+            "PhpOption\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
             "PhpOption\\Tests\\": "tests/"
         }
     },
