@@ -64,7 +64,7 @@ final class Some extends Option
         return $this->value;
     }
 
-    public function orElse($else, $noneValue = null)
+    public function orElse($else)
     {
         return $this;
     }

@@ -206,11 +206,10 @@ abstract class Option implements IteratorAggregate
      * ```
      *
      * @param Option|\Closure|mixed $else
-     * @param null $noneValue used when $else is mixed or Closure, for None-check
      *
      * @return Option
      */
-    abstract public function orElse($else, $noneValue = null);
+    abstract public function orElse($else);
 
     /**
      * This is similar to map() below except that the return value has no meaning;

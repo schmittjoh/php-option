@@ -63,9 +63,9 @@ final class None extends Option
         return false;
     }
 
-    public function orElse($else, $noneValue = null)
+    public function orElse($else)
     {
-        return Option::ensure($else, $noneValue);
+        return Option::ensure($else);
     }
 
     /**

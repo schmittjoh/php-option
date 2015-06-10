@@ -19,24 +19,29 @@ class NoneOrElseTest extends \PHPUnit_Framework_TestCase
 
     public function testNonePassed()
     {
-        $this->assertFalse($this->none()->orElse($this->none())->isDefined());
+        $this->assertFalse(
+            $this->none()->orElse($this->none())->isDefined()
+        );
     }
 
     public function testSomePassed()
     {
-        $this->assertTrue($this->none()->orElse(Some::create(true))->isDefined());
+        $option = $this->none()->orElse(Some::create(true));
+        $this->assertTrue(
+            $option->isDefined()
+        );
+        $this->assertSame(true, $option->get());
     }
 
     public function testClosurePassed_ReturnsMixed()
     {
+        $option = $this->none()->orElse(function() { return true; });
         $this->assertTrue(
-            $this->none()->orElse(function() { return true; })->isDefined()
+            $option->isDefined()
         );
+        $this->assertSame(true, $option->get());
         $this->assertFalse(
             $this->none()->orElse(function() { return null; })->isDefined()
-        );
-        $this->assertFalse(
-            $this->none()->orElse(function() { return false; }, false)->isDefined()
         );
     }
 
@@ -47,10 +52,6 @@ class NoneOrElseTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(true, $option->get());
         $this->assertFalse(
             $this->none()->orElse(function() { return None::create(); })->isDefined()
-        );
-        // Edge case: explicitly Option result of Closure should not be compared with $noneValue
-        $this->assertTrue(
-            $this->none()->orElse(function() { return Some::create(false); }, false)->isDefined()
         );
     }
 
@@ -63,14 +64,13 @@ class NoneOrElseTest extends \PHPUnit_Framework_TestCase
 
     public function testMixedPassed()
     {
+        $option = $this->none()->orElse(true);
         $this->assertTrue(
-            $this->none()->orElse(true)->isDefined()
+            $option->isDefined()
         );
+        $this->assertSame(true, $option->get());
         $this->assertFalse(
             $this->none()->orElse(null)->isDefined()
-        );
-        $this->assertFalse(
-            $this->none()->orElse(false, false)->isDefined()
         );
     }
 }
