@@ -62,6 +62,8 @@ abstract class Option implements IteratorAggregate
      * @param string $exception a custom exception type to throw for a null value, defaults to \Exception
      * @param string $message a custom exception message
      *
+     * @throws \Exception
+     *
      * @return Option
      */
     public static function fromNonNullable(
