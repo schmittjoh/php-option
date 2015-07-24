@@ -50,6 +50,36 @@ abstract class Option implements IteratorAggregate
     }
 
     /**
+     * Creates an option given a value that is required to exist (not the passed none value or None).
+     * Throws an exception if passed a none value or None, intended to fail fast in situations
+     * where a value is required to exist when the Option is first created.
+     *
+     * If passed a none value or None, throws an exception
+     * If passed anything else, passes the value to the Option::ensure method and returns the result
+     *
+     * @param Option|\Closure|mixed|null $value
+     * @param null|mixed $noneValue value or object to regard as null, in addition to None()
+     * @param string $exception a custom exception type to throw for a null value, defaults to \Exception
+     * @param string $message a custom exception message
+     *
+     * @return Option
+     */
+    public static function fromNonNullable(
+        $value,
+        $noneValue = null,
+        $exception = '\Exception',
+        $message = 'Option was passed an unexpected null value to a method that does not allow null values.'
+    ) {
+        $option = static::ensure($value, $noneValue);
+
+        if ($option === None::create()) {
+            throw new $exception($message);
+        }
+
+        return $option;
+    }
+
+    /**
      * Creates an option from an array's value.
      *
      * If the key does not exist in the array, the array is not actually an array, or the

@@ -21,6 +21,23 @@ class OptionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhpOption\Some', \PhpOption\Option::fromValue(null, false));
     }
 
+    public function testFromNonNullableWithNull()
+    {
+        $this->setExpectedException('\Exception', 'Option was passed an unexpected null value to a method that does not allow null values.');
+        \PhpOption\Option::fromNonNullable(null);
+    }
+
+    public function testFromNonNullableWithNone()
+    {
+        $this->setExpectedException('\Exception', 'Option was passed an unexpected null value to a method that does not allow null values.');
+        \PhpOption\Option::fromNonNullable(None::create());
+    }
+
+    public function testFromNonNullableWithValue()
+    {
+        $this->assertEquals(new Some('foo'), Option::fromNonNullable('foo'));
+    }
+
     public function testFromArraysValue()
     {
         $this->assertEquals(None::create(), Option::fromArraysValue('foo', 'bar'));
