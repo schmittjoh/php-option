@@ -312,7 +312,7 @@ abstract class Option implements IteratorAggregate
      * a shallow comparison ===), then None is returned; otherwise, the Option is
      * returned.
      *
-     * In other words, this will let all values through expect the passed value.
+     * In other words, this will let all values through except the passed value.
      *
      * @param mixed $value
      *
