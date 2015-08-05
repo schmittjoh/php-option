@@ -194,11 +194,22 @@ abstract class Option implements IteratorAggregate
      *         ->orElse(new LazyOption(array($repo, 'createSomething')));
      * ```
      *
-     * @param Option $else
+     * or, you can pass alternative as Closures or plain values too:
+     *
+     * ```php
+     *     $repo->findSomething()
+     *         ->orElse($defaultValue)
+     *         ->orElse(function() {
+     *            // this Closure evaluates only if this Option is None.
+     *            // if you return Option here, it will be directly passed outside
+     *         })
+     * ```
+     *
+     * @param Option|\Closure|mixed $else
      *
      * @return Option
      */
-    abstract public function orElse(Option $else);
+    abstract public function orElse($else);
 
     /**
      * This is similar to map() below except that the return value has no meaning;

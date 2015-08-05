@@ -17,7 +17,14 @@
         "phpunit/phpunit": "4.7.*"
     },
     "autoload": {
-        "psr-0": { "PhpOption\\": "src/" }
+        "psr-0": {
+            "PhpOption\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "PhpOption\\Tests\\": "tests/"
+        }
     },
     "extra": {
         "branch-alias": {
