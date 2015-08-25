@@ -2,13 +2,14 @@
 
 namespace PhpOption\Tests;
 
+use PhpOption\None;
 use PhpOption\Some;
 
 class SomeTest extends \PHPUnit_Framework_TestCase
 {
     public function testGet()
     {
-        $some = new \PhpOption\Some('foo');
+        $some = new Some('foo');
         $this->assertEquals('foo', $some->get());
         $this->assertEquals('foo', $some->getOrElse(null));
         $this->assertEquals('foo', $some->getOrCall('does_not_exist'));
@@ -18,7 +19,7 @@ class SomeTest extends \PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
-        $some = \PhpOption\Some::create('foo');
+        $some = Some::create('foo');
         $this->assertEquals('foo', $some->get());
         $this->assertEquals('foo', $some->getOrElse(null));
         $this->assertEquals('foo', $some->getOrCall('does_not_exist'));
@@ -28,12 +29,12 @@ class SomeTest extends \PHPUnit_Framework_TestCase
 
     public function testOrElse()
     {
-        $some = \PhpOption\Some::create('foo');
-        $this->assertSame($some, $some->orElse(\PhpOption\None::create()));
-        $this->assertSame($some, $some->orElse(\PhpOption\Some::create('bar')));
+        $some = Some::create('foo');
+        $this->assertSame($some, $some->orElse(None::create()));
+        $this->assertSame($some, $some->orElse(None::create('bar')));
     }
 
-    public function testifDefined()
+    public function testIfDefined()
     {
         $called = false;
         $self = $this;
@@ -157,7 +158,7 @@ class Repository
     public function getLastRegisteredUsername()
     {
         if (empty($this->users)) {
-            return \PhpOption\None::create();
+            return None::create();
         }
 
         return new Some(end($this->users));
@@ -170,7 +171,7 @@ class Repository
             return new Some(array('name' => $name));
         }
 
-        return \PhpOption\None::create();
+        return None::create();
     }
 
     public function getDefaultUser()
