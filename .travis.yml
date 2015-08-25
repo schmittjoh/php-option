@@ -10,7 +10,7 @@ before_script:
   - php composer.phar install --dev
 
 script:
-  - phpunit
+  - phpunit --configuration phpunit.xml --colors --coverage-text
 
 matrix:
   allow_failures:
