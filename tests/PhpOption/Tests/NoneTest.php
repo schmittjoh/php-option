@@ -3,9 +3,13 @@
 namespace PhpOption\Tests;
 
 use PhpOption\None;
+use PhpOption\Some;
 
 class NoneTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var None
+     */
     private $none;
 
     /**
@@ -13,19 +17,19 @@ class NoneTest extends \PHPUnit_Framework_TestCase
      */
     public function testGet()
     {
-        $none = \PhpOption\None::create();
+        $none = None::create();
         $none->get();
     }
 
     public function testGetOrElse()
     {
-        $none = \PhpOption\None::create();
+        $none = None::create();
         $this->assertEquals('foo', $none->getOrElse('foo'));
     }
 
     public function testGetOrCall()
     {
-        $none = \PhpOption\None::create();
+        $none = None::create();
         $this->assertEquals('foo', $none->getOrCall(function() { return 'foo'; }));
     }
 
@@ -40,14 +44,14 @@ class NoneTest extends \PHPUnit_Framework_TestCase
 
     public function testIsEmpty()
     {
-        $none = \PhpOption\None::create();
+        $none = None::create();
         $this->assertTrue($none->isEmpty());
     }
 
     public function testOrElse()
     {
-        $option = \PhpOption\Some::create('foo');
-        $this->assertSame($option, \PhpOption\None::create()->orElse($option));
+        $option = Some::create('foo');
+        $this->assertSame($option, None::create()->orElse($option));
     }
 
     public function testifDefined()
@@ -104,7 +108,7 @@ class NoneTest extends \PHPUnit_Framework_TestCase
 
     public function testForeach()
     {
-        $none = \PhpOption\None::create();
+        $none = None::create();
 
         $called = 0;
         foreach ($none as $value) {
