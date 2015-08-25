@@ -112,15 +112,15 @@ class SomeTest extends \PHPUnit_Framework_TestCase
         $some = new Some(5);
 
         $this->assertSame(6, $some->foldLeft(1, function($a, $b) {
-            $this->assertEquals(1, $a);
-            $this->assertEquals(5, $b);
+            \PHPUnit_Framework_Assert::assertEquals(1, $a);
+            \PHPUnit_Framework_Assert::assertEquals(5, $b);
 
             return $a + $b;
         }));
 
         $this->assertSame(6, $some->foldRight(1, function($a, $b) {
-            $this->assertEquals(1, $b);
-            $this->assertEquals(5, $a);
+            \PHPUnit_Framework_Assert::assertEquals(1, $b);
+            \PHPUnit_Framework_Assert::assertEquals(5, $a);
 
             return $a + $b;
         }));
