@@ -28,28 +28,6 @@ use IteratorAggregate;
 abstract class Option implements IteratorAggregate
 {
     /**
-     * Creates an option given a return value.
-     *
-     * This is intended for consuming existing APIs and allows you to easily
-     * convert them to an option. By default, we treat ``null`` as the None case,
-     * and everything else as Some.
-     *
-     * @param mixed $value The actual return value.
-     * @param mixed $noneValue The value which should be considered "None"; null
-     *                         by default.
-     *
-     * @return Option
-     */
-    public static function fromValue($value, $noneValue = null)
-    {
-        if ($value === $noneValue) {
-            return None::create();
-        }
-
-        return new Some($value);
-    }
-
-    /**
      * Creates an option from an array's value.
      *
      * If the key does not exist in the array, the array is not actually an array, or the
@@ -66,11 +44,10 @@ abstract class Option implements IteratorAggregate
     {
         if ( ! isset($array[$key])) {
             return None::create();
+        } else {
+            return new Some($array[$key]);
         }
-
-        return new Some($array[$key]);
     }
-
     /**
      * Creates a lazy-option with the given callback.
      *
@@ -97,7 +74,6 @@ abstract class Option implements IteratorAggregate
             return new Some($return);
         });
     }
-
     /**
      * Option factory, which creates new option based on passed value.
      * If value is already an option, it simply returns
@@ -128,7 +104,27 @@ abstract class Option implements IteratorAggregate
             return Option::fromValue($value, $noneValue);
         }
     }
+    /**
+     * Creates an option given a return value.
+     *
+     * This is intended for consuming existing APIs and allows you to easily
+     * convert them to an option. By default, we treat ``null`` as the None case,
+     * and everything else as Some.
+     *
+     * @param mixed $value The actual return value.
+     * @param mixed $noneValue The value which should be considered "None"; null
+     *                         by default.
+     *
+     * @return Option
+     */
+    public static function fromValue($value, $noneValue = null)
+    {
+        if ($value === $noneValue) {
+            return None::create();
+        }
 
+        return new Some($value);
+    }
     /**
      * Returns the value if available, or throws an exception otherwise.
      *
