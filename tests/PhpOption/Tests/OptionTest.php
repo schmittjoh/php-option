@@ -78,4 +78,22 @@ class OptionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foo', $a->orElse($returns)->orElse($throws)->get());
     }
+
+    public function testLift()
+    {
+        $add = function($a, $b) { return $a + $b; };
+        $addL = Option::lift($add);
+
+        $a = new Some(1);
+        $b = new Some(5);
+        $n = None::create();
+
+        $ab = call_user_func_array($addL, array($a, $b));
+        $ba = call_user_func_array($addL, array($b, $a));
+        $this->assertEquals(6, $ab->get());
+        $this->assertEquals(6, $ba->get());
+        $this->assertEquals($n, call_user_func_array($addL, array($a, $n)));
+        $this->assertEquals($n, call_user_func_array($addL, array($n, $a)));
+        $this->assertEquals($n, call_user_func_array($addL, array($n, $n)));
+    }
 }

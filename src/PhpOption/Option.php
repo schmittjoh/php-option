@@ -130,6 +130,40 @@ abstract class Option implements IteratorAggregate
     }
 
     /**
+     * Lift a function so that it accepts Option as parameters.
+     *
+     * We return a new closure that wraps the original callback. If any of the
+     * parameters passed to the lifted function is empty, the function will return
+     * a value of None. Otherwise, we will pass all parameters to the original
+     * callback and return the value inside a new Option.
+     *
+     * @param callable|\Closure $callback
+     * @return \Closure
+     */
+    public static function lift($callback)
+    {
+        return function() use ($callback)
+        {
+            $args = func_get_args();
+
+            // if at least one parameter is empty, return None
+            if(array_reduce($args, function($status, Option $o) {
+                return $o->isEmpty() ? true : $status;
+            }, false)) {
+                return None::create();
+            }
+
+            $args = array_map(function(Option $o) {
+                // it is safe to do so because the fold above checked
+                // that all arguments are of type Some
+                return $o->get();
+            }, $args);
+
+            return new Some(call_user_func_array($callback, $args));
+        };
+    }
+
+    /**
      * Returns the value if available, or throws an exception otherwise.
      *
      * @throws \RuntimeException if value is not available
