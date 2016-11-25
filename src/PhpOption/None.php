@@ -126,5 +126,10 @@ final class None extends Option
         return $initialValue;
     }
 
+    public function call($methodName, array $arguments = array())
+    {
+        return $this;
+    }
+
     private function __construct() { }
 }
