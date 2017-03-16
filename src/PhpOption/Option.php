@@ -64,7 +64,7 @@ abstract class Option implements IteratorAggregate
      */
     public static function fromArraysValue($array, $key)
     {
-        if ( ! isset($array[$key])) {
+        if (!is_array($array) || !isset($array[$key])) {
             return None::create();
         }
 
