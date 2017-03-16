@@ -118,9 +118,9 @@ class SomeTest extends \PHPUnit_Framework_TestCase
             return $a + $b;
         }));
 
-        $this->assertSame(6, $some->foldRight(1, function($a, $b) {
-            $this->assertEquals(1, $b);
-            $this->assertEquals(5, $a);
+        $this->assertSame(6, $some->foldRight(1, function($a, $b) use ($testObj) {
+            $testObj->assertEquals(1, $b);
+            $testObj->assertEquals(5, $a);
 
             return $a + $b;
         }));
