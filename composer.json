@@ -3,7 +3,7 @@
     "description": "Option Type for PHP",
     "keywords": ["php","option","language","type"],
     "type": "library",
-    "license": "Apache2",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Johannes M. Schmitt",
