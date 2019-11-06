@@ -16,6 +16,12 @@ matrix:
       dist: xenial
     - php: 7.0
       dist: xenial
+    - php: 7.1
+      dist: bionic
+    - php: 7.2
+      dist: bionic
+    - php: 7.3
+      dist: bionic
 
 before_script: travis_retry composer install
 
