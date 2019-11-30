@@ -1,7 +1,7 @@
 # PHP Option Type
 
-[![Build Status](https://secure.travis-ci.org/schmittjoh/php-option.png)](http://travis-ci.org/schmittjoh/php-option) 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/schmittjoh/php-option/badges/quality-score.png?s=7feb0fcc5150b36216f7683292ed8480aab1628b)](https://scrutinizer-ci.com/g/schmittjoh/php-option/)
+[![Build Status](https://secure.travis-ci.org/schmittjoh/php-option.svg)](http://travis-ci.org/schmittjoh/php-option) 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/schmittjoh/php-option/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/schmittjoh/php-option/)
 
 An Option type for PHP.
 
@@ -23,10 +23,10 @@ more concise API methods, and empowers the API user in how he consumes these met
 
 ## Installation
 
-Installation is super-easy via composer,
+Installation is super-easy via composer:
 
 ```bash
-composer require phpoption/phpoption
+$ composer require phpoption/phpoption
 ```
 
 or add it to your `composer.json` file.
@@ -176,3 +176,11 @@ overhead is surprisingly low, almost negligible.
 So in conclusion, unless you plan to call a method thousands of times during a
 request, there is no reason to stick to the ``object|null`` return value; better give
 your code some options!
+
+## Security
+
+If you discover a security vulnerability within this package, please send an email to one of the security contacts. All security vulnerabilities will be promptly addressed. You may view our full security policy [here](https://github.com/schmittjoh/php-option/security/policy).
+
+## License
+
+PHP Option Type is licensed under [Apache License 2.0](LICENSE).
