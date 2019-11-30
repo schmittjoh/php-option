@@ -146,18 +146,17 @@ abstract class Option implements IteratorAggregate
      */
     public static function lift($callback, $noneValue = null)
     {
-        return function() use ($callback, $noneValue)
-        {
+        return function () use ($callback, $noneValue) {
             $args = func_get_args();
 
             // if at least one parameter is empty, return None
-            if (array_reduce($args, function ($status, Option $o) {
+            if (array_reduce($args, function ($status, self $o) {
                 return $o->isEmpty() ? true : $status;
             }, false)) {
                 return None::create();
             }
 
-            $args = array_map(function (Option $o) {
+            $args = array_map(function (self $o) {
                 // it is safe to do so because the fold above checked
                 // that all arguments are of type Some
                 return $o->get();
