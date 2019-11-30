@@ -30,8 +30,6 @@ final class LazyOption extends Option
     private $option;
 
     /**
-     * Helper Constructor.
-     *
      * @param callable $callback
      * @param array    $arguments
      *
@@ -43,8 +41,6 @@ final class LazyOption extends Option
     }
 
     /**
-     * Constructor.
-     *
      * @param callable $callback
      * @param array    $arguments
      */
@@ -161,7 +157,7 @@ final class LazyOption extends Option
             if (!$this->option instanceof Option) {
                 $this->option = null;
 
-                throw new \RuntimeException('Expected instance of \PhpOption\Option');
+                throw new \RuntimeException(sprintf('Expected instance of \%s', Option::class));
             }
         }
 

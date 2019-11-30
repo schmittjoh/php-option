@@ -31,12 +31,12 @@ abstract class Option implements IteratorAggregate
      * Creates an option given a return value.
      *
      * This is intended for consuming existing APIs and allows you to easily
-     * convert them to an option. By default, we treat ``null`` as the None case,
-     * and everything else as Some.
+     * convert them to an option. By default, we treat ``null`` as the None
+     * case, and everything else as Some.
      *
      * @param mixed $value     The actual return value.
-     * @param mixed $noneValue The value which should be considered "None"; null
-     *                         by default.
+     * @param mixed $noneValue The value which should be considered "None";
+     *                         null by default.
      *
      * @return Option
      */
@@ -52,13 +52,12 @@ abstract class Option implements IteratorAggregate
     /**
      * Creates an option from an array's value.
      *
-     * If the key does not exist in the array, the array is not actually an array, or the
-     * array's value at the given key is null, None is returned.
-     *
+     * If the key does not exist in the array, the array is not actually an
+     * array, or the array's value at the given key is null, None is returned.
      * Otherwise, Some is returned wrapping the value at the given key.
      *
-     * @param mixed  $array a potential array value
-     * @param string $key   the key to check
+     * @param mixed  $array A potential array value.
+     * @param string $key   The key to check.
      *
      * @return Option
      */
@@ -79,7 +78,7 @@ abstract class Option implements IteratorAggregate
      * None case, and everything else as Some.
      *
      * @param callable $callback  The callback to evaluate.
-     * @param array    $arguments
+     * @param array    $arguments The arguments for the callback.
      * @param mixed    $noneValue The value which should be considered "None"; null
      *                            by default.
      *
@@ -107,7 +106,8 @@ abstract class Option implements IteratorAggregate
      * to Option::fromValue() method.
      *
      * @param Option|callable|mixed $value
-     * @param mixed                 $noneValue used when $value is mixed or callable, for None-check
+     * @param mixed                 $noneValue Used when $value is mixed or
+     *                                         callable, for None-check.
      *
      * @return Option
      */
@@ -133,7 +133,7 @@ abstract class Option implements IteratorAggregate
     /**
      * Returns the value if available, or throws an exception otherwise.
      *
-     * @throws \RuntimeException if value is not available
+     * @throws \RuntimeException If value is not available.
      *
      * @return mixed
      */
@@ -324,8 +324,8 @@ abstract class Option implements IteratorAggregate
     /**
      * Binary operator for the initial value and the option's value.
      *
-     * If empty, the initial value is returned.
-     * If non-empty, the callable receives the initial value and the option's value as arguments
+     * If empty, the initial value is returned. If non-empty, the callable
+     * receives the initial value and the option's value as arguments.
      *
      * ```php
      *
