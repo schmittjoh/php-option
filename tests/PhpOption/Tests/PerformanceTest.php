@@ -2,10 +2,12 @@
 
 namespace PhpOption\Tests;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @group performance
  */
-class PerformanceTest extends \PHPUnit_Framework_TestCase
+class PerformanceTest extends TestCase
 {
     private $traditionalRepo;
     private $phpOptionRepo;
@@ -72,9 +74,9 @@ class PhpOptionRepo
     public function findMaybe($success)
     {
         if ($success) {
-            return new \PhpOption\Some(new \stdClass());
+            return new Some(new \stdClass());
         }
 
-        return \PhpOption\None::create();
+        return None::create();
     }
 }

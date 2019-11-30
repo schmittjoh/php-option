@@ -5,18 +5,19 @@ namespace PhpOption\Tests;
 use PhpOption\None;
 use PhpOption\Option;
 use PhpOption\Some;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for Option::ensure() method.
  *
- * @covers \PhpOption\Option::ensure
+ * @covers Option::ensure
  */
-class EnsureTest extends \PHPUnit_Framework_TestCase
+class EnsureTest extends TestCase
 {
     protected function ensure($value, $noneValue = null)
     {
         $option = Option::ensure($value, $noneValue);
-        $this->assertInstanceOf('PhpOption\Option', $option);
+        $this->assertInstanceOf(Option::class, $option);
 
         return $option;
     }
