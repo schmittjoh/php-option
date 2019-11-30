@@ -34,7 +34,7 @@ abstract class Option implements IteratorAggregate
      * convert them to an option. By default, we treat ``null`` as the None case,
      * and everything else as Some.
      *
-     * @param mixed $value The actual return value.
+     * @param mixed $value     The actual return value.
      * @param mixed $noneValue The value which should be considered "None"; null
      *                         by default.
      *
@@ -57,8 +57,8 @@ abstract class Option implements IteratorAggregate
      *
      * Otherwise, Some is returned wrapping the value at the given key.
      *
-     * @param mixed $array a potential array value
-     * @param string $key the key to check
+     * @param mixed  $array a potential array value
+     * @param string $key   the key to check
      *
      * @return Option
      */
@@ -78,16 +78,16 @@ abstract class Option implements IteratorAggregate
      * the return value is not yet an option. By default, we treat ``null`` as
      * None case, and everything else as Some.
      *
-     * @param callable $callback The callback to evaluate.
-     * @param array $arguments
-     * @param mixed $noneValue The value which should be considered "None"; null
-     *                         by default.
+     * @param callable $callback  The callback to evaluate.
+     * @param array    $arguments
+     * @param mixed    $noneValue The value which should be considered "None"; null
+     *                            by default.
      *
      * @return Option
      */
-    public static function fromReturn($callback, array $arguments = array(), $noneValue = null)
+    public static function fromReturn($callback, array $arguments = [], $noneValue = null)
     {
-        return new LazyOption(function() use ($callback, $arguments, $noneValue) {
+        return new LazyOption(function () use ($callback, $arguments, $noneValue) {
             $return = call_user_func_array($callback, $arguments);
 
             if ($return === $noneValue) {
@@ -107,26 +107,26 @@ abstract class Option implements IteratorAggregate
      * to Option::fromValue() method.
      *
      * @param Option|callable|mixed $value
-     * @param mixed $noneValue used when $value is mixed or callable, for None-check
+     * @param mixed                 $noneValue used when $value is mixed or callable, for None-check
      *
      * @return Option
      */
     public static function ensure($value, $noneValue = null)
     {
-        if ($value instanceof Option) {
+        if ($value instanceof self) {
             return $value;
         } elseif (is_callable($value)) {
-            return new LazyOption(function() use ($value, $noneValue) {
+            return new LazyOption(function () use ($value, $noneValue) {
                 $return = $value();
 
-                if ($return instanceof Option) {
+                if ($return instanceof self) {
                     return $return;
                 } else {
-                    return Option::fromValue($return, $noneValue);
+                    return self::fromValue($return, $noneValue);
                 }
             });
         } else {
-            return Option::fromValue($value, $noneValue);
+            return self::fromValue($value, $noneValue);
         }
     }
 
@@ -199,7 +199,7 @@ abstract class Option implements IteratorAggregate
      *
      * @return Option
      */
-    abstract public function orElse(Option $else);
+    abstract public function orElse(self $else);
 
     /**
      * This is similar to map() below except that the return value has no meaning;
@@ -342,8 +342,8 @@ abstract class Option implements IteratorAggregate
      *     }
      * ```
      *
-     * @param mixed $initialValue
-     * @param callable $callable function(initialValue, callable): result
+     * @param mixed    $initialValue
+     * @param callable $callable     function(initialValue, callable): result
      *
      * @return mixed
      */
@@ -352,8 +352,8 @@ abstract class Option implements IteratorAggregate
     /**
      * foldLeft() but with reversed arguments for the callable.
      *
-     * @param mixed $initialValue
-     * @param callable $callable function(callable, initialValue): result
+     * @param mixed    $initialValue
+     * @param callable $callable     function(callable, initialValue): result
      *
      * @return mixed
      */
