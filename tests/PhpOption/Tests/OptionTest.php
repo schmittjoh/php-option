@@ -91,4 +91,35 @@ class OptionTest extends TestCase
 
         $this->assertEquals('foo', $a->orElse($returns)->orElse($throws)->get());
     }
+
+    public function testLift()
+    {
+        $f = function ($a, $b) {
+            return $a + $b;
+        };
+
+        $fL = Option::lift($f);
+
+        $a = new Some(1);
+        $b = new Some(5);
+        $n = None::create();
+
+        $this->assertEquals(6, $fL($a, $b)->get());
+        $this->assertEquals(6, $fL($b, $a)->get());
+        $this->assertEquals($n, $fL($a, $n));
+        $this->assertEquals($n, $fL($n, $a));
+        $this->assertEquals($n, $fL($n, $n));
+    }
+
+    public function testLiftDegenerate()
+    {
+        $f = function () {
+        };
+
+        $fL1 = Option::lift($f);
+        $fL2 = Option::lift($f, false);
+
+        $this->assertEquals(None::create(), $fL1());
+        $this->assertEquals(Some::create(null), $fL2());
+    }
 }
