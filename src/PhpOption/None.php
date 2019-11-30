@@ -126,5 +126,7 @@ final class None extends Option
         return $initialValue;
     }
 
-    private function __construct() { }
+    private function __construct()
+    {
+    }
 }

@@ -12,13 +12,13 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
     {
         $this->subject = $this
             ->getMockBuilder('Subject')
-            ->setMethods(array('execute'))
+            ->setMethods(['execute'])
             ->getMock();
     }
 
     public function testGetWithArgumentsAndConstructor()
     {
-        $some = \PhpOption\LazyOption::create(array($this->subject, 'execute'), array('foo'));
+        $some = \PhpOption\LazyOption::create([$this->subject, 'execute'], ['foo']);
 
         $this->subject
             ->expects($this->once())
@@ -35,7 +35,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetWithArgumentsAndCreate()
     {
-        $some = new \PhpOption\LazyOption(array($this->subject, 'execute'), array('foo'));
+        $some = new \PhpOption\LazyOption([$this->subject, 'execute'], ['foo']);
 
         $this->subject
             ->expects($this->once())
@@ -52,7 +52,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetWithoutArgumentsAndConstructor()
     {
-        $some = new \PhpOption\LazyOption(array($this->subject, 'execute'));
+        $some = new \PhpOption\LazyOption([$this->subject, 'execute']);
 
         $this->subject
             ->expects($this->once())
@@ -68,7 +68,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetWithoutArgumentsAndCreate()
     {
-        $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
+        $option = \PhpOption\LazyOption::create([$this->subject, 'execute']);
 
         $this->subject
             ->expects($this->once())
@@ -89,7 +89,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallbackReturnsNull()
     {
-        $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
+        $option = \PhpOption\LazyOption::create([$this->subject, 'execute']);
 
         $this->subject
             ->expects($this->once())
@@ -99,7 +99,9 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($option->isDefined());
         $this->assertTrue($option->isEmpty());
         $this->assertEquals('alt', $option->getOrElse('alt'));
-        $this->assertEquals('alt', $option->getOrCall(function(){return 'alt';}));
+        $this->assertEquals('alt', $option->getOrCall(function () {
+            return 'alt';
+        }));
 
         $option->get();
     }
@@ -110,7 +112,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionIsThrownIfCallbackReturnsNonOption()
     {
-        $option = \PhpOption\LazyOption::create(array($this->subject, 'execute'));
+        $option = \PhpOption\LazyOption::create([$this->subject, 'execute']);
 
         $this->subject
             ->expects($this->once())
@@ -142,7 +144,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
     {
         $called = false;
         $self = $this;
-        $this->assertNull(LazyOption::fromValue('foo')->ifDefined(function($v) use (&$called, $self) {
+        $this->assertNull(LazyOption::fromValue('foo')->ifDefined(function ($v) use (&$called, $self) {
             $called = true;
             $self->assertEquals('foo', $v);
         }));
@@ -153,7 +155,7 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
     {
         $called = false;
         $self = $this;
-        $this->assertInstanceOf('PhpOption\Some', LazyOption::fromValue('foo')->forAll(function($v) use (&$called, $self) {
+        $this->assertInstanceOf('PhpOption\Some', LazyOption::fromValue('foo')->forAll(function ($v) use (&$called, $self) {
             $called = true;
             $self->assertEquals('foo', $v);
         }));
@@ -163,28 +165,35 @@ class LazyOptionTest extends \PHPUnit_Framework_TestCase
     public function testOrElse()
     {
         $some = \PhpOption\Some::create('foo');
-        $lazy = \PhpOption\LazyOption::create(function() use ($some) {return $some;});
+        $lazy = \PhpOption\LazyOption::create(function () use ($some) {
+            return $some;
+        });
         $this->assertSame($some, $lazy->orElse(\PhpOption\None::create()));
         $this->assertSame($some, $lazy->orElse(\PhpOption\Some::create('bar')));
     }
 
     public function testFoldLeftRight()
     {
-        $callback = function() { };
+        $callback = function () {
+        };
 
         $option = $this->getMockForAbstractClass('PhpOption\Option');
         $option->expects($this->once())
             ->method('foldLeft')
             ->with(5, $callback)
             ->will($this->returnValue(6));
-        $lazyOption = new LazyOption(function() use ($option) { return $option; });
+        $lazyOption = new LazyOption(function () use ($option) {
+            return $option;
+        });
         $this->assertSame(6, $lazyOption->foldLeft(5, $callback));
 
         $option->expects($this->once())
             ->method('foldRight')
             ->with(5, $callback)
             ->will($this->returnValue(6));
-        $lazyOption = new LazyOption(function() use ($option) { return $option; });
+        $lazyOption = new LazyOption(function () use ($option) {
+            return $option;
+        });
         $this->assertSame(6, $lazyOption->foldRight(5, $callback));
     }
 }
