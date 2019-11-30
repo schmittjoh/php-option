@@ -92,7 +92,7 @@ final class Some extends Option
     public function flatMap($callable)
     {
         $rs = call_user_func($callable, $this->value);
-        if ( ! $rs instanceof Option) {
+        if (!$rs instanceof Option) {
             throw new \RuntimeException('Callables passed to flatMap() must return an Option. Maybe you should use map() instead?');
         }
 
@@ -137,7 +137,7 @@ final class Some extends Option
 
     public function getIterator()
     {
-        return new ArrayIterator(array($this->value));
+        return new ArrayIterator([$this->value]);
     }
 
     public function foldLeft($initialValue, $callable)
