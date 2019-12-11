@@ -2,6 +2,8 @@
 
 namespace PhpOption\Tests;
 
+use ArrayAccess;
+use LogicException;
 use PhpOption\LazyOption;
 use PhpOption\None;
 use PhpOption\Option;
@@ -73,7 +75,7 @@ class OptionTest extends TestCase
     public function testOrElseWithLazyOptions()
     {
         $throws = function () {
-            throw new \LogicException('Should never be called.');
+            throw new LogicException('Should never be called.');
         };
 
         $a = new Some('a');
@@ -85,7 +87,7 @@ class OptionTest extends TestCase
     public function testOrElseWithMultipleAlternatives()
     {
         $throws = new LazyOption(function () {
-            throw new \LogicException('Should never be called.');
+            throw new LogicException('Should never be called.');
         });
         $returns = new LazyOption(function () {
             return new Some('foo');
@@ -128,7 +130,7 @@ class OptionTest extends TestCase
     }
 }
 
-class SomeArrayObject implements \ArrayAccess
+class SomeArrayObject implements ArrayAccess
 {
     private $data = [];
 
@@ -151,5 +153,4 @@ class SomeArrayObject implements \ArrayAccess
     {
         unset($this->data[$offset]);
     }
-
 }
