@@ -18,6 +18,7 @@
 
 namespace PhpOption;
 
+use ArrayAccess;
 use IteratorAggregate;
 
 /**
@@ -63,7 +64,7 @@ abstract class Option implements IteratorAggregate
      */
     public static function fromArraysValue($array, $key)
     {
-        if ($array === null || !isset($array[$key])) {
+        if (!(is_array($array) || $array instanceof ArrayAccess) || !isset($array[$key])) {
             return None::create();
         }
 
