@@ -18,6 +18,7 @@
 
 namespace PhpOption;
 
+use ArrayAccess;
 use IteratorAggregate;
 
 /**
@@ -57,14 +58,14 @@ abstract class Option implements IteratorAggregate
      *
      * Otherwise, Some is returned wrapping the value at the given key.
      *
-     * @param mixed $array a potential array value
-     * @param string $key the key to check
+     * @param mixed  $array A potential array or \ArrayAccess value.
+     * @param string $key   The key to check.
      *
      * @return Option
      */
     public static function fromArraysValue($array, $key)
     {
-        if (!is_array($array) || !isset($array[$key])) {
+        if (!(is_array($array) || $array instanceof ArrayAccess) || !isset($array[$key])) {
             return None::create();
         }
 
