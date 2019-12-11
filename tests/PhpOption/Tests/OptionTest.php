@@ -2,6 +2,8 @@
 
 namespace PhpOption\Tests;
 
+use ArrayAccess;
+use LogicException;
 use PhpOption\LazyOption;
 use PhpOption\None;
 use PhpOption\Option;
@@ -30,6 +32,10 @@ class OptionTest extends TestCase
         $this->assertEquals(None::create(), Option::fromArraysValue(['foo' => 'bar'], 'baz'));
         $this->assertEquals(None::create(), Option::fromArraysValue(['foo' => null], 'foo'));
         $this->assertEquals(new Some('foo'), Option::fromArraysValue(['foo' => 'foo'], 'foo'));
+
+        $object = new SomeArrayObject();
+        $object['foo'] = 'foo';
+        $this->assertEquals(new Some('foo'), Option::fromArraysValue($object, 'foo'));
     }
 
     public function testFromReturn()
@@ -69,7 +75,7 @@ class OptionTest extends TestCase
     public function testOrElseWithLazyOptions()
     {
         $throws = function () {
-            throw new \LogicException('Should never be called.');
+            throw new LogicException('Should never be called.');
         };
 
         $a = new Some('a');
@@ -81,7 +87,7 @@ class OptionTest extends TestCase
     public function testOrElseWithMultipleAlternatives()
     {
         $throws = new LazyOption(function () {
-            throw new \LogicException('Should never be called.');
+            throw new LogicException('Should never be called.');
         });
         $returns = new LazyOption(function () {
             return new Some('foo');
@@ -121,5 +127,29 @@ class OptionTest extends TestCase
 
         $this->assertEquals(None::create(), $fL1());
         $this->assertEquals(Some::create(null), $fL2());
+}
+
+class SomeArrayObject implements ArrayAccess
+{
+    private $data = [];
+
+    public function offsetExists($offset)
+    {
+        return isset($this->data[$offset]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->data[$offset];
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->data[$offset] = $value;
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->data[$offset]);
     }
 }
