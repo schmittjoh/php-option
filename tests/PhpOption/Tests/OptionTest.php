@@ -127,6 +127,7 @@ class OptionTest extends TestCase
 
         $this->assertEquals(None::create(), $fL1());
         $this->assertEquals(Some::create(null), $fL2());
+    }
 }
 
 class SomeArrayObject implements ArrayAccess
