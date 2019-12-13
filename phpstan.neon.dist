@@ -1,7 +1,6 @@
 parameters:
   level: max
   ignoreErrors:
-    - '#Result of \|\| is always true.#'
     - '/\$arguments [a-z ]+ no value type specified in iterable type array/'
     - '#Method PhpOption\\None::getOr[a-zA-Z]+\(\) should return T but returns S.#'
     - '#Method PhpOption\\Option::fromArraysValue\(\) should return PhpOption\\Option<T> but returns PhpOption\\Some<T>.#'

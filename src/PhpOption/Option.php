@@ -59,8 +59,8 @@ abstract class Option implements IteratorAggregate
      * array, or the array's value at the given key is null, None is returned.
      * Otherwise, Some is returned wrapping the value at the given key.
      *
-     * @param array<string,T>|ArrayAccess<string,T> $array A potential array or \ArrayAccess value.
-     * @param string                                $key   The key to check.
+     * @param array<string,T>|ArrayAccess<string,T>|null $array A potential array or \ArrayAccess value.
+     * @param string                                     $key   The key to check.
      *
      * @return Option<T>
      */
