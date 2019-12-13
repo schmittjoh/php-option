@@ -20,10 +20,19 @@ namespace PhpOption;
 
 use EmptyIterator;
 
+/**
+ * @template T
+ *
+ * @extends Option<T>
+ */
 final class None extends Option
 {
+    /** @var None<T> */
     private static $instance;
 
+    /**
+     * @return None<T>
+     */
     public static function create()
     {
         if (null === self::$instance) {
@@ -68,9 +77,6 @@ final class None extends Option
         return $else;
     }
 
-    /**
-     * @deprecated Use forAll() instead.
-     */
     public function ifDefined($callable)
     {
         // Just do nothing in that case.
