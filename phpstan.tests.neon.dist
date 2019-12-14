@@ -2,8 +2,9 @@ parameters:
   level: 5
   ignoreErrors:
     - '/Parameter \#1 \$callable of method PhpOption\\[a-zA-Z]+<[a-zA-Z]+>::getOrCall\(\) expects callable\(\)/'
-    - '/Parameter \#1 \$callback of class PhpOption\\[a-zA-Z]+ constructor expects callable\(\)/'
+    - '/Parameter \#1 \$callback of class PhpOption\\[a-zA-Z]+ constructor expects callable\(array<int, array<int, array<int, mixed>>>\)/'
     - '/Parameter \#1 \$value of method PhpOption\\Some<string>::[a-z]+\(\) expects string/'
-    - '/Parameter \#1 \$callback of static method PhpOption\\LazyOption<mixed>::create\(\) expects callable\(\): mixed/'
+    - '/Parameter \#1 \$callback of static method PhpOption\\LazyOption<mixed>::create\(\) expects callable\(array<int, array<int, array<int, array<int, array<int, mixed>>>>>\): PhpOption\\Option<mixed>/'
     - '#Parameter \#1 \$callable of method PhpOption\\[a-zA-Z]+<[a-z\|]+>::forAll\(\) expects callable\([a-z\|]+\): void, Closure\(mixed\): mixed given.#'
     - '#Parameter \#1 \$array of static method PhpOption\\Option<mixed>::fromArraysValue\(\) expects array<string, mixed>\|ArrayAccess<string, mixed>\|null, string given.#'
+

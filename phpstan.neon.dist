@@ -3,3 +3,4 @@ parameters:
   ignoreErrors:
     - '/\$arguments [a-z ]+ no value type specified in iterable type array/'
     - '#Method PhpOption\\Option::ensure() should return PhpOption\\Option<S> but returns PhpOption\\Option<S|null>.#'
+    - '/PhpOption\\Option<T>::forAll\(\) expects callable\(T\): void, callable\(T\): mixed given/'

@@ -156,7 +156,8 @@ final class LazyOption extends Option
     private function option()
     {
         if (null === $this->option) {
-            $this->option = ($this->callback)(...$this->arguments);
+            $callback = $this->callback;
+            $this->option = $callback(...$this->arguments);
 
             /** @psalm-suppress DocblockTypeContradiction */
             if (!$this->option instanceof Option) {
