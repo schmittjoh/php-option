@@ -1,5 +1,17 @@
 matrix:
   include:
+    - name: PHP 5.5.9
+      dist: trusty
+      language: php
+      php: 5.5.9
+      install: travis_retry composer install --no-suggest --prefer-dist -n -o
+      script: vendor/bin/phpunit
+    - name: PHP 5.5
+      dist: trusty
+      language: php
+      php: 5.5
+      install: travis_retry composer install --no-suggest --prefer-dist -n -o
+      script: vendor/bin/phpunit
     - name: PHP 5.6
       dist: bionic
       install: travis_retry docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint composer registry.gitlab.com/grahamcampbell/php:5.6 install --no-suggest --prefer-dist -n -o

@@ -160,7 +160,7 @@ abstract class Option implements IteratorAggregate
     public static function lift($callback, $noneValue = null)
     {
         return function () use ($callback, $noneValue) {
-            /** @var array<mixed> */
+            /** @var array<int, mixed> */
             $args = func_get_args();
 
             $reduced_args = array_reduce(

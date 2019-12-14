@@ -104,7 +104,6 @@ final class Some extends Option
     public function flatMap($callable)
     {
         $rs = $callable($this->value);
-        /** @psalm-suppress DocblockTypeContradiction */
         if (!$rs instanceof Option) {
             throw new \RuntimeException('Callables passed to flatMap() must return an Option. Maybe you should use map() instead?');
         }
