@@ -284,7 +284,7 @@ abstract class Option implements IteratorAggregate
      *
      * @deprecated Use forAll() instead.
      *
-     * @param callable $callable
+     * @param callable(T): void $callable
      *
      * @return void
      */
