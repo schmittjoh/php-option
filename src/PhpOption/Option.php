@@ -95,7 +95,7 @@ abstract class Option implements IteratorAggregate
     {
         return new LazyOption(function () use ($callback, $arguments, $noneValue) {
             /** @var mixed */
-            $return = $callback(...$arguments);
+            $return = call_user_func_array($callback, $arguments);
 
             if ($return === $noneValue) {
                 return None::create();
