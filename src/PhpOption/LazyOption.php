@@ -25,7 +25,7 @@ namespace PhpOption;
  */
 final class LazyOption extends Option
 {
-    /** @var callable */
+    /** @var callable(mixed...):(Option<T>) */
     private $callback;
 
     /** @var array */
@@ -36,9 +36,8 @@ final class LazyOption extends Option
 
     /**
      * @template S
-     *
-     * @param callable $callback
-     * @param array    $arguments
+     * @param callable(mixed...):(Option<S>) $callback
+     * @param array                          $arguments
      *
      * @return LazyOption<S>
      */
@@ -48,8 +47,8 @@ final class LazyOption extends Option
     }
 
     /**
-     * @param callable $callback
-     * @param array    $arguments
+     * @param callable(mixed...):(Option<T>) $callback
+     * @param array                          $arguments
      */
     public function __construct($callback, array $arguments = [])
     {
@@ -98,7 +97,7 @@ final class LazyOption extends Option
 
     public function ifDefined($callable)
     {
-        $this->option()->ifDefined($callable);
+        $this->option()->forAll($callable);
     }
 
     public function forAll($callable)
@@ -157,7 +156,9 @@ final class LazyOption extends Option
     private function option()
     {
         if (null === $this->option) {
-            $this->option = call_user_func_array($this->callback, $this->arguments);
+            $this->option = ($this->callback)(...$this->arguments);
+
+            /** @psalm-suppress DocblockTypeContradiction */
             if (!$this->option instanceof Option) {
                 $this->option = null;
 
