@@ -413,8 +413,8 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param S                        $initialValue
-     * @param callable(mixed, mixed):S $callable     function(callable, initialValue): result
+     * @param S                $initialValue
+     * @param callable(S, T):S $callable     function(callable, initialValue): result
      *
      * @return S
      */
@@ -425,8 +425,8 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param S                        $initialValue
-     * @param callable(mixed, mixed):S $callable     function(callable, initialValue): result
+     * @param S                $initialValue
+     * @param callable(T, S):S $callable     function(callable, initialValue): result
      *
      * @return S
      */
