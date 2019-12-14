@@ -1,5 +1,10 @@
 {
     "require": {
-        "phpstan/phpstan": "^0.12.2"
-    }
+        "phpstan/phpstan": "^0.12.3"
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

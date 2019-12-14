@@ -36,12 +36,13 @@ abstract class Option implements IteratorAggregate
      * case, and everything else as Some.
      *
      * @template S
+     * @template N
      *
-     * @param T|S $value   The actual return value.
-     * @param S $noneValue The value which should be considered "None"; null by
+     * @param S|N $value   The actual return value.
+     * @param N $noneValue The value which should be considered "None"; null by
      *                     default.
      *
-     * @return Option<T>
+     * @return Option<S>
      */
     public static function fromValue($value, $noneValue = null)
     {
@@ -59,10 +60,12 @@ abstract class Option implements IteratorAggregate
      * array, or the array's value at the given key is null, None is returned.
      * Otherwise, Some is returned wrapping the value at the given key.
      *
-     * @param array<string,T>|ArrayAccess<string,T>|null $array A potential array or \ArrayAccess value.
+     * @template S
+     *
+     * @param array<string,S>|ArrayAccess<string,S>|null $array A potential array or \ArrayAccess value.
      * @param string                                     $key   The key to check.
      *
-     * @return Option<T>
+     * @return Option<S>
      */
     public static function fromArraysValue($array, $key)
     {
@@ -80,12 +83,15 @@ abstract class Option implements IteratorAggregate
      * the return value is not yet an option. By default, we treat ``null`` as
      * None case, and everything else as Some.
      *
+     * @template S
+     * @template N
+     *
      * @param callable $callback  The callback to evaluate.
      * @param array    $arguments The arguments for the callback.
-     * @param mixed    $noneValue The value which should be considered "None"; null
-     *                            by default.
+     * @param N        $noneValue The value which should be considered "None";
+    *                             null by default.
      *
-     * @return Option<T>
+     * @return LazyOption<S>
      */
     public static function fromReturn($callback, array $arguments = [], $noneValue = null)
     {
@@ -108,11 +114,14 @@ abstract class Option implements IteratorAggregate
      * returned from callback, it returns directly. On other case value passed
      * to Option::fromValue() method.
      *
-     * @param Option<T>|callable|T $value
-     * @param mixed                $noneValue Used when $value is mixed or
-     *                                        callable, for None-check.
+     * @template S
+     * @template N
      *
-     * @return Option<T>
+     * @param Option<S>|callable|S|N $value
+     * @param N                      $noneValue Used when $value is mixed or
+     *                                          callable, for None-check.
+     *
+     * @return Option<S>|LazyOption<S>
      */
     public static function ensure($value, $noneValue = null)
     {
@@ -142,10 +151,12 @@ abstract class Option implements IteratorAggregate
      * original callback and return the value inside a new Option, unless an
      * Option is returned from the function, in which case, we use that.
      *
+     * @template S
+     *
      * @param callable $callback
      * @param mixed    $noneValue
      *
-     * @return callable
+     * @return callable(): Option<S>|LazyOption<S>
      */
     public static function lift($callback, $noneValue = null)
     {

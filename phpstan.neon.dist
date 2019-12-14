@@ -2,5 +2,4 @@ parameters:
   level: max
   ignoreErrors:
     - '/\$arguments [a-z ]+ no value type specified in iterable type array/'
-    - '#Method PhpOption\\None::getOr[a-zA-Z]+\(\) should return T but returns S.#'
-    - '#Method PhpOption\\Option::fromArraysValue\(\) should return PhpOption\\Option<T> but returns PhpOption\\Some<T>.#'
+    - '#Method PhpOption\\Option::fromValue\(\) should return PhpOption\\Option<S> but returns PhpOption\\Some<N|S>.#'
