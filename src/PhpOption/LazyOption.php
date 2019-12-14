@@ -97,7 +97,7 @@ final class LazyOption extends Option
 
     public function ifDefined($callable)
     {
-        $this->option()->isDefined($callable);
+        $this->option()->ifDefined($callable);
     }
 
     public function forAll($callable)
