@@ -2,6 +2,8 @@
 
 namespace PhpOption\Tests;
 
+use PhpOption\None;
+use PhpOption\Some;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -36,10 +36,9 @@ abstract class Option implements IteratorAggregate
      * case, and everything else as Some.
      *
      * @template S
-     * @template N
      *
-     * @param S|N $value   The actual return value.
-     * @param N $noneValue The value which should be considered "None"; null by
+     * @param S $value     The actual return value.
+     * @param S $noneValue The value which should be considered "None"; null by
      *                     default.
      *
      * @return Option<S>
@@ -84,11 +83,10 @@ abstract class Option implements IteratorAggregate
      * None case, and everything else as Some.
      *
      * @template S
-     * @template N
      *
      * @param callable $callback  The callback to evaluate.
      * @param array    $arguments The arguments for the callback.
-     * @param N        $noneValue The value which should be considered "None";
+     * @param S        $noneValue The value which should be considered "None";
     *                             null by default.
      *
      * @return LazyOption<S>
@@ -115,11 +113,10 @@ abstract class Option implements IteratorAggregate
      * to Option::fromValue() method.
      *
      * @template S
-     * @template N
      *
-     * @param Option<S>|callable|S|N $value
-     * @param N                      $noneValue Used when $value is mixed or
-     *                                          callable, for None-check.
+     * @param Option<S>|callable|S $value
+     * @param S                    $noneValue Used when $value is mixed or
+     *                                        callable, for None-check.
      *
      * @return Option<S>|LazyOption<S>
      */
@@ -156,7 +153,7 @@ abstract class Option implements IteratorAggregate
      * @param callable $callback
      * @param mixed    $noneValue
      *
-     * @return callable(): Option<S>|LazyOption<S>
+     * @return callable
      */
     public static function lift($callback, $noneValue = null)
     {

@@ -25,6 +25,11 @@
             "PhpOption\\": "src/PhpOption/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "PhpOption\\Tests\\": "tests/PhpOption/Tests/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.7-dev"

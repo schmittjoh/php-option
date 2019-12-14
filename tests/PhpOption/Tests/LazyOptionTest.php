@@ -148,10 +148,10 @@ class LazyOptionTest extends TestCase
     {
         $called = false;
         $self = $this;
-        $this->assertNull(LazyOption::fromValue('foo')->ifDefined(function ($v) use (&$called, $self) {
+        LazyOption::fromValue('foo')->ifDefined(function ($v) use (&$called, $self) {
             $called = true;
             $self->assertEquals('foo', $v);
-        }));
+        });
         $this->assertTrue($called);
     }
 

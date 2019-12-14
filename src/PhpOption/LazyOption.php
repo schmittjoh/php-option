@@ -35,10 +35,12 @@ final class LazyOption extends Option
     private $option;
 
     /**
+     * @template S
+     *
      * @param callable $callback
      * @param array    $arguments
      *
-     * @return LazyOption<T>
+     * @return LazyOption<S>
      */
     public static function create($callback, array $arguments = [])
     {

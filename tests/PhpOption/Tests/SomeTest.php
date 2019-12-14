@@ -40,10 +40,10 @@ class SomeTest extends TestCase
         $called = false;
         $self = $this;
         $some = new Some('foo');
-        $this->assertNull($some->ifDefined(function ($v) use (&$called, $self) {
+        $some->ifDefined(function ($v) use (&$called, $self) {
             $called = true;
             $self->assertEquals('foo', $v);
-        }));
+        });
         $this->assertTrue($called);
     }
 
