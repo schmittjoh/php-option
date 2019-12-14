@@ -25,7 +25,7 @@ use EmptyIterator;
  */
 final class None extends Option
 {
-    /** @var ?None */
+    /** @var None|null */
     private static $instance;
 
     /**
