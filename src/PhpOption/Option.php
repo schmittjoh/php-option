@@ -354,7 +354,7 @@ abstract class Option implements IteratorAggregate
      * If the option is non-empty, the callable is applied, and if it returns false,
      * the option itself is returned; otherwise, None is returned.
      *
-     * @param callable(T): bool $callable
+     * @param callable(T):bool $callable
      *
      * @return Option<T>
      */
