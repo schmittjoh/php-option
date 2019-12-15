@@ -40,6 +40,7 @@ final class Some extends Option
 
     /**
      * @template U
+     *
      * @param U $value
      *
      * @return Some<U>
