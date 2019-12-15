@@ -219,7 +219,7 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param callable(): S $callable
+     * @param callable():S $callable
      *
      * @return T|S
      */
@@ -284,7 +284,7 @@ abstract class Option implements IteratorAggregate
      *
      * @deprecated Use forAll() instead.
      *
-     * @param callable(T):mixed $callable
+     * @param callable(T):void $callable
      *
      * @return void
      */
@@ -297,7 +297,7 @@ abstract class Option implements IteratorAggregate
      * option is empty. This method is preferred for callables with side-effects, while map()
      * is intended for callables without side-effects.
      *
-     * @param callable(T): void $callable
+     * @param callable(T):void $callable
      *
      * @return Option<T>
      */
@@ -315,7 +315,7 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param callable(T): S $callable
+     * @param callable(T):S $callable
      *
      * @return Option<S>
      */
@@ -330,7 +330,7 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param callable(T): Option<S> $callable must return an Option
+     * @param callable(T):Option<S> $callable must return an Option
      *
      * @return Option<S>
      */
@@ -342,7 +342,7 @@ abstract class Option implements IteratorAggregate
      * If the option is non-empty, the callable is applied, and if it returns true,
      * the option itself is returned; otherwise, None is returned.
      *
-     * @param callable(T): bool $callable
+     * @param callable(T):bool $callable
      *
      * @return Option<T>
      */
@@ -414,7 +414,7 @@ abstract class Option implements IteratorAggregate
      * @template S
      *
      * @param S                $initialValue
-     * @param callable(S, T):S $callable     function(callable, initialValue): result
+     * @param callable(S, T):S $callable
      *
      * @return S
      */
@@ -426,7 +426,7 @@ abstract class Option implements IteratorAggregate
      * @template S
      *
      * @param S                $initialValue
-     * @param callable(T, S):S $callable     function(callable, initialValue): result
+     * @param callable(T, S):S $callable
      *
      * @return S
      */
