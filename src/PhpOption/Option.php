@@ -94,6 +94,7 @@ abstract class Option implements IteratorAggregate
     public static function fromReturn($callback, array $arguments = [], $noneValue = null)
     {
         return new LazyOption(function () use ($callback, $arguments, $noneValue) {
+            /** @var mixed */
             $return = call_user_func_array($callback, $arguments);
 
             if ($return === $noneValue) {
@@ -126,6 +127,7 @@ abstract class Option implements IteratorAggregate
             return $value;
         } elseif (is_callable($value)) {
             return new LazyOption(function () use ($value, $noneValue) {
+                /** @var mixed */
                 $return = $value();
 
                 if ($return instanceof self) {
@@ -158,20 +160,32 @@ abstract class Option implements IteratorAggregate
     public static function lift($callback, $noneValue = null)
     {
         return function () use ($callback, $noneValue) {
+            /** @var array<int, mixed> */
             $args = func_get_args();
 
+            $reduced_args = array_reduce(
+                $args,
+                /** @param bool $status */
+                function ($status, self $o) {
+                    return $o->isEmpty() ? true : $status;
+                },
+                false
+            );
             // if at least one parameter is empty, return None
-            if (array_reduce($args, function ($status, self $o) {
-                return $o->isEmpty() ? true : $status;
-            }, false)) {
+            if ($reduced_args) {
                 return None::create();
             }
 
-            $args = array_map(function (self $o) {
-                // it is safe to do so because the fold above checked
-                // that all arguments are of type Some
-                return $o->get();
-            }, $args);
+            $args = array_map(
+                /** @return T */
+                function (self $o) {
+                    // it is safe to do so because the fold above checked
+                    // that all arguments are of type Some
+                    /** @var T */
+                    return $o->get();
+                },
+                $args
+            );
 
             return self::ensure(call_user_func_array($callback, $args), $noneValue);
         };
@@ -205,7 +219,7 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param callable(): S $callable
+     * @param callable():S $callable
      *
      * @return T|S
      */
@@ -270,7 +284,7 @@ abstract class Option implements IteratorAggregate
      *
      * @deprecated Use forAll() instead.
      *
-     * @param callable $callable
+     * @param callable(T):mixed $callable
      *
      * @return void
      */
@@ -283,7 +297,7 @@ abstract class Option implements IteratorAggregate
      * option is empty. This method is preferred for callables with side-effects, while map()
      * is intended for callables without side-effects.
      *
-     * @param callable(T): void $callable
+     * @param callable(T):mixed $callable
      *
      * @return Option<T>
      */
@@ -301,7 +315,7 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param callable(T): S $callable
+     * @param callable(T):S $callable
      *
      * @return Option<S>
      */
@@ -316,7 +330,7 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param callable(T): Option<S> $callable must return an Option
+     * @param callable(T):Option<S> $callable must return an Option
      *
      * @return Option<S>
      */
@@ -328,7 +342,7 @@ abstract class Option implements IteratorAggregate
      * If the option is non-empty, the callable is applied, and if it returns true,
      * the option itself is returned; otherwise, None is returned.
      *
-     * @param callable(T): bool $callable
+     * @param callable(T):bool $callable
      *
      * @return Option<T>
      */
@@ -399,8 +413,8 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param S        $initialValue
-     * @param callable $callable     function(initialValue, callable): result
+     * @param S                $initialValue
+     * @param callable(S, T):S $callable
      *
      * @return S
      */
@@ -411,8 +425,8 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param S        $initialValue
-     * @param callable $callable     function(callable, initialValue): result
+     * @param S                $initialValue
+     * @param callable(T, S):S $callable
      *
      * @return S
      */

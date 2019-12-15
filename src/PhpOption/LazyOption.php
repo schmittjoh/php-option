@@ -25,10 +25,10 @@ namespace PhpOption;
  */
 final class LazyOption extends Option
 {
-    /** @var callable */
+    /** @var callable(mixed...):(Option<T>) */
     private $callback;
 
-    /** @var array */
+    /** @var array<int, mixed> */
     private $arguments;
 
     /** @var Option<T>|null */
@@ -36,9 +36,8 @@ final class LazyOption extends Option
 
     /**
      * @template S
-     *
-     * @param callable $callback
-     * @param array    $arguments
+     * @param callable(mixed...):(Option<S>) $callback
+     * @param array<int, mixed>              $arguments
      *
      * @return LazyOption<S>
      */
@@ -48,8 +47,8 @@ final class LazyOption extends Option
     }
 
     /**
-     * @param callable $callback
-     * @param array    $arguments
+     * @param callable(mixed...):(Option<T>) $callback
+     * @param array<int, mixed>              $arguments
      */
     public function __construct($callback, array $arguments = [])
     {

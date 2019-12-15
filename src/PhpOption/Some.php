@@ -39,9 +39,11 @@ final class Some extends Option
     }
 
     /**
-     * @param T $value
+     * @template U
      *
-     * @return Some<T>
+     * @param U $value
+     *
+     * @return Some<U>
      */
     public static function create($value)
     {

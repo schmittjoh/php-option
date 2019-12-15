@@ -21,17 +21,15 @@ namespace PhpOption;
 use EmptyIterator;
 
 /**
- * @template T
- *
- * @extends Option<T>
+ * @extends Option<mixed>
  */
 final class None extends Option
 {
-    /** @var None<T> */
+    /** @var None|null */
     private static $instance;
 
     /**
-     * @return None<T>
+     * @return None
      */
     public static function create()
     {
