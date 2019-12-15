@@ -284,7 +284,7 @@ abstract class Option implements IteratorAggregate
      *
      * @deprecated Use forAll() instead.
      *
-     * @param callable(T):void $callable
+     * @param callable(T):mixed $callable
      *
      * @return void
      */
@@ -297,7 +297,7 @@ abstract class Option implements IteratorAggregate
      * option is empty. This method is preferred for callables with side-effects, while map()
      * is intended for callables without side-effects.
      *
-     * @param callable(T):void $callable
+     * @param callable(T):mixed $callable
      *
      * @return Option<T>
      */
