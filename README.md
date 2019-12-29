@@ -36,13 +36,13 @@ API user in how he consumes these methods.
 
 ## Installation
 
-Installation is super-easy via composer:
+Installation is super-easy via [Composer](https://getcomposer.org/):
 
 ```bash
 $ composer require phpoption/phpoption
 ```
 
-or add it to your `composer.json` file.
+or add it by hand to your `composer.json` file.
 
 
 ## Usage
