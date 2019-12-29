@@ -1,25 +1,38 @@
 # PHP Option Type
 
-[![Build Status](https://secure.travis-ci.org/schmittjoh/php-option.svg)](http://travis-ci.org/schmittjoh/php-option) 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/schmittjoh/php-option/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/schmittjoh/php-option/)
+This package implements the Option type for PHP!
 
-An Option type for PHP.
+![Banner](https://user-images.githubusercontent.com/2829600/71564011-3077bf00-2a91-11ea-9083-905702cc262b.png)
+
+<p align="center">
+<a href="https://travis-ci.org/schmittjoh/php-option"><img src="https://img.shields.io/travis/schmittjoh/php-option/master.svg?style=flat-square" alt="Build Status"></img></a>
+<a href="https://scrutinizer-ci.com/g/schmittjoh/php-option"><img src="https://img.shields.io/scrutinizer/g/schmittjoh/php-option.svg?style=flat-square" alt="Quality Score"></img></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
+<a href="https://packagist.org/packages/phpoption/phpoption"><img src="https://img.shields.io/packagist/dt/phpoption/phpoption.svg?style=flat-square" alt="Total Downloads"></img></a>
+<a href="https://github.com/schmittjoh/php-option/releases"><img src="https://img.shields.io/github/release/schmittjoh/php-option.svg?style=flat-square" alt="Latest Version"></img></a>
+</p>
+
+
+## Motivation
 
 The Option type is intended for cases where you sometimes might return a value
-(typically an object), and sometimes you might return a base value (typically null)
-depending on arguments, or other runtime factors.
+(typically an object), and sometimes you might return a base value (typically
+null) depending on arguments, or other runtime factors.
 
-Often times, you forget to handle the case where a base value should be returned. Not intentionally
-of course, but maybe you did not account for all possible states of the system; or maybe you
-indeed covered all cases, then time goes on, code is refactored, some of these your checks 
-might become invalid, or incomplete. Suddenly, without noticing, the base value case is not
-handled anymore. As a result, you might sometimes get fatal PHP errors telling you that 
+Often times, you forget to handle the case where a base value should be
+returned. Not intentionally of course, but maybe you did not account for all
+possible states of the system; or maybe you indeed covered all cases, then time
+goes on, code is refactored, some of these your checks might become invalid, or
+incomplete. Suddenly, without noticing, the base value case is not handled
+anymore. As a result, you might sometimes get fatal PHP errors telling you that
 you called a method on a non-object; users might see blank pages, or worse.
 
-On one hand, the Option type forces a developer to consciously think about both cases
-(returning a value, or returning a base value). That in itself will already make your code more
-robust. On the other hand, the Option type also allows the API developer to provide
-more concise API methods, and empowers the API user in how he consumes these methods.
+On one hand, the Option type forces a developer to consciously think about both
+cases (returning a value, or returning a base value). That in itself will
+already make your code more robust. On the other hand, the Option type also
+allows the API developer to provide more concise API methods, and empowers the
+API user in how he consumes these methods.
+
 
 ## Installation
 
