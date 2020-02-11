@@ -10,11 +10,9 @@ class NoneTest extends TestCase
 {
     private $none;
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testGet()
     {
+        $this->expectException(\RuntimeException::class);
         $none = None::create();
         $none->get();
     }
@@ -33,12 +31,10 @@ class NoneTest extends TestCase
         }));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Not Found!
-     */
     public function testGetOrThrow()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Not Found!');
         None::create()->getOrThrow(new \RuntimeException('Not Found!'));
     }
 
