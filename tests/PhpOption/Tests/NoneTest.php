@@ -128,7 +128,7 @@ class NoneTest extends TestCase
         }));
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->none = None::create();
     }

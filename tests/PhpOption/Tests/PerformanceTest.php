@@ -54,7 +54,7 @@ class PerformanceTest extends TestCase
         printf("Overhead per invocation (none case): %.9fs\n", $overheadPerInvocation);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->traditionalRepo = new TraditionalRepo();
         $this->phpOptionRepo = new PhpOptionRepo();

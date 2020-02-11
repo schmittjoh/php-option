@@ -12,7 +12,7 @@ class LazyOptionTest extends TestCase
 {
     private $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->subject = $this
             ->getMockBuilder('Subject')
