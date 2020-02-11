@@ -15,7 +15,7 @@ class LazyOptionTest extends TestCase
     public function setUp(): void
     {
         $this->subject = $this
-            ->getMockBuilder('Subject')
+            ->getMockBuilder(\stdClass::class)
             ->setMethods(['execute'])
             ->getMock();
     }
