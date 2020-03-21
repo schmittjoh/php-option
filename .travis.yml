@@ -36,6 +36,10 @@ matrix:
       dist: bionic
       install: travis_retry docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint composer registry.gitlab.com/grahamcampbell/php:7.4 install --no-suggest --prefer-dist -n -o
       script: docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint vendor/bin/phpunit registry.gitlab.com/grahamcampbell/php:7.4
+    - name: PHP 8.0
+      dist: bionic
+      install: travis_retry docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint composer registry.gitlab.com/grahamcampbell/php:8.0 install --ignore-platform-reqs --no-suggest --prefer-dist -n -o
+      script: docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint vendor/bin/phpunit registry.gitlab.com/grahamcampbell/php:8.0
     - name: PHPStan
       dist: bionic
       install: 
