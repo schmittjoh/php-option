@@ -5,7 +5,7 @@ This package implements the Option type for PHP!
 ![Banner](https://user-images.githubusercontent.com/2829600/71564011-3077bf00-2a91-11ea-9083-905702cc262b.png)
 
 <p align="center">
-<a href="https://travis-ci.org/schmittjoh/php-option"><img src="https://img.shields.io/travis/schmittjoh/php-option/master.svg?style=flat-square" alt="Build Status"></img></a>
+<a href="https://travis-ci.org/schmittjoh/php-option"><img src="https://img.shields.io/travis/schmittjoh/php-option/master?style=flat-square" alt="Build Status"></img></a>
 <a href="https://scrutinizer-ci.com/g/schmittjoh/php-option"><img src="https://img.shields.io/scrutinizer/g/schmittjoh/php-option.svg?style=flat-square" alt="Quality Score"></img></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
 <a href="https://packagist.org/packages/phpoption/phpoption"><img src="https://img.shields.io/packagist/dt/phpoption/phpoption.svg?style=flat-square" alt="Total Downloads"></img></a>
