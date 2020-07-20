@@ -1,5 +1,0 @@
-parameters:
-  level: max
-  ignoreErrors:
-    - '/\$arguments [a-z ]+ no value type specified in iterable type array/'
-    - '#Method PhpOption\\Option::ensure() should return PhpOption\\Option<S> but returns PhpOption\\Option<S|null>.#'

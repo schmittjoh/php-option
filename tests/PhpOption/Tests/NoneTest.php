@@ -11,10 +11,21 @@ class NoneTest extends TestCase
     private $none;
 
     /**
-     * @expectedException \RuntimeException
+     * @before
      */
+    public function setUpNone()
+    {
+        $this->none = None::create();
+    }
+
     public function testGet()
     {
+        if (method_exists($this, 'expectException')) {
+            $this->expectException('RuntimeException');
+        } else {
+            $this->setExpectedException('RuntimeException');
+        }
+
         $none = None::create();
         $none->get();
     }
@@ -33,12 +44,15 @@ class NoneTest extends TestCase
         }));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Not Found!
-     */
     public function testGetOrThrow()
     {
+        if (method_exists($this, 'expectException')) {
+            $this->expectException('RuntimeException');
+            $this->expectExceptionMessage('Not Found!');
+        } else {
+            $this->setExpectedException('RuntimeException', 'Not Found!');
+        }
+
         None::create()->getOrThrow(new \RuntimeException('Not Found!'));
     }
 
@@ -126,10 +140,5 @@ class NoneTest extends TestCase
         $this->assertSame(1, $this->none->foldRight(1, function () {
             $this->fail();
         }));
-    }
-
-    protected function setUp()
-    {
-        $this->none = None::create();
     }
 }

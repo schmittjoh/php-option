@@ -1,5 +1,6 @@
+.phpunit.result.cache
 composer.lock
-phpstan.neon
+phpstan.src.neon
 phpstan.tests.neon
 phpunit.xml
 vendor

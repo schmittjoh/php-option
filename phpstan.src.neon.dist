@@ -1,0 +1,12 @@
+parameters:
+    level: max
+    ignoreErrors:
+        -
+            message: "#^Method PhpOption\\\\Option\\:\\:fromReturn\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+            count: 1
+            path: src/PhpOption/Option.php
+
+        -
+            message: "#^Method PhpOption\\\\Option\\:\\:ensure\\(\\) should return PhpOption\\\\Option\\<S\\> but returns PhpOption\\\\Option\\<S\\|null\\>\\.$#"
+            count: 1
+            path: src/PhpOption/Option.php

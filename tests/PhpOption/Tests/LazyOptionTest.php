@@ -12,7 +12,10 @@ class LazyOptionTest extends TestCase
 {
     private $subject;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function setUpSubject()
     {
         $this->subject = $this
             ->getMockBuilder('Subject')
@@ -87,12 +90,15 @@ class LazyOptionTest extends TestCase
         $this->assertEquals('foo', $option->getOrThrow(new \RuntimeException('does_not_exist')));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage None has no value
-     */
     public function testCallbackReturnsNull()
     {
+        if (method_exists($this, 'expectException')) {
+            $this->expectException('RuntimeException');
+            $this->expectExceptionMessage('None has no value');
+        } else {
+            $this->setExpectedException('RuntimeException', 'None has no value');
+        }
+
         $option = LazyOption::create([$this->subject, 'execute']);
 
         $this->subject
@@ -110,12 +116,15 @@ class LazyOptionTest extends TestCase
         $option->get();
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Expected instance of \PhpOption\Option
-     */
     public function testExceptionIsThrownIfCallbackReturnsNonOption()
     {
+        if (method_exists($this, 'expectException')) {
+            $this->expectException('RuntimeException');
+            $this->expectExceptionMessage('Expected instance of PhpOption\Option');
+        } else {
+            $this->setExpectedException('RuntimeException', 'Expected instance of PhpOption\Option');
+        }
+
         $option = LazyOption::create([$this->subject, 'execute']);
 
         $this->subject
@@ -126,21 +135,27 @@ class LazyOptionTest extends TestCase
         $this->assertFalse($option->isDefined());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Invalid callback given
-     */
     public function testInvalidCallbackAndConstructor()
     {
+        if (method_exists($this, 'expectException')) {
+            $this->expectException('InvalidArgumentException');
+            $this->expectExceptionMessage('Invalid callback given');
+        } else {
+            $this->setExpectedException('InvalidArgumentException', 'Invalid callback given');
+        }
+
         new LazyOption('invalidCallback');
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Invalid callback given
-     */
     public function testInvalidCallbackAndCreate()
     {
+        if (method_exists($this, 'expectException')) {
+            $this->expectException('InvalidArgumentException');
+            $this->expectExceptionMessage('Invalid callback given');
+        } else {
+            $this->setExpectedException('InvalidArgumentException', 'Invalid callback given');
+        }
+
         LazyOption::create('invalidCallback');
     }
 

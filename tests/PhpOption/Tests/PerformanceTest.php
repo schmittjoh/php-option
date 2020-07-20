@@ -14,6 +14,15 @@ class PerformanceTest extends TestCase
     private $traditionalRepo;
     private $phpOptionRepo;
 
+    /**
+     * @before
+     */
+    public function setUpTests()
+    {
+        $this->traditionalRepo = new TraditionalRepo();
+        $this->phpOptionRepo = new PhpOptionRepo();
+    }
+
     public function testSomeCase()
     {
         $traditionalTime = microtime(true);
@@ -52,12 +61,6 @@ class PerformanceTest extends TestCase
 
         $overheadPerInvocation = ($phpOptionTime - $traditionalTime) / 10000;
         printf("Overhead per invocation (none case): %.9fs\n", $overheadPerInvocation);
-    }
-
-    protected function setUp()
-    {
-        $this->traditionalRepo = new TraditionalRepo();
-        $this->phpOptionRepo = new PhpOptionRepo();
     }
 }
 
