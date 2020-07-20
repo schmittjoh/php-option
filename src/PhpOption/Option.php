@@ -61,8 +61,8 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param array<string,S>|ArrayAccess<string,S>|null $array A potential array or \ArrayAccess value.
-     * @param string                                     $key   The key to check.
+     * @param array<string|int,S>|ArrayAccess<string|int,S>|null $array A potential array or \ArrayAccess value.
+     * @param string                                             $key   The key to check.
      *
      * @return Option<S>
      */
