@@ -97,7 +97,7 @@ final class LazyOption extends Option
 
     public function ifDefined($callable)
     {
-        $this->option()->ifDefined($callable);
+        $this->option()->forAll($callable);
     }
 
     public function forAll($callable)
@@ -156,11 +156,12 @@ final class LazyOption extends Option
     private function option()
     {
         if (null === $this->option) {
-            $this->option = call_user_func_array($this->callback, $this->arguments);
-            if (!$this->option instanceof Option) {
-                $this->option = null;
-
-                throw new \RuntimeException(sprintf('Expected instance of \%s', Option::class));
+            /** @var mixed */
+            $option = call_user_func_array($this->callback, $this->arguments);
+            if ($option instanceof Option) {
+                $this->option = $option;
+            } else {
+                throw new \RuntimeException(sprintf('Expected instance of %s', Option::class));
             }
         }
 

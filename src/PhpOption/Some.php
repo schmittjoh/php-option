@@ -87,7 +87,7 @@ final class Some extends Option
 
     public function ifDefined($callable)
     {
-        $callable($this->value);
+        $this->forAll($callable);
     }
 
     public function forAll($callable)
@@ -104,6 +104,7 @@ final class Some extends Option
 
     public function flatMap($callable)
     {
+        /** @var mixed */
         $rs = $callable($this->value);
         if (!$rs instanceof Option) {
             throw new \RuntimeException('Callables passed to flatMap() must return an Option. Maybe you should use map() instead?');
