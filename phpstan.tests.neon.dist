@@ -32,7 +32,7 @@ parameters:
             path: tests/PhpOption/Tests/NoneTest.php
 
         -
-            message: "#^Parameter \\#1 \\$array of static method PhpOption\\\\Option\\<mixed\\>\\:\\:fromArraysValue\\(\\) expects array\\<int\\|string, mixed\\>\\|ArrayAccess\\<int\\|string, mixed\\>\\|null, string given\\.$#"
+            message: "#^Parameter \\#1 \\$array of static method PhpOption\\\\Option\\<mixed\\>\\:\\:fromArraysValue\\(\\) expects array\\<int\\|string, mixed\\>\\|ArrayAccess\\<int\\|string, mixed\\>\\|null, 'foo' given\\.$#"
             count: 1
             path: tests/PhpOption/Tests/OptionTest.php
 

@@ -41,7 +41,7 @@ final class LazyOption extends Option
      *
      * @return LazyOption<S>
      */
-    public static function create($callback, array $arguments = [])
+    public static function create($callback, array $arguments = []): self
     {
         return new self($callback, $arguments);
     }
@@ -60,12 +60,12 @@ final class LazyOption extends Option
         $this->arguments = $arguments;
     }
 
-    public function isDefined()
+    public function isDefined(): bool
     {
         return $this->option()->isDefined();
     }
 
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return $this->option()->isEmpty();
     }
@@ -153,7 +153,7 @@ final class LazyOption extends Option
     /**
      * @return Option<T>
      */
-    private function option()
+    private function option(): Option
     {
         if (null === $this->option) {
             /** @var mixed */
