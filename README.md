@@ -190,7 +190,7 @@ your code some options!
 
 ## Security
 
-If you discover a security vulnerability within this package, please send an email to one of the security contacts. All security vulnerabilities will be promptly addressed. You may view our full security policy [here](https://github.com/schmittjoh/php-option/security/policy).
+If you discover a security vulnerability within this package, please send an email to security@tidelift.com. All security vulnerabilities will be promptly addressed. You may view our full security policy [here](https://github.com/schmittjoh/php-option/security/policy).
 
 ## License
 
