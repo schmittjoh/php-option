@@ -18,6 +18,8 @@
 
 namespace PhpOption;
 
+use Iterator;
+
 /**
  * @template T
  *
@@ -135,7 +137,7 @@ final class LazyOption extends Option
         return $this->option()->reject($value);
     }
 
-    public function getIterator()
+    public function getIterator(): Iterator
     {
         return $this->option()->getIterator();
     }
