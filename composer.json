@@ -6,11 +6,13 @@
     "authors": [
         {
             "name": "Johannes M. Schmitt",
-            "email": "schmittjoh@gmail.com"
+            "email": "schmittjoh@gmail.com",
+            "homepage": "https://github.com/schmittjoh"
         },
         {
             "name": "Graham Campbell",
-            "email": "hello@gjcampbell.co.uk"
+            "email": "hello@gjcampbell.co.uk",
+            "homepage": "https://github.com/GrahamCampbell"
         }
     ],
     "require": {
