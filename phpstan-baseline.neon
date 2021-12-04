@@ -1,0 +1,22 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method PhpOption\\\\Option\\:\\:fromReturn\\(\\) should return PhpOption\\\\LazyOption\\<S\\> but returns PhpOption\\\\LazyOption\\<mixed\\>\\.$#"
+			count: 1
+			path: src/PhpOption/Option.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(PhpOption\\\\Option\\)\\: T given\\.$#"
+			count: 1
+			path: src/PhpOption/Option.php
+
+		-
+			message: "#^Parameter \\#2 \\$callback of function array_reduce expects callable\\(mixed, mixed\\)\\: mixed, Closure\\(mixed, PhpOption\\\\Option\\)\\: mixed given\\.$#"
+			count: 1
+			path: src/PhpOption/Option.php
+
+		-
+			message: "#^Template type S of method PhpOption\\\\Option\\:\\:lift\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/PhpOption/Option.php
+

@@ -11,6 +11,9 @@ phpstan-analyze-src:
 phpstan-analyze-tests:
 	@docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint vendor/bin/phpstan --rm registry.gitlab.com/grahamcampbell/php:7.4-cli analyze tests -c phpstan.tests.neon.dist
 
+phpstan-baseline:
+	@docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint vendor/bin/phpstan --rm registry.gitlab.com/grahamcampbell/php:7.4-cli analyze src -c phpstan.src.neon.dist --generate-baseline
+
 psalm-analyze:
 	@docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint vendor/bin/psalm.phar --rm registry.gitlab.com/grahamcampbell/php:7.4-cli
 
