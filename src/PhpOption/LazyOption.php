@@ -18,7 +18,7 @@
 
 namespace PhpOption;
 
-use Iterator;
+use Traversable;
 
 /**
  * @template T
@@ -137,7 +137,10 @@ final class LazyOption extends Option
         return $this->option()->reject($value);
     }
 
-    public function getIterator(): Iterator
+    /**
+     * @return Traversable<T>
+     */
+    public function getIterator(): Traversable
     {
         return $this->option()->getIterator();
     }

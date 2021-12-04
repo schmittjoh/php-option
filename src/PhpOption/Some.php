@@ -149,6 +149,9 @@ final class Some extends Option
         return $this;
     }
 
+    /**
+     * @return ArrayIterator<int, T>
+     */
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator([$this->value]);
