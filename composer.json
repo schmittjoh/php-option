@@ -33,6 +33,9 @@
         }
     },
     "config": {
+        "allow-plugins": {
+            "bamarni/composer-bin-plugin": true
+        },
         "preferred-install": "dist"
     },
     "extra": {
