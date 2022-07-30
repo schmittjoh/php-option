@@ -7,15 +7,15 @@ on:
 jobs:
   tests:
     name: PHP ${{ matrix.php }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     strategy:
       matrix:
-        php: ['7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
+        php: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -27,8 +27,12 @@ jobs:
       - name: Setup Problem Matchers
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
+      - name: Mimic PHP 8.1
+        run: composer config platform.php 8.1.999
+        if: matrix.php > 8.1
+
       - name: Install PHP Dependencies
-        uses: nick-invision/retry@v1
+        uses: nick-invision/retry@v2
         with:
           timeout_minutes: 5
           max_attempts: 5
