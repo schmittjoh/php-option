@@ -14,64 +14,64 @@ use PHPUnit\Framework\TestCase;
  */
 class EnsureTest extends TestCase
 {
-    protected function ensure($value, $noneValue = null)
+    private static function ensure($value, $noneValue = null): Option
     {
         $option = Option::ensure($value, $noneValue);
-        $this->assertInstanceOf(Option::class, $option);
+        self::assertInstanceOf(Option::class, $option);
 
         return $option;
     }
 
-    public function testMixedValue()
+    public function testMixedValue(): void
     {
-        $option = $this->ensure(1);
-        $this->assertTrue($option->isDefined());
-        $this->assertSame(1, $option->get());
-        $this->assertFalse($this->ensure(null)->isDefined());
-        $this->assertFalse($this->ensure(1, 1)->isDefined());
+        $option = self::ensure(1);
+        self::assertTrue($option->isDefined());
+        self::assertSame(1, $option->get());
+        self::assertFalse(self::ensure(null)->isDefined());
+        self::assertFalse(self::ensure(1, 1)->isDefined());
     }
 
-    public function testReturnValue()
+    public function testReturnValue(): void
     {
-        $option = $this->ensure(function () {
+        $option = self::ensure(function () {
             return 1;
         });
-        $this->assertTrue($option->isDefined());
-        $this->assertSame(1, $option->get());
-        $this->assertFalse($this->ensure(function () {
+        self::assertTrue($option->isDefined());
+        self::assertSame(1, $option->get());
+        self::assertFalse(self::ensure(function () {
         })->isDefined());
-        $this->assertFalse($this->ensure(function () {
+        self::assertFalse(self::ensure(function () {
             return 1;
         }, 1)->isDefined());
     }
 
-    public function testOptionReturnsAsSameInstance()
+    public function testOptionReturnsAsSameInstance(): void
     {
-        $option = $this->ensure(1);
-        $this->assertSame($option, $this->ensure($option));
+        $option = self::ensure(1);
+        self::assertSame($option, self::ensure($option));
     }
 
-    public function testOptionReturnedFromClosure()
+    public function testOptionReturnedFromClosure(): void
     {
-        $option = $this->ensure(function () {
+        $option = self::ensure(function () {
             return Some::create(1);
         });
-        $this->assertTrue($option->isDefined());
-        $this->assertSame(1, $option->get());
+        self::assertTrue($option->isDefined());
+        self::assertSame(1, $option->get());
 
-        $option = $this->ensure(function () {
+        $option = self::ensure(function () {
             return None::create();
         });
-        $this->assertFalse($option->isDefined());
+        self::assertFalse($option->isDefined());
     }
 
-    public function testClosureReturnedFromClosure()
+    public function testClosureReturnedFromClosure(): void
     {
-        $option = $this->ensure(function () {
+        $option = self::ensure(function () {
             return function () {
             };
         });
-        $this->assertTrue($option->isDefined());
-        $this->assertInstanceOf('Closure', $option->get());
+        self::assertTrue($option->isDefined());
+        self::assertInstanceOf('Closure', $option->get());
     }
 }

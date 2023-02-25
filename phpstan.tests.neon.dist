@@ -2,11 +2,6 @@ parameters:
   level: 5
   ignoreErrors:
         -
-            message: "#^Parameter \\#1 \\$className of method PHPUnit\\\\Framework\\\\TestCase\\:\\:getMockBuilder\\(\\) expects class\\-string\\<Subject\\>, string given\\.$#"
-            count: 1
-            path: tests/PhpOption/Tests/LazyOptionTest.php
-
-        -
             message: "#^Parameter \\#1 \\$callable of method PhpOption\\\\LazyOption\\<mixed\\>\\:\\:getOrCall\\(\\) expects callable\\(\\)\\: S, 'does_not_exist' given\\.$#"
             count: 4
             path: tests/PhpOption/Tests/LazyOptionTest.php
@@ -29,6 +24,11 @@ parameters:
         -
             message: "#^Call to an undefined method PhpOption\\\\Tests\\\\NoneTest\\:\\:setExpectedException\\(\\)\\.$#"
             count: 2
+            path: tests/PhpOption/Tests/NoneTest.php
+
+        -
+            message: "#^Result of method PhpOption\\\\None\\:\\:ifDefined\\(\\) \\(void\\) is used\\.$#"
+            count: 1
             path: tests/PhpOption/Tests/NoneTest.php
 
         -

@@ -12,33 +12,33 @@ use PHPUnit\Framework\TestCase;
 
 class OptionTest extends TestCase
 {
-    public function testfromValueWithDefaultNoneValue()
+    public function testfromValueWithDefaultNoneValue(): void
     {
-        $this->assertInstanceOf(None::class, Option::fromValue(null));
-        $this->assertInstanceOf(Some::class, Option::fromValue('value'));
+        self::assertInstanceOf(None::class, Option::fromValue(null));
+        self::assertInstanceOf(Some::class, Option::fromValue('value'));
     }
 
-    public function testFromValueWithFalseNoneValue()
+    public function testFromValueWithFalseNoneValue(): void
     {
-        $this->assertInstanceOf(None::class, Option::fromValue(false, false));
-        $this->assertInstanceOf(Some::class, Option::fromValue('value', false));
-        $this->assertInstanceOf(Some::class, Option::fromValue(null, false));
+        self::assertInstanceOf(None::class, Option::fromValue(false, false));
+        self::assertInstanceOf(Some::class, Option::fromValue('value', false));
+        self::assertInstanceOf(Some::class, Option::fromValue(null, false));
     }
 
-    public function testFromArraysValue()
+    public function testFromArraysValue(): void
     {
-        $this->assertEquals(None::create(), Option::fromArraysValue('foo', 'bar'));
-        $this->assertEquals(None::create(), Option::fromArraysValue(null, 'bar'));
-        $this->assertEquals(None::create(), Option::fromArraysValue(['foo' => 'bar'], 'baz'));
-        $this->assertEquals(None::create(), Option::fromArraysValue(['foo' => null], 'foo'));
-        $this->assertEquals(new Some('foo'), Option::fromArraysValue(['foo' => 'foo'], 'foo'));
+        self::assertEquals(None::create(), Option::fromArraysValue('foo', 'bar'));
+        self::assertEquals(None::create(), Option::fromArraysValue(null, 'bar'));
+        self::assertEquals(None::create(), Option::fromArraysValue(['foo' => 'bar'], 'baz'));
+        self::assertEquals(None::create(), Option::fromArraysValue(['foo' => null], 'foo'));
+        self::assertEquals(new Some('foo'), Option::fromArraysValue(['foo' => 'foo'], 'foo'));
 
         $object = new SomeArrayObject();
         $object['foo'] = 'foo';
-        $this->assertEquals(new Some('foo'), Option::fromArraysValue($object, 'foo'));
+        self::assertEquals(new Some('foo'), Option::fromArraysValue($object, 'foo'));
     }
 
-    public function testFromReturn()
+    public function testFromReturn(): void
     {
         $null = function () {
         };
@@ -49,30 +49,30 @@ class OptionTest extends TestCase
             return 'foo';
         };
 
-        $this->assertTrue(Option::fromReturn($null)->isEmpty());
-        $this->assertFalse(Option::fromReturn($false)->isEmpty());
-        $this->assertTrue(Option::fromReturn($false, [], false)->isEmpty());
-        $this->assertTrue(Option::fromReturn($some)->isDefined());
-        $this->assertFalse(Option::fromReturn($some, [], 'foo')->isDefined());
+        self::assertTrue(Option::fromReturn($null)->isEmpty());
+        self::assertFalse(Option::fromReturn($false)->isEmpty());
+        self::assertTrue(Option::fromReturn($false, [], false)->isEmpty());
+        self::assertTrue(Option::fromReturn($some)->isDefined());
+        self::assertFalse(Option::fromReturn($some, [], 'foo')->isDefined());
     }
 
-    public function testOrElse()
+    public function testOrElse(): void
     {
         $a = new Some('a');
         $b = new Some('b');
 
-        $this->assertEquals('a', $a->orElse($b)->get());
+        self::assertSame('a', $a->orElse($b)->get());
     }
 
-    public function testOrElseWithNoneAsFirst()
+    public function testOrElseWithNoneAsFirst(): void
     {
         $a = None::create();
         $b = new Some('b');
 
-        $this->assertEquals('b', $a->orElse($b)->get());
+        self::assertSame('b', $a->orElse($b)->get());
     }
 
-    public function testOrElseWithLazyOptions()
+    public function testOrElseWithLazyOptions(): void
     {
         $throws = function () {
             throw new LogicException('Should never be called.');
@@ -81,10 +81,10 @@ class OptionTest extends TestCase
         $a = new Some('a');
         $b = new LazyOption($throws);
 
-        $this->assertEquals('a', $a->orElse($b)->get());
+        self::assertSame('a', $a->orElse($b)->get());
     }
 
-    public function testOrElseWithMultipleAlternatives()
+    public function testOrElseWithMultipleAlternatives(): void
     {
         $throws = new LazyOption(function () {
             throw new LogicException('Should never be called.');
@@ -95,10 +95,10 @@ class OptionTest extends TestCase
 
         $a = None::create();
 
-        $this->assertEquals('foo', $a->orElse($returns)->orElse($throws)->get());
+        self::assertSame('foo', $a->orElse($returns)->orElse($throws)->get());
     }
 
-    public function testLift()
+    public function testLift(): void
     {
         $f = function ($a, $b) {
             return $a + $b;
@@ -110,14 +110,14 @@ class OptionTest extends TestCase
         $b = new Some(5);
         $n = None::create();
 
-        $this->assertEquals(6, $fL($a, $b)->get());
-        $this->assertEquals(6, $fL($b, $a)->get());
-        $this->assertEquals($n, $fL($a, $n));
-        $this->assertEquals($n, $fL($n, $a));
-        $this->assertEquals($n, $fL($n, $n));
+        self::assertSame(6, $fL($a, $b)->get());
+        self::assertSame(6, $fL($b, $a)->get());
+        self::assertSame($n, $fL($a, $n));
+        self::assertSame($n, $fL($n, $a));
+        self::assertSame($n, $fL($n, $n));
     }
 
-    public function testLiftDegenerate()
+    public function testLiftDegenerate(): void
     {
         $f = function () {
         };
@@ -125,8 +125,8 @@ class OptionTest extends TestCase
         $fL1 = Option::lift($f);
         $fL2 = Option::lift($f, false);
 
-        $this->assertEquals(None::create(), $fL1());
-        $this->assertEquals(Some::create(null), $fL2());
+        self::assertEquals(None::create(), $fL1());
+        self::assertEquals(Some::create(null), $fL2());
     }
 }
 

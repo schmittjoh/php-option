@@ -8,17 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class NoneTest extends TestCase
 {
-    private $none;
-
-    /**
-     * @before
-     */
-    public function setUpNone()
-    {
-        $this->none = None::create();
-    }
-
-    public function testGet()
+    public function testGet(): void
     {
         if (method_exists($this, 'expectException')) {
             $this->expectException('RuntimeException');
@@ -30,21 +20,21 @@ class NoneTest extends TestCase
         $none->get();
     }
 
-    public function testGetOrElse()
+    public function testGetOrElse(): void
     {
         $none = None::create();
-        $this->assertEquals('foo', $none->getOrElse('foo'));
+        self::assertSame('foo', $none->getOrElse('foo'));
     }
 
-    public function testGetOrCall()
+    public function testGetOrCall(): void
     {
         $none = None::create();
-        $this->assertEquals('foo', $none->getOrCall(function () {
+        self::assertSame('foo', $none->getOrCall(function () {
             return 'foo';
         }));
     }
 
-    public function testGetOrThrow()
+    public function testGetOrThrow(): void
     {
         if (method_exists($this, 'expectException')) {
             $this->expectException('RuntimeException');
@@ -56,71 +46,87 @@ class NoneTest extends TestCase
         None::create()->getOrThrow(new \RuntimeException('Not Found!'));
     }
 
-    public function testIsEmpty()
+    public function testIsEmpty(): void
     {
         $none = None::create();
-        $this->assertTrue($none->isEmpty());
+        self::assertTrue($none->isEmpty());
     }
 
-    public function testOrElse()
+    public function testOrElse(): void
     {
         $option = Some::create('foo');
-        $this->assertSame($option, None::create()->orElse($option));
+        self::assertSame($option, None::create()->orElse($option));
     }
 
-    public function testifDefined()
+    public function testifDefined(): void
     {
-        $this->assertNull($this->none->ifDefined(function () {
+        $none = None::create();
+
+        self::assertNull($none->ifDefined(function () {
             throw new \LogicException('Should never be called.');
         }));
     }
 
-    public function testForAll()
+    public function testForAll(): void
     {
-        $this->assertSame($this->none, $this->none->forAll(function () {
+        $none = None::create();
+
+        self::assertSame($none, $none->forAll(function () {
             throw new \LogicException('Should never be called.');
         }));
     }
 
-    public function testMap()
+    public function testMap(): void
     {
-        $this->assertSame($this->none, $this->none->map(function () {
+        $none = None::create();
+
+        self::assertSame($none, $none->map(function () {
             throw new \LogicException('Should not be called.');
         }));
     }
 
-    public function testFlatMap()
+    public function testFlatMap(): void
     {
-        $this->assertSame($this->none, $this->none->flatMap(function () {
+        $none = None::create();
+
+        self::assertSame($none, $none->flatMap(function () {
             throw new \LogicException('Should not be called.');
         }));
     }
 
-    public function testFilter()
+    public function testFilter(): void
     {
-        $this->assertSame($this->none, $this->none->filter(function () {
+        $none = None::create();
+
+        self::assertSame($none, $none->filter(function () {
             throw new \LogicException('Should not be called.');
         }));
     }
 
-    public function testFilterNot()
+    public function testFilterNot(): void
     {
-        $this->assertSame($this->none, $this->none->filterNot(function () {
+        $none = None::create();
+
+        self::assertSame($none, $none->filterNot(function () {
             throw new \LogicException('Should not be called.');
         }));
     }
 
-    public function testSelect()
+    public function testSelect(): void
     {
-        $this->assertSame($this->none, $this->none->select(null));
+        $none = None::create();
+
+        self::assertSame($none, $none->select(null));
     }
 
-    public function testReject()
+    public function testReject(): void
     {
-        $this->assertSame($this->none, $this->none->reject(null));
+        $none = None::create();
+
+        self::assertSame($none, $none->reject(null));
     }
 
-    public function testForeach()
+    public function testForeach(): void
     {
         $none = None::create();
 
@@ -129,15 +135,18 @@ class NoneTest extends TestCase
             $called++;
         }
 
-        $this->assertEquals(0, $called);
+        self::assertSame(0, $called);
     }
 
-    public function testFoldLeftRight()
+    public function testFoldLeftRight(): void
     {
-        $this->assertSame(1, $this->none->foldLeft(1, function () {
+        $none = None::create();
+
+        self::assertSame(1, $none->foldLeft(1, function () {
             $this->fail();
         }));
-        $this->assertSame(1, $this->none->foldRight(1, function () {
+
+        self::assertSame(1, $none->foldRight(1, function () {
             $this->fail();
         }));
     }
