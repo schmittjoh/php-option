@@ -50,7 +50,7 @@ or add it by hand to your `composer.json` file.
 ```php
 class MyRepository
 {
-    public function findSomeEntity($criteria)
+    public function findSomeEntity($criteria): \PhpOption\Option
     {
         if (null !== $entity = $this->em->find(...)) {
             return new \PhpOption\Some($entity);
@@ -63,12 +63,12 @@ class MyRepository
 ```
 
 If you are consuming an existing library, you can also use a shorter version
-which by default treats ``null`` as ``None``, and everything else as ``Some`` case:
+which by default treats `null` as `None`, and everything else as `Some` case:
 
 ```php
 class MyRepository
 {
-    public function findSomeEntity($criteria)
+    public function findSomeEntity($criteria): \PhpOption\Option
     {
         return \PhpOption\Option::fromValue($this->em->find(...));
 
@@ -141,13 +141,13 @@ return $this->findSomeEntity()->getOrElse(new Entity());
 
 ### Trying Multiple Alternative Options
 
-If you'd like to try multiple alternatives, the ``orElse`` method allows you to
+If you'd like to try multiple alternatives, the `orElse` method allows you to
 do this very elegantly:
 
 ```php
 return $this->findSomeEntity()
-            ->orElse($this->findSomeOtherEntity())
-            ->orElse($this->createEntity());
+    ->orElse($this->findSomeOtherEntity())
+    ->orElse($this->createEntity());
 ```
 The first option which is non-empty will be returned. This is especially useful 
 with lazy-evaluated options, see below.
@@ -158,12 +158,12 @@ The above example has the flaw that we would need to evaluate all options when
 the method is called which creates unnecessary overhead if the first option is 
 already non-empty.
 
-Fortunately, we can easily solve this by using the ``LazyOption`` class:
+Fortunately, we can easily solve this by using the `LazyOption` class:
 
 ```php
 return $this->findSomeEntity()
-            ->orElse(new LazyOption(array($this, 'findSomeOtherEntity')))
-            ->orElse(new LazyOption(array($this, 'createEntity')));
+    ->orElse(new LazyOption(array($this, 'findSomeOtherEntity')))
+    ->orElse(new LazyOption(array($this, 'createEntity')));
 ```
 
 This way, only the options that are necessary will actually be evaluated.
@@ -171,22 +171,12 @@ This way, only the options that are necessary will actually be evaluated.
 ## Performance Considerations
 
 Of course, performance is important. Attached is a performance benchmark which
-you can run on a machine of your choosing.
-
-The overhead incurred by the Option type comes down to the time that it takes to
-create one object, our wrapper. Also, we need to perform one additional method call
-to retrieve the value from the wrapper.
-
-* Overhead: Creation of 1 Object, and 1 Method Call
-* Average Overhead per Invocation (some case/value returned): 0.000000761s (that is 761 nano seconds)
-* Average Overhead per Invocation (none case/null returned): 0.000000368s (that is 368 nano seconds)
-
-The benchmark was run under Ubuntu precise with PHP 5.4.6. As you can see the
-overhead is surprisingly low, almost negligible.
-
-So in conclusion, unless you plan to call a method thousands of times during a
-request, there is no reason to stick to the ``object|null`` return value; better give
-your code some options!
+you can run on a machine of your choosing. The overhead incurred by the Option
+type comes down to the time that it takes to create one object, our wrapper,
+and one additional method call to retrieve the value from the wrapper. Unless
+you plan to call a method thousands of times during a request, there is no
+reason to stick to the `object|null` return value; better give your code some
+options!
 
 ## Security
 
