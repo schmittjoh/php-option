@@ -101,7 +101,8 @@ $entity = $repo->findSomeEntity(...)->getOrCall(function() {
 
 ```php
 // Before
-if (null === $entity = $this->findSomeEntity()) {
+$entity = $this->findSomeEntity()
+if (null === $entity) {
     throw new NotFoundException();
 }
 echo $entity->name;
