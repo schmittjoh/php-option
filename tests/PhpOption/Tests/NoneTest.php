@@ -150,4 +150,19 @@ class NoneTest extends TestCase
             $this->fail();
         }));
     }
+
+    public function testEquals(): void
+    {
+        $none = None::create();
+        $otherNone = None::create();
+        $some = Some::create('foo');
+
+        self::assertTrue($none->equals($otherNone, function ($a, $b) {
+            throw new \Exception("ShouldNotBeCalled");
+        }));
+
+        self::assertFalse($none->equals($some, function () {
+            throw new \Exception("ShouldNotBeCalled");
+        }));
+    }
 }

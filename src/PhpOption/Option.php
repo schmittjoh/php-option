@@ -177,7 +177,7 @@ abstract class Option implements IteratorAggregate
             }
 
             $args = array_map(
-                /** @return T */
+            /** @return T */
                 static function (self $o) {
                     // it is safe to do so because the fold above checked
                     // that all arguments are of type Some
@@ -413,7 +413,7 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param S                $initialValue
+     * @param S $initialValue
      * @param callable(S, T):S $callable
      *
      * @return S
@@ -431,4 +431,14 @@ abstract class Option implements IteratorAggregate
      * @return S
      */
     abstract public function foldRight($initialValue, $callable);
+
+    /**
+     * Checks if the option is equal to another option based on a callable.
+     *
+     * @param callable(T, T):bool $callable
+     * @param Option<T> $other
+     *
+     * @return bool
+     */
+    abstract public function equals($other, $callable): bool;
 }

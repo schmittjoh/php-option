@@ -197,4 +197,22 @@ class LazyOptionTest extends TestCase
         });
         self::assertSame(6, $lazyOption->foldRight(5, $callback));
     }
+
+    public function testEquals(): void
+    {
+        $some = Some::create('foo');
+        $lazyWithSameValue = LazyOption::create(function () use ($some) {
+            return $some;
+        });
+        $lazyWithOtherValue = LazyOption::create(function () {
+            return Some::create('bar');
+        });
+
+        $callback = function ($a, $b) {
+            return $a === $b;
+        };
+
+        self::assertTrue($lazyWithSameValue->equals($some, $callback));
+        self::assertFalse($lazyWithOtherValue->equals($some, $callback));
+    }
 }

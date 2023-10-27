@@ -166,4 +166,14 @@ final class Some extends Option
     {
         return $callable($this->value, $initialValue);
     }
+
+    public function equals($other, $callable): bool
+    {
+        if(!$other instanceof self) {
+            return false;
+        }
+
+        return $callable($this->value, $other->get());
+
+    }
 }

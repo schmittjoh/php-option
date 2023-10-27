@@ -153,6 +153,22 @@ class SomeTest extends TestCase
         self::assertSame('foo', $extractedValue);
         self::assertSame(1, $called);
     }
+
+    public function testEquals(): void
+    {
+        $some = Some::create(3);
+        $otherSomeWithSameValue = Some::create(3);
+        $otherSomeWithDifferentValue = Some::create(4);
+        $none = None::create();
+
+        $comparator = function ($a, $b) {
+            return $a === $b;
+        };
+
+        self::assertTrue($some->equals($otherSomeWithSameValue, $comparator));
+        self::assertFalse($some->equals($otherSomeWithDifferentValue, $comparator));
+        self::assertFalse($some->equals($none, $comparator));
+    }
 }
 
 // For the interested reader of these tests, we have gone some great lengths

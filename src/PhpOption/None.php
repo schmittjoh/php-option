@@ -130,6 +130,11 @@ final class None extends Option
         return $initialValue;
     }
 
+    public function equals($other, $callable): bool
+    {
+        return $other instanceof self;
+    }
+
     private function __construct()
     {
     }

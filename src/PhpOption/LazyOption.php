@@ -155,6 +155,11 @@ final class LazyOption extends Option
         return $this->option()->foldRight($initialValue, $callable);
     }
 
+    public function equals($other, $callable): bool
+    {
+        return $this->option()->equals($other, $callable);
+    }
+
     /**
      * @return Option<T>
      */
