@@ -8,6 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class NoneTest extends TestCase
 {
+
+    public function testIsSomeAndIsNone(): void
+    {
+        $some = None::create();
+        self::assertFalse($some->isSome());
+        self::assertTrue($some->isNone());
+    }
+
     public function testGet(): void
     {
         if (method_exists($this, 'expectException')) {

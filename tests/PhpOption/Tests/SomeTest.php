@@ -9,6 +9,13 @@ use PHPUnit\Framework\TestCase;
 
 class SomeTest extends TestCase
 {
+    public function testIsSomeAndIsNone(): void
+    {
+        $some = new Some('foo');
+        self::assertTrue($some->isSome());
+        self::assertFalse($some->isNone());
+    }
+
     public function testGet(): void
     {
         $some = new Some('foo');

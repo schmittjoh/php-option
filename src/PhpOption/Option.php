@@ -249,6 +249,26 @@ abstract class Option implements IteratorAggregate
     abstract public function isDefined();
 
     /**
+     * Alias for isDefined() - Returns true if a value is available, false otherwise.
+     *
+     * @return bool
+     */
+    public function isSome(): bool
+    {
+        return $this->isDefined();
+    }
+
+    /**
+     * Alias for isEmpty() - Returns true if no value is available, false otherwise.
+     *
+     * @return bool
+     */
+    public function isNone(): bool
+    {
+        return $this->isEmpty();
+    }
+
+    /**
      * Returns this option if non-empty, or the passed option otherwise.
      *
      * This can be used to try multiple alternatives, and is especially useful
