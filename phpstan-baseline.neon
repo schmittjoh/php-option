@@ -6,6 +6,11 @@ parameters:
 			path: src/PhpOption/Option.php
 
 		-
+			message: "#^Method PhpOption\\\\Option\\:\\:fromReturn\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/PhpOption/Option.php
+
+		-
 			message: "#^Method PhpOption\\\\Option\\:\\:fromReturn\\(\\) should return PhpOption\\\\LazyOption\\<S\\> but returns PhpOption\\\\LazyOption\\<mixed\\>\\.$#"
 			count: 1
 			path: src/PhpOption/Option.php

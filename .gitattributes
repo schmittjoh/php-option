@@ -7,8 +7,7 @@
 /.travis.yml export-ignore
 /Makefile export-ignore
 /phpstan-baseline.neon export-ignore
-/phpstan.src.neon.dist export-ignore
-/phpstan.tests.neon.dist export-ignore
+/phpstan.neon.dist export-ignore
 /phpunit.xml.dist export-ignore
 /psalm.xml export-ignore
 /README.md export-ignore
