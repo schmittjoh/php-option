@@ -31,11 +31,17 @@ class OptionTest extends TestCase
         self::assertEquals(None::create(), Option::fromArraysValue(null, 'bar'));
         self::assertEquals(None::create(), Option::fromArraysValue(['foo' => 'bar'], 'baz'));
         self::assertEquals(None::create(), Option::fromArraysValue(['foo' => null], 'foo'));
+        self::assertEquals(None::create(), Option::fromArraysValue(['foo' => 'bar'], null));
         self::assertEquals(new Some('foo'), Option::fromArraysValue(['foo' => 'foo'], 'foo'));
+        self::assertEquals(new Some('foo'), Option::fromArraysValue([13 => 'foo'], 13));
 
         $object = new SomeArrayObject();
         $object['foo'] = 'foo';
         self::assertEquals(new Some('foo'), Option::fromArraysValue($object, 'foo'));
+
+        $object = new SomeArrayObject();
+        $object[13] = 'foo';
+        self::assertEquals(new Some('foo'), Option::fromArraysValue($object, 13));
     }
 
     public function testFromReturn(): void
