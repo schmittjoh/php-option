@@ -21,7 +21,7 @@ parameters:
 			path: src/PhpOption/Option.php
 
 		-
-			message: "#^Parameter \\#2 \\$callback of function array_reduce expects callable\\(mixed, mixed\\)\\: mixed, Closure\\(mixed, PhpOption\\\\Option\\)\\: mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$callback of function array_reduce expects callable\\(bool\\|TReturn, mixed\\)\\: \\(bool\\|TReturn\\), Closure\\(mixed, PhpOption\\\\Option\\)\\: \\(bool\\|TReturn\\) given\\.$#"
 			count: 1
 			path: src/PhpOption/Option.php
 
