@@ -369,9 +369,10 @@ abstract class Option implements IteratorAggregate
      *
      * In other words, this will filter all but the passed value.
      *
-     * @param T $value
+     * @template S of T
+     * @param S $value
      *
-     * @return Option<T>
+     * @return Option<S>
      */
     abstract public function select($value);
 
