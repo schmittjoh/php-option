@@ -412,11 +412,12 @@ abstract class Option implements IteratorAggregate
      * ```
      *
      * @template S
+     * @template R
      *
      * @param S                $initialValue
-     * @param callable(S, T):S $callable
+     * @param callable(S, T):R $callable
      *
-     * @return S
+     * @return R
      */
     abstract public function foldLeft($initialValue, $callable);
 
@@ -424,11 +425,12 @@ abstract class Option implements IteratorAggregate
      * foldLeft() but with reversed arguments for the callable.
      *
      * @template S
+     * @template R
      *
      * @param S                $initialValue
-     * @param callable(T, S):S $callable
+     * @param callable(T, S):R $callable
      *
-     * @return S
+     * @return R
      */
     abstract public function foldRight($initialValue, $callable);
 }
