@@ -216,12 +216,20 @@ class TestOption extends Option
 
     public function getOrElse($default)
     {
-        return $this->isDefined() ? $this->value : $default;
+        if ($this->isDefined()) {
+            return $this->value;
+        }
+
+        return $default;
     }
 
     public function getOrCall($callable)
     {
-        return $this->isDefined() ? $this->value : call_user_func($callable);
+        if ($this->isDefined()) {
+            return $this->value;
+        }
+
+        return call_user_func($callable);
     }
 
     public function getOrThrow(\Exception $ex)
@@ -229,6 +237,7 @@ class TestOption extends Option
         if ($this->isDefined()) {
             return $this->value;
         }
+
         throw $ex;
     }
 
@@ -244,7 +253,11 @@ class TestOption extends Option
 
     public function orElse(Option $else)
     {
-        return $this->isDefined() ? $this : $else;
+        if ($this->isDefined()) {
+            return $this;
+        }
+
+        return $else;
     }
 
     public function ifDefined($callable)
@@ -263,32 +276,56 @@ class TestOption extends Option
 
     public function map($callable)
     {
-        return $this->isDefined() ? new self(call_user_func($callable, $this->value)) : $this;
+        if ($this->isDefined()) {
+            return new self(call_user_func($callable, $this->value));
+        }
+
+        return $this;
     }
 
     public function flatMap($callable)
     {
-        return $this->isDefined() ? call_user_func($callable, $this->value) : $this;
+        if ($this->isDefined()) {
+            return call_user_func($callable, $this->value);
+        }
+
+        return $this;
     }
 
     public function filter($callable)
     {
-        return $this->isDefined() && call_user_func($callable, $this->value) ? $this : None::create();
+        if ($this->isDefined() && call_user_func($callable, $this->value)) {
+            return $this;
+        }
+
+        return None::create();
     }
 
     public function filterNot($callable)
     {
-        return $this->isDefined() && !call_user_func($callable, $this->value) ? $this : None::create();
+        if ($this->isDefined() && !call_user_func($callable, $this->value)) {
+            return $this;
+        }
+
+        return None::create();
     }
 
     public function select($value)
     {
-        return $this->isDefined() && $this->value === $value ? $this : None::create();
+        if ($this->isDefined() && $this->value === $value) {
+            return $this;
+        }
+
+        return None::create();
     }
 
     public function reject($value)
     {
-        return $this->isDefined() && $this->value !== $value ? $this : None::create();
+        if ($this->isDefined() && $this->value !== $value) {
+            return $this;
+        }
+
+        return None::create();
     }
 
     public function foldLeft($initialValue, $callable)
@@ -296,6 +333,7 @@ class TestOption extends Option
         if ($this->isDefined()) {
             return call_user_func($callable, $initialValue, $this->value);
         }
+
         return $initialValue;
     }
 
@@ -304,6 +342,7 @@ class TestOption extends Option
         if ($this->isDefined()) {
             return call_user_func($callable, $this->value, $initialValue);
         }
+
         return $initialValue;
     }
 
@@ -312,6 +351,7 @@ class TestOption extends Option
         if ($this->isDefined()) {
             return new \ArrayIterator([$this->value]);
         }
+
         return new \ArrayIterator([]);
     }
 }
