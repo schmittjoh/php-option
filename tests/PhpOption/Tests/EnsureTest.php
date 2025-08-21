@@ -7,11 +7,6 @@ use PhpOption\Option;
 use PhpOption\Some;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Tests for Option::ensure() method.
- *
- * @covers Option::ensure
- */
 class EnsureTest extends TestCase
 {
     private static function ensure($value, $noneValue = null): Option

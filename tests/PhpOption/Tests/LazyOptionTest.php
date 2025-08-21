@@ -178,11 +178,12 @@ class LazyOptionTest extends TestCase
         $callback = function () {
         };
 
-        $option = self::getMockForAbstractClass(Option::class);
+        // Use TestOption as a concrete implementation to test with
+        $option = self::createPartialMock(TestOption::class, ['foldLeft', 'foldRight']);
         $option->expects(self::once())
             ->method('foldLeft')
             ->with(5, $callback)
-            ->will(self::returnValue(6));
+            ->willReturn(6);
         $lazyOption = new LazyOption(function () use ($option) {
             return $option;
         });
@@ -191,10 +192,166 @@ class LazyOptionTest extends TestCase
         $option->expects(self::once())
             ->method('foldRight')
             ->with(5, $callback)
-            ->will(self::returnValue(6));
+            ->willReturn(6);
         $lazyOption = new LazyOption(function () use ($option) {
             return $option;
         });
         self::assertSame(6, $lazyOption->foldRight(5, $callback));
+    }
+}
+
+class TestOption extends Option
+{
+    private $value;
+
+    public function __construct($value = null)
+    {
+        $this->value = $value;
+    }
+
+    public function get()
+    {
+        return $this->value;
+    }
+
+    public function getOrElse($default)
+    {
+        if ($this->isDefined()) {
+            return $this->value;
+        }
+
+        return $default;
+    }
+
+    public function getOrCall($callable)
+    {
+        if ($this->isDefined()) {
+            return $this->value;
+        }
+
+        return call_user_func($callable);
+    }
+
+    public function getOrThrow(\Exception $ex)
+    {
+        if ($this->isDefined()) {
+            return $this->value;
+        }
+
+        throw $ex;
+    }
+
+    public function isEmpty()
+    {
+        return $this->value === null;
+    }
+
+    public function isDefined()
+    {
+        return $this->value !== null;
+    }
+
+    public function orElse(Option $else)
+    {
+        if ($this->isDefined()) {
+            return $this;
+        }
+
+        return $else;
+    }
+
+    public function ifDefined($callable)
+    {
+        if ($this->isDefined()) {
+            call_user_func($callable, $this->value);
+        }
+    }
+
+    public function forAll($callable)
+    {
+        if ($this->isDefined()) {
+            call_user_func($callable, $this->value);
+        }
+    }
+
+    public function map($callable)
+    {
+        if ($this->isDefined()) {
+            return new self(call_user_func($callable, $this->value));
+        }
+
+        return $this;
+    }
+
+    public function flatMap($callable)
+    {
+        if ($this->isDefined()) {
+            return call_user_func($callable, $this->value);
+        }
+
+        return $this;
+    }
+
+    public function filter($callable)
+    {
+        if ($this->isDefined() && call_user_func($callable, $this->value)) {
+            return $this;
+        }
+
+        return None::create();
+    }
+
+    public function filterNot($callable)
+    {
+        if ($this->isDefined() && !call_user_func($callable, $this->value)) {
+            return $this;
+        }
+
+        return None::create();
+    }
+
+    public function select($value)
+    {
+        if ($this->isDefined() && $this->value === $value) {
+            return $this;
+        }
+
+        return None::create();
+    }
+
+    public function reject($value)
+    {
+        if ($this->isDefined() && $this->value !== $value) {
+            return $this;
+        }
+
+        return None::create();
+    }
+
+    public function foldLeft($initialValue, $callable)
+    {
+        if ($this->isDefined()) {
+            return call_user_func($callable, $initialValue, $this->value);
+        }
+
+        return $initialValue;
+    }
+
+    public function foldRight($initialValue, $callable)
+    {
+        if ($this->isDefined()) {
+            return call_user_func($callable, $this->value, $initialValue);
+        }
+
+        return $initialValue;
+    }
+
+    public function getIterator(): \Traversable
+    {
+        if ($this->isDefined()) {
+            return new \ArrayIterator([$this->value]);
+        }
+
+        return new \ArrayIterator([]);
     }
 }

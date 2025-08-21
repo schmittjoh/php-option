@@ -12,4 +12,8 @@
     <projectFiles>
         <directory name="src" />
     </projectFiles>
+    
+    <issueHandlers>
+        <MissingOverrideAttribute errorLevel="suppress" />
+    </issueHandlers>
 </psalm>
