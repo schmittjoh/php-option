@@ -36,9 +36,10 @@ abstract class Option implements IteratorAggregate
      * case, and everything else as Some.
      *
      * @template S
+     * @template P
      *
-     * @param S $value     The actual return value.
-     * @param S $noneValue The value which should be considered "None"; null by
+     * @param S|P $value   The actual return value.
+     * @param P $noneValue The value which should be considered "None"; null by
      *                     default.
      *
      * @return Option<S>
