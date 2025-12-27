@@ -1,8 +1,0 @@
-{
-    "require": {
-        "psalm/phar": "6.13.1"
-    },
-    "config": {
-        "preferred-install": "dist"
-    }
-}

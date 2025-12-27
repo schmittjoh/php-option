@@ -2,7 +2,7 @@
 
 Contributions are **welcome** and will be fully **credited**.
 
-We accept contributions via pull requests on Github. Please review these guidelines before continuing.
+We accept contributions via pull requests on GitHub. Please review these guidelines before continuing.
 
 ## Guidelines
 

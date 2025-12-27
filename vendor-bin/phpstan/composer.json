@@ -1,6 +1,6 @@
 {
     "require": {
-        "phpstan/phpstan": "2.1.22"
+        "phpstan/phpstan": "2.1.33"
     },
     "config": {
         "preferred-install": "dist"
