@@ -10,6 +10,13 @@ This package implements the Option type for PHP!
 <a href="https://github.com/schmittjoh/php-option/releases"><img src="https://img.shields.io/github/release/schmittjoh/php-option.svg?style=flat-square" alt="Latest Version"></img></a>
 </p>
 
+<div align="center">
+
+**Special thanks to [our sponsors](https://github.com/sponsors/GrahamCampbell)**
+
+<hr>
+</div>
+
 
 ## Motivation
 
