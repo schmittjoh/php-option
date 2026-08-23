@@ -22,7 +22,7 @@ use ArrayAccess;
 use IteratorAggregate;
 
 /**
- * @template T
+ * @template-covariant T
  *
  * @implements IteratorAggregate<T>
  */
@@ -37,9 +37,9 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param S $value     The actual return value.
-     * @param S $noneValue The value which should be considered "None"; null by
-     *                     default.
+     * @param S     $value     The actual return value.
+     * @param mixed $noneValue The value which should be considered "None";
+     *                         null by default.
      *
      * @return Option<S>
      */
@@ -84,10 +84,10 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param callable $callback  The callback to evaluate.
-     * @param array    $arguments The arguments for the callback.
-     * @param S        $noneValue The value which should be considered "None";
-    *                             null by default.
+     * @param callable(mixed...):S $callback  The callback to evaluate.
+     * @param array                 $arguments The arguments for the callback.
+     * @param mixed                 $noneValue The value which should be considered "None";
+    *                                          null by default.
      *
      * @return LazyOption<S>
      */
@@ -116,7 +116,7 @@ abstract class Option implements IteratorAggregate
      * @template S
      *
      * @param Option<S>|callable|S $value
-     * @param S                    $noneValue Used when $value is mixed or
+     * @param mixed                $noneValue Used when $value is mixed or
      *                                        callable, for None-check.
      *
      * @return Option<S>|LazyOption<S>
@@ -260,9 +260,11 @@ abstract class Option implements IteratorAggregate
      *         ->orElse(new LazyOption(array($repo, 'createSomething')));
      * ```
      *
-     * @param Option<T> $else
+     * @template U
      *
-     * @return Option<T>
+     * @param Option<U> $else
+     *
+     * @return Option<T|U>
      */
     abstract public function orElse(self $else);
 
@@ -369,7 +371,7 @@ abstract class Option implements IteratorAggregate
      *
      * In other words, this will filter all but the passed value.
      *
-     * @param T $value
+     * @param mixed $value
      *
      * @return Option<T>
      */

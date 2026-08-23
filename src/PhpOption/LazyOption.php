@@ -21,7 +21,7 @@ namespace PhpOption;
 use Traversable;
 
 /**
- * @template T
+ * @template-covariant T
  *
  * @extends Option<T>
  */
