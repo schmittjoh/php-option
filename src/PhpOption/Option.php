@@ -84,10 +84,10 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param callable $callback  The callback to evaluate.
-     * @param array    $arguments The arguments for the callback.
-     * @param S        $noneValue The value which should be considered "None";
-    *                             null by default.
+     * @param callable(mixed...):S $callback  The callback to evaluate.
+     * @param array                 $arguments The arguments for the callback.
+     * @param mixed                 $noneValue The value which should be considered "None";
+    *                                          null by default.
      *
      * @return LazyOption<S>
      */
