@@ -157,11 +157,29 @@ final class Some extends Option
         return new ArrayIterator([$this->value]);
     }
 
+    /**
+     * @template S
+     * @template R
+     *
+     * @param S                $initialValue
+     * @param callable(S, T):R $callable
+     *
+     * @return R
+     */
     public function foldLeft($initialValue, $callable)
     {
         return $callable($initialValue, $this->value);
     }
 
+    /**
+     * @template S
+     * @template R
+     *
+     * @param S                $initialValue
+     * @param callable(T, S):R $callable
+     *
+     * @return R
+     */
     public function foldRight($initialValue, $callable)
     {
         return $callable($this->value, $initialValue);
