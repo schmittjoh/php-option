@@ -384,7 +384,7 @@ abstract class Option implements IteratorAggregate
      *
      * In other words, this will let all values through except the passed value.
      *
-     * @param T $value
+     * @param mixed $value
      *
      * @return Option<T>
      */
