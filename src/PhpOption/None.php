@@ -21,7 +21,7 @@ namespace PhpOption;
 use EmptyIterator;
 
 /**
- * @extends Option<mixed>
+ * @extends Option<never>
  */
 final class None extends Option
 {
@@ -125,7 +125,7 @@ final class None extends Option
      * @template R
      *
      * @param S                    $initialValue
-     * @param callable(S, mixed):R $callable
+     * @param callable(S, never):R $callable
      *
      * @return S
      */
@@ -139,7 +139,7 @@ final class None extends Option
      * @template R
      *
      * @param S                    $initialValue
-     * @param callable(mixed, S):R $callable
+     * @param callable(never, S):R $callable
      *
      * @return S
      */
