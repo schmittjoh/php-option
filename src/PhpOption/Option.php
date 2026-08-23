@@ -37,9 +37,9 @@ abstract class Option implements IteratorAggregate
      *
      * @template S
      *
-     * @param S $value     The actual return value.
-     * @param S $noneValue The value which should be considered "None"; null by
-     *                     default.
+     * @param S     $value     The actual return value.
+     * @param mixed $noneValue The value which should be considered "None";
+     *                         null by default.
      *
      * @return Option<S>
      */
@@ -116,7 +116,7 @@ abstract class Option implements IteratorAggregate
      * @template S
      *
      * @param Option<S>|callable|S $value
-     * @param S                    $noneValue Used when $value is mixed or
+     * @param mixed                $noneValue Used when $value is mixed or
      *                                        callable, for None-check.
      *
      * @return Option<S>|LazyOption<S>
