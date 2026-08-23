@@ -22,7 +22,7 @@ use ArrayAccess;
 use IteratorAggregate;
 
 /**
- * @template T
+ * @template-covariant T
  *
  * @implements IteratorAggregate<T>
  */
@@ -260,9 +260,11 @@ abstract class Option implements IteratorAggregate
      *         ->orElse(new LazyOption(array($repo, 'createSomething')));
      * ```
      *
-     * @param Option<T> $else
+     * @template U
      *
-     * @return Option<T>
+     * @param Option<U> $else
+     *
+     * @return Option<T|U>
      */
     abstract public function orElse(self $else);
 
@@ -369,7 +371,7 @@ abstract class Option implements IteratorAggregate
      *
      * In other words, this will filter all but the passed value.
      *
-     * @param T $value
+     * @param mixed $value
      *
      * @return Option<T>
      */

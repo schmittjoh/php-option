@@ -42,3 +42,9 @@ parameters:
 			count: 1
 			path: src/PhpOption/Option.php
 
+		-
+			message: '#^Template type T is declared as covariant, but occurs in invariant position in return type of method PhpOption\\Some\:\:getIterator\(\)\.$#'
+			identifier: generics.variance
+			count: 1
+			path: src/PhpOption/Some.php
+
