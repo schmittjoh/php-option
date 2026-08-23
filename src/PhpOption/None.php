@@ -120,11 +120,29 @@ final class None extends Option
         return new EmptyIterator();
     }
 
+    /**
+     * @template S
+     * @template R
+     *
+     * @param S                    $initialValue
+     * @param callable(S, mixed):R $callable
+     *
+     * @return S
+     */
     public function foldLeft($initialValue, $callable)
     {
         return $initialValue;
     }
 
+    /**
+     * @template S
+     * @template R
+     *
+     * @param S                    $initialValue
+     * @param callable(mixed, S):R $callable
+     *
+     * @return S
+     */
     public function foldRight($initialValue, $callable)
     {
         return $initialValue;
