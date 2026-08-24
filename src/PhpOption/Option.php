@@ -82,7 +82,7 @@ abstract class Option implements IteratorAggregate
      *
      * This is also a helper constructor for lazy-consuming existing APIs where
      * the return value is not yet an option. By default, we treat ``null`` as
-     * None case, and everything else as Some.
+     * the None case, and everything else as Some.
      *
      * @template S
      *
@@ -112,16 +112,17 @@ abstract class Option implements IteratorAggregate
     /**
      * Option factory, which creates new option based on passed value.
      *
-     * If value is already an option, it simply returns. If value is callable,
-     * LazyOption with passed callback created and returned. If Option
-     * returned from callback, it returns directly. On other case value passed
-     * to Option::fromValue() method.
+     * If the value is already an option, it is returned as is. If the value is
+     * callable, a LazyOption invoking it is returned; should the callback
+     * return an Option, it is used directly, otherwise the result is passed
+     * to Option::fromValue(). In all other cases, the value is passed to
+     * Option::fromValue() directly.
      *
      * @template S
      *
      * @param Option<S>|callable|S $value
-     * @param mixed                $noneValue Used when $value is mixed or
-     *                                        callable, for None-check.
+     * @param mixed                $noneValue Used for the None-check when
+     *                                        $value is not an Option.
      *
      * @return Option<S>|LazyOption<S>
      */
@@ -150,9 +151,9 @@ abstract class Option implements IteratorAggregate
      *
      * We return a new closure that wraps the original callback. If any of the
      * parameters passed to the lifted function is empty, the function will
-     * return a value of None. Otherwise, we will pass all parameters to the
-     * original callback and return the value inside a new Option, unless an
-     * Option is returned from the function, in which case, we use that.
+     * return None. Otherwise, we will pass all parameters to the original
+     * callback and return the value inside a new Option, unless an Option is
+     * returned from the function, in which case, we use that.
      *
      * @param callable $callback
      * @param mixed    $noneValue
@@ -231,6 +232,8 @@ abstract class Option implements IteratorAggregate
      * Returns the value if available, or throws the passed exception.
      *
      * @param \Exception $ex
+     *
+     * @throws \Exception If value is not available.
      *
      * @return T
      */
