@@ -25,12 +25,6 @@ parameters:
 			path: src/PhpOption/Option.php
 
 		-
-			message: '#^Template type S of method PhpOption\\Option\:\:lift\(\) is not referenced in a parameter\.$#'
-			identifier: method.templateTypeNotInParameter
-			count: 1
-			path: src/PhpOption/Option.php
-
-		-
 			message: '#^Template type T is declared as covariant, but occurs in invariant position in return type of method PhpOption\\Some\:\:getIterator\(\)\.$#'
 			identifier: generics.variance
 			count: 1

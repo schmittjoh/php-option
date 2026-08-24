@@ -154,12 +154,10 @@ abstract class Option implements IteratorAggregate
      * original callback and return the value inside a new Option, unless an
      * Option is returned from the function, in which case, we use that.
      *
-     * @template S
-     *
      * @param callable $callback
      * @param mixed    $noneValue
      *
-     * @return callable
+     * @return callable(mixed...):(Option<mixed>|LazyOption<mixed>)
      */
     public static function lift($callback, $noneValue = null)
     {
