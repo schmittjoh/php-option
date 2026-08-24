@@ -65,11 +65,21 @@ final class Some extends Option
         return $this->value;
     }
 
+    /**
+     * @param mixed $default
+     *
+     * @return T
+     */
     public function getOrElse($default)
     {
         return $this->value;
     }
 
+    /**
+     * @param callable():mixed $callable
+     *
+     * @return T
+     */
     public function getOrCall($callable)
     {
         return $this->value;

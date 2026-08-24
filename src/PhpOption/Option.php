@@ -59,10 +59,12 @@ abstract class Option implements IteratorAggregate
      * array, or the array's value at the given key is null, None is returned.
      * Otherwise, Some is returned wrapping the value at the given key.
      *
+     * @template K of array-key
      * @template S
      *
-     * @param array<string|int,S>|ArrayAccess<string|int,S>|null $array A potential array or \ArrayAccess value.
-     * @param string|int|null                                    $key   The key to check.
+     * @param array<K,S>|ArrayAccess<K,S>|null $array A potential array or
+     *                                                \ArrayAccess value.
+     * @param K|null                           $key   The key to check.
      *
      * @return Option<S>
      */
@@ -80,14 +82,14 @@ abstract class Option implements IteratorAggregate
      *
      * This is also a helper constructor for lazy-consuming existing APIs where
      * the return value is not yet an option. By default, we treat ``null`` as
-     * None case, and everything else as Some.
+     * the None case, and everything else as Some.
      *
      * @template S
      *
      * @param callable(mixed...):S $callback  The callback to evaluate.
-     * @param array                 $arguments The arguments for the callback.
-     * @param mixed                 $noneValue The value which should be considered "None";
-    *                                          null by default.
+     * @param array<int, mixed>    $arguments The arguments for the callback.
+     * @param mixed                $noneValue The value which should be considered "None";
+     *                                        null by default.
      *
      * @return LazyOption<S>
      */
@@ -101,6 +103,8 @@ abstract class Option implements IteratorAggregate
                 return None::create();
             }
 
+            /** @var S $return */
+
             return new Some($return);
         });
     }
@@ -108,16 +112,17 @@ abstract class Option implements IteratorAggregate
     /**
      * Option factory, which creates new option based on passed value.
      *
-     * If value is already an option, it simply returns. If value is callable,
-     * LazyOption with passed callback created and returned. If Option
-     * returned from callback, it returns directly. On other case value passed
-     * to Option::fromValue() method.
+     * If the value is already an option, it is returned as is. If the value is
+     * callable, a LazyOption invoking it is returned; should the callback
+     * return an Option, it is used directly, otherwise the result is passed
+     * to Option::fromValue(). In all other cases, the value is passed to
+     * Option::fromValue() directly.
      *
      * @template S
      *
      * @param Option<S>|callable|S $value
-     * @param mixed                $noneValue Used when $value is mixed or
-     *                                        callable, for None-check.
+     * @param mixed                $noneValue Used for the None-check when
+     *                                        $value is not an Option.
      *
      * @return Option<S>|LazyOption<S>
      */
@@ -146,16 +151,14 @@ abstract class Option implements IteratorAggregate
      *
      * We return a new closure that wraps the original callback. If any of the
      * parameters passed to the lifted function is empty, the function will
-     * return a value of None. Otherwise, we will pass all parameters to the
-     * original callback and return the value inside a new Option, unless an
-     * Option is returned from the function, in which case, we use that.
-     *
-     * @template S
+     * return None. Otherwise, we will pass all parameters to the original
+     * callback and return the value inside a new Option, unless an Option is
+     * returned from the function, in which case, we use that.
      *
      * @param callable $callback
      * @param mixed    $noneValue
      *
-     * @return callable
+     * @return callable(mixed...):(Option<mixed>|LazyOption<mixed>)
      */
     public static function lift($callback, $noneValue = null)
     {
@@ -229,6 +232,8 @@ abstract class Option implements IteratorAggregate
      * Returns the value if available, or throws the passed exception.
      *
      * @param \Exception $ex
+     *
+     * @throws \Exception If value is not available.
      *
      * @return T
      */

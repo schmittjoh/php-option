@@ -45,11 +45,25 @@ final class None extends Option
         throw new \RuntimeException('None has no value.');
     }
 
+    /**
+     * @template S
+     *
+     * @param callable():S $callable
+     *
+     * @return S
+     */
     public function getOrCall($callable)
     {
         return $callable();
     }
 
+    /**
+     * @template S
+     *
+     * @param S $default
+     *
+     * @return S
+     */
     public function getOrElse($default)
     {
         return $default;
